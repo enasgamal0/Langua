@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@font-face {
+  font-family: "Zawi";
+  src: url("/Fonts/alfont_com_29LTZawi-Regular.ttf") format("truetype");
+}
+* {
+  font-family: "Zawi";
+}

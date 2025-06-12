@@ -1,0 +1,15 @@
+{
+    "nav": {
+      "home": "Home",
+      "about": "About Us",
+      "courses": "Courses",
+      "packages": "Subscription Packages",
+      "contact": "Contact Us",
+      "menu": "Menu"
+    },
+    "placement_test": "Placement Test",
+    "login": "Login",
+    "language": {
+      "current": "English"
+    }
+  }
