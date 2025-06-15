@@ -1,6 +1,12 @@
 <template>
-  <div class="relative mt-20 pb-20">
-    <div class="mx-40 relative">
+  <div
+    class="relative py-20 bg-no-repeat"
+    style="
+      background-image: url('/slider_top.png'), url('/slider_bottom.png');
+      background-position: top 50px right 48px, bottom 50px left 48px;
+    "
+  >
+    <div class="lg:mx-20 mx-10 relative">
       <Swiper
         :slides-per-view="1"
         :space-between="10"
@@ -22,32 +28,48 @@
           v-for="(advertisement, index) in advertisements?.data?.data"
           :key="index"
         >
-          <div class="flex w-full">
-            <div class="bg-[#4B007D] text-white w-[40%] h-[390px] p-22">
+          <div class="flex flex-wrap w-full">
+            <div
+              class="bg-[#4B007D] z-50 text-white w-[50%] lg:!w-[40%] h-[390px] px-22 py-12"
+              style="background-image: url('/slider_text_bg.png')"
+            >
               <h1
-                class="text-[40px] font-[800] leading-[1.5]"
+                class="text-[40px] font-[800] leading-[1.2] mb-2 line-clamp-2"
               >
                 {{ advertisement?.name }}
               </h1>
               <p
-                class="text-[16px] mt-4 mb-8 m-auto leading-[2.3] line-clamp-2 px-3"
+                class="text-[16px] mt-4 mb-8 m-auto leading-[2.3] line-clamp-4 px-3"
               >
                 {{ advertisement?.description }}
               </p>
               <div class="flex items-center gap-5 my-5">
-                <BaseButton
-                  :content="$t('S1.start_learning')"
-                  border-color="white"
-                  bg-color="#E77C5A"
-                />
+                <NuxtLink :to="localePath('/courses')">
+                  <BaseButton
+                    :content="$t('S1.start_learning')"
+                    border-color="white"
+                    bg-color="#E77C5A"
+                    width="200px"
+                  />
+                </NuxtLink>
               </div>
             </div>
-            <div class="w-[60%] h-[390px]">
+            <div class="w-[50%] lg:!w-[60%] h-[390px] relative">
               <img
                 :src="advertisement?.advertisement"
                 alt="Spark Image"
                 class="w-full h-full"
               />
+              <div
+                class="absolute bottom-0"
+                :class="{ 'rotate-180': $i18n.locale == 'en' }"
+              >
+                <img
+                  src="/overlay.png"
+                  alt="Slider Layout"
+                  class="h-full w-[202px]"
+                />
+              </div>
             </div>
           </div>
         </SwiperSlide>
@@ -83,7 +105,7 @@ const advertisements = {
         name_ar: "مؤثرين حقيقيين",
         name_en: "Real influencers",
         description:
-          "هل تبحث عن مؤثرين حقيقيين يروجون لعلامتك التجارية باحترافية؟",
+          "من المرحلة الابتدائية إلى الثانوية، منصة Langua Learn تساعدك على تطوير مهارات اللغة الإنجليزية بأسلوب ممتع وتفاعلي.",
         description_ar:
           "هل تبحث عن مؤثرين حقيقيين يروجون لعلامتك التجارية باحترافية؟",
         description_en:
@@ -96,7 +118,8 @@ const advertisements = {
         name: "علامات تجارية متنوعة",
         name_ar: "علامات تجارية متنوعة",
         name_en: "Various brands",
-        description: "تواصل مباشر مع علامات تجارية متنوعة",
+        description:
+          "من المرحلة الابتدائية إلى الثانوية، منصة Langua Learn تساعدك على تطوير مهارات اللغة الإنجليزية المرحلة الابتدائية المرحلة الابتدائية المرحلة الابتدائية بأسلوب ممتع وتفاعلي.",
         description_ar: "تواصل مباشر مع علامات تجارية متنوعة",
         description_en: "Direct contact with various brands",
         advertisement:
@@ -160,17 +183,26 @@ const advertisements = {
 .swiper-pagination-bullet-active {
   background: #4b007d !important;
 }
+.swiper-button-next,
+.swiper-button-prev {
+  margin-top: 20px !important;
+  height: 32px !important;
+  width: 32px !important;
+  color: white !important;
+  background-color: #ffffff4d !important;
+  border-radius: 100% !important;
+}
 .swiper-button-next:after,
 .swiper-button-prev:after {
   font-size: 10px !important;
   font-weight: 600 !important;
-  color: white !important;
-  background-color: #ffffff4d !important;
-  width: 32px !important;
-  height: 32px !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  border-radius: 100% !important;
+}
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  background-color: #ffffff !important;
+  color: #4b007d !important;
 }
 </style>

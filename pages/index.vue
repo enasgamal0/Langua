@@ -1,3 +1,5 @@
 <template>
-    <HomeS1Swiper />
+    <HomeSwiper />
+    <HomeAbout />
+    <HomeWhyUs />
 </template>

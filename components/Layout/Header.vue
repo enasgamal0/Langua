@@ -1,5 +1,5 @@
 <template>
-  <header class="py-6 px-6 lg:px-8 xl:px-20 2xl:px-60 xl:py-10">
+  <header class="py-6 px-6 lg:px-8 xl:px-20 2xl:px-60 xl:py-7 border-b border-[#EEEDEE]">
     <div class="flex justify-between items-center">
       <!-- Logo -->
       <NuxtLink :to="localePath('/')">

@@ -1,14 +1,16 @@
 <template>
   <div
-    class="relative max-w-[186px] hover:scale-[1.02] transition duration-300 ease-in-out cursor-pointer"
+    class="relative hover:scale-[1.02] transition duration-300 ease-in-out cursor-pointer"
+    :class="`w-[${width}]`"
   >
     <button
       class="flex items-center text-white text-[14px] font-[700] cursor-pointer"
+      :class="`w-[${width}]`"
       :style="{ backgroundColor: bgColor }"
       :disabled="pending"
     >
       <UIButtonLoader v-if="pending" />
-      <div v-else class="flex justify-center items-center gap-3 px-3 h-[48px]">
+      <div v-else class="flex justify-center items-center gap-3 px-3 h-[48px] m-auto">
         <img v-if="icon" :alt="content" :src="icon" class="w-[20px] h-[20px]" />
         <span>{{ content }}</span>
       </div>
@@ -40,6 +42,10 @@ const props = defineProps({
   borderColor: {
     type: String,
     default: "transparent",
+  },
+  width: {
+    type: String,
+    default: "186px",
   },
 });
 </script>

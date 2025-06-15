@@ -5,10 +5,10 @@
       "courses": "Courses",
       "packages": "Packages",
       "contact": "Contact Us",
-      "menu": "Menu"
+      "menu": "Menu",
+      "placement_test": "Placement Test",
+      "login": "Login"
     },
-    "placement_test": "Placement Test",
-    "login": "Login",
     "language": {
       "current": "English"
     },
@@ -27,5 +27,24 @@
     },
     "S1": {
       "start_learning": "Start Learning Now"
+    },
+    "S2": {
+      "title": "About Us",
+      "platform": "Platform",
+      "langua_learn": "Langua Learn",
+      "subtitle": "Your journey to learning English begins here",
+      "desc": "In Langua Learn, we believe that learning English should be fun and appropriate for every student. That's why we designed our platform to offer interactive content and educational videos tailored to your academic level, from elementary to secondary school. We're here to support you in developing your listening, speaking, reading, and writing skills, with simple and clear steps.",
+      "more": "More About Us"
+    },
+    "S3": {
+      "title": "Why",
+      "subtitle": "Our platform is designed to provide a comprehensive learning experience that helps you improve your English skills in a flexible, enjoyable, and level-appropriate way.",
+      "start": "Start Your journey Now",
+      "title1": "Content Tailored to Your Academic Level",
+      "desc1": "We offer visual lessons and interactive activities that match your academic stage, from elementary to high school.",
+      "title2": "Assess Your Level and Track Your Progress",
+      "desc2": "Start with a placement test and track your progress through regular assessments that help identify your strengths and areas for improvement.",
+      "title3": "Structured Learning Path and Flexible Subscriptions",
+      "desc3": "Follow a clear learning plan tailored to your needs, with full access through monthly or yearly subscriptions."
     }
   }
