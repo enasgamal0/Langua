@@ -3,7 +3,7 @@
       "home": "Home",
       "about": "About Us",
       "courses": "Courses",
-      "packages": "Subscription Packages",
+      "packages": "Packages",
       "contact": "Contact Us",
       "menu": "Menu"
     },
@@ -11,5 +11,21 @@
     "login": "Login",
     "language": {
       "current": "English"
+    },
+    "FOOTER": {
+      "desc": "Langua is a platform that helps you develop English language skills in an engaging and interactive way.",
+      "followUs": "Follow Us On",
+      "quickLinks": "Quick Links",
+      "home": "Home",
+      "courses": "Courses",
+      "about_platform": "About Platform",
+      "faq": "FAQ",
+      "contact": "Contact Us",
+      "termsAndUse": "Terms and Use",
+      "privacyPolicy": "Privacy Policy",
+      "rightsReserved": "All rights reserved for"
+    },
+    "S1": {
+      "start_learning": "Start Learning Now"
     }
   }

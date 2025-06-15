@@ -9,7 +9,7 @@
     >
       <UIButtonLoader v-if="pending" />
       <div v-else class="flex justify-center items-center gap-3 px-3 h-[48px]">
-        <img :alt="content" :src="icon" class="w-[20px] h-[20px]" />
+        <img v-if="icon" :alt="content" :src="icon" class="w-[20px] h-[20px]" />
         <span>{{ content }}</span>
       </div>
     </button>
@@ -39,7 +39,7 @@ const props = defineProps({
   },
   borderColor: {
     type: String,
-    default: "#E77C5A",
+    default: "transparent",
   },
 });
 </script>
