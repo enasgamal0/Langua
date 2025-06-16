@@ -6,10 +6,10 @@
       background-position: top 0 right 0, bottom 0 left 0;
     "
   >
-    <h1 class="text-[32px] font-[800] text-white">
+    <h1 class="text-[32px] font-[800] text-white" data-aos="fade-down">
       {{ title }}
     </h1>
-    <div class="flex items-center justify-center text-white gap-5 mt-4">
+    <div class="flex items-center justify-center text-white gap-5 mt-4" data-aos="fade-up">
         <NuxtLink :to="localePath('/')" class="text-[16px] font-[400]">
             {{ prev }}
         </NuxtLink>

@@ -19,7 +19,7 @@
     "home": "Home",
     "courses": "Courses",
     "about_platform": "About Platform",
-    "faq": "FAQ",
+    "faq": "Common Questions",
     "contact": "Contact Us",
     "termsAndUse": "Terms and Use",
     "privacyPolicy": "Privacy Policy",
@@ -75,6 +75,9 @@
   },
   "bread_crumb": {
     "about": "About Langua Learn",
-    "faq": "FAQ"
+    "faq": "Common Questions"
+  },
+  "faq": {
+    "desc": "Explore the most common questions about"
   }
 }
