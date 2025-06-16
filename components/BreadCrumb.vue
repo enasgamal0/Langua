@@ -10,7 +10,7 @@
       {{ title }}
     </h1>
     <div class="flex items-center justify-center text-white gap-5 mt-4" data-aos="fade-up">
-        <NuxtLink :to="localePath('/')" class="text-[16px] font-[400]">
+        <NuxtLink :to="localePath('/')" class="text-[16px] font-[400] hover:text-[#E77C5A]">
             {{ prev }}
         </NuxtLink>
         <img src="/arrow.png" alt="arrow" class="w-[24px] h-[24px]" :class="locale == 'en' ? 'rotate-180' : ''" />

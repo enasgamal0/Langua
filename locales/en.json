@@ -78,6 +78,8 @@
     "faq": "Common Questions"
   },
   "faq": {
-    "desc": "Explore the most common questions about"
+    "desc": "Explore the most common questions about",
+    "title1": "How can I register on the platform?",
+    "content1": "You can register easily by clicking on the 'Create New Account' button on the homepage, then fill in the required data (name, email, password), and then you can start browsing the platform."
   }
 }

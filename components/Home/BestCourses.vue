@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-no-repeat lg:m-20 m-8"
+    class="bg-no-repeat lg:m-10 2xl:m-20 m-8"
     style="
       background-image: url('/slider_top.png'), url('/slider_bottom.png');
       background-position: top 0 right 0, bottom 0 left 0;
@@ -20,7 +20,7 @@
       </h1>
       <p class="text-[18px] font-[400] mt-1 mb-12">{{ $t("S4.subtitle") }}</p>
     </div>
-    <div class="flex flex-wrap justify-center gap-8">
+    <div class="flex flex-wrap justify-center gap-5">
       <CourseCard
         v-for="course in courses"
         :key="course.title"
