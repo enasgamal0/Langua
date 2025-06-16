@@ -3,7 +3,7 @@
     <div class="flex justify-between items-center">
       <!-- Logo -->
       <NuxtLink :to="localePath('/')">
-        <img alt="Langua Logo" src="/logo.png" class="h-[50px] w-[110px]" />
+        <img alt="Langua Logo" src="/logo.png" class="h-[50px] w-[110px]" data-aos="zoom-in" />
       </NuxtLink>
 
       <!-- Desktop Menu -->

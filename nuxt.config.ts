@@ -38,4 +38,5 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
+  plugins: [{ src: '~/plugins/aos.client.js', mode: 'client' }],
 });

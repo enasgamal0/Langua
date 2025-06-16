@@ -8,3 +8,19 @@
 * {
   font-family: "Zawi";
 }
+:root {
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar,
+::-webkit-scrollbar {
+  @apply w-[5px] h-[10px];
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-[#E77C5A];
+}

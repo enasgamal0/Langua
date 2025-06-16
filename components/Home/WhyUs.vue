@@ -10,9 +10,9 @@
       <h1 class="text-[32px] font-[800]">
         {{ $t("S3.title") }}
         <span
-          style="background-image: url('/why_us_title.png'); background-position: 0 -18px;"
-          class="bg-no-repeat inline-block w-[233px] h-[75px]"
-          >Langua Learn؟</span
+          style="background-image: url('/why_us_title.png');"
+          class="bg-no-repeat inline-block w-[233px] h-[75px] pt-4"
+          >Langua Learn<span v-if="locale == 'ar'">؟</span><span v-if="locale == 'en'">?</span></span
         >
       </h1>
       <p class="text-[18px] font-[400] my-8">{{ $t("S3.subtitle") }}</p>
@@ -20,6 +20,7 @@
     <div class="flex flex-wrap gap-12 justify-center text-center">
       <div
         class="bg-white w-[363px] h-[382px] pt-12 bg-no-repeat"
+        data-aos="zoom-in"
         style="
           background-image: url('/slider_top.png'), url('/slider_bottom.png');
           background-position: top 0 right 0, bottom 0 left 0;
@@ -41,6 +42,7 @@
       </div>
       <div
         class="bg-white w-[363px] h-[382px] pt-12 bg-no-repeat"
+        data-aos="zoom-out"
         style="
           background-image: url('/slider_top.png'), url('/slider_bottom.png');
           background-position: top 0 right 0, bottom 0 left 0;
@@ -62,6 +64,7 @@
       </div>
       <div
         class="bg-white w-[363px] h-[382px] pt-12 bg-no-repeat"
+        data-aos="zoom-in"
         style="
           background-image: url('/slider_top.png'), url('/slider_bottom.png');
           background-position: top 0 right 0, bottom 0 left 0;
@@ -90,8 +93,12 @@
           bg-color="#E77C5A"
           width="200px"
           class="mt-8 z-50 m-auto text-[18px]"
+          :lg_reversed_space="true"
         />
       </NuxtLink>
     </div>
   </div>
 </template>
+<script setup>
+const { locale } = useI18n();
+</script>

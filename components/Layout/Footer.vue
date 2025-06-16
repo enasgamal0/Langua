@@ -1,5 +1,5 @@
 <template>
-  <footer class="bg-[#323232] text-white px-8" style="background-image: url('/footer_bg.png'); background-repeat: repeat-y">
+  <footer class="bg-[#323232] text-white px-8 bg-repeat-y lg:bg-[url('/footer_bg.png')]">
     <div
       class="mx-auto py-10 2xl:px-60 xl:px-48 lg:px-32 md:px-20 px-8 flex flex-wrap justify-between"
       v-bind="showAos ? { 'data-aos': 'fade-up' } : {}"
@@ -71,19 +71,17 @@
               >
             </li>
             <li>
-              <NuxtLink
-                :to="localePath('/privacy_policy')"
-                class="block py-1 hover:text-[#E77C5A] mb-5"
-                @click="scrollTop"
-                >{{ $t("FOOTER.privacyPolicy") }}</NuxtLink
+              <div
+                class="block py-1 hover:text-[#E77C5A] mb-5 cursor-pointer"
+                @click="openPrivacyPopup=true"
+                >{{ $t("FOOTER.privacyPolicy") }}</div
               >
             </li>
             <li>
-              <NuxtLink
-                :to="localePath('/terms_and_conditions')"
-                class="block py-1 hover:text-[#E77C5A] mb-5"
-                @click="scrollTop"
-                >{{ $t("FOOTER.termsAndUse") }}</NuxtLink
+              <div
+                class="block py-1 hover:text-[#E77C5A] mb-5 cursor-pointer"
+                @click="openTermsPopup=true"
+                >{{ $t("FOOTER.termsAndUse") }}</div
               >
             </li>
           </ul>
@@ -224,6 +222,8 @@
       <span> ©{{ new Date().getFullYear() }}</span>
     </div>
   </footer>
+  <Popup :show="openPrivacyPopup" @close="openPrivacyPopup = false" type="privacy" />
+  <Popup :show="openTermsPopup" @close="openTermsPopup = false" type="terms" />
 </template>
 <script setup>
 const data = {
@@ -243,4 +243,6 @@ const isLogin = false;
 const scrollTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 const route = useRoute();
 const showAos = computed(() => !route.path.endsWith("/profile"));
+const openTermsPopup = ref(false);
+const openPrivacyPopup = ref(false);
 </script>

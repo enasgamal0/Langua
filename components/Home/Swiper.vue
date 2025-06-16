@@ -30,18 +30,29 @@
         >
           <div class="flex flex-wrap w-full">
             <div
+              data-aos="zoom-in"
               class="bg-[#4B007D] z-50 text-white w-[50%] lg:!w-[40%] h-[390px] px-22 py-12"
               style="background-image: url('/slider_text_bg.png')"
             >
               <h1
-                class="text-[40px] font-[800] leading-[1.2] mb-2 line-clamp-2"
+                class="text-[40px] font-[800] leading-[1.2] mb-2 line-clamp-2" v-if="locale == 'ar'"
               >
-                {{ advertisement?.name }}
+                {{ advertisement?.name_ar }}
+              </h1>
+              <h1
+                class="text-[40px] font-[800] leading-[1.2] mb-2 line-clamp-2" v-if="locale == 'en'"
+              >
+                {{ advertisement?.name_en }}
               </h1>
               <p
-                class="text-[16px] mt-4 mb-8 m-auto leading-[2.3] line-clamp-4 px-3"
+                class="text-[16px] mt-4 mb-8 m-auto leading-[2.3] line-clamp-4 px-3" v-if="locale == 'ar'"
               >
-                {{ advertisement?.description }}
+                {{ advertisement?.description_ar }}
+              </p>
+              <p
+                class="text-[16px] mt-4 mb-8 m-auto leading-[2.3] line-clamp-4 px-3" v-if="locale == 'en'"
+              >
+                {{ advertisement?.description_en }}
               </p>
               <div class="flex items-center gap-5 my-5">
                 <NuxtLink :to="localePath('/courses')">
@@ -50,15 +61,16 @@
                     border-color="white"
                     bg-color="#E77C5A"
                     width="200px"
+                    :lg_space="true"
                   />
                 </NuxtLink>
               </div>
             </div>
-            <div class="w-[50%] lg:!w-[60%] h-[390px] relative">
+            <div data-aos="zoom-out" class="w-[50%] lg:!w-[60%] h-[390px] relative">
               <img
                 :src="advertisement?.advertisement"
-                alt="Spark Image"
-                class="w-full h-full"
+                alt="Langua Image"
+                class="w-full h-full object-cover"
               />
               <div
                 class="absolute bottom-0"
@@ -67,8 +79,12 @@
                 <img
                   src="/overlay.png"
                   alt="Slider Layout"
-                  class="h-full w-[202px]"
+                  class="h-full w-[202px] z-[999]"
                 />
+              </div>
+              <div
+                class="absolute bottom-0 h-[100%] w-[100%] bg-[#00000033]"
+              >
               </div>
             </div>
           </div>
@@ -94,6 +110,7 @@ import "swiper/css";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+const { locale } = useI18n();
 const advertisements = {
   status: 200,
   message: "--",
