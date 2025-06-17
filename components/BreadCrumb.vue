@@ -10,11 +10,12 @@
       {{ title }}
     </h1>
     <div class="flex items-center justify-center text-white gap-5 mt-4" data-aos="fade-up">
-        <NuxtLink :to="localePath('/')" class="text-[16px] font-[400] hover:text-[#E77C5A]">
+        <NuxtLink v-if="prev" :to="localePath(`${link}`)" class="text-[16px] font-[400] hover:text-[#E77C5A]">
             {{ prev }}
         </NuxtLink>
-        <img src="/arrow.png" alt="arrow" class="w-[24px] h-[24px]" :class="locale == 'en' ? 'rotate-180' : ''" />
-        <span class="text-[16px] font-[700]">{{ current }}</span>
+        <img v-if="current" src="/arrow.png" alt="arrow" class="w-[24px] h-[24px]" :class="locale == 'en' ? 'rotate-180' : ''" />
+        <span v-if="current" class="text-[16px] font-[700]">{{ current }}</span>
+        <span v-if="desc" class="text-[16px] font-[400]">{{ desc }}</span>
     </div>
   </div>
 </template>
@@ -32,6 +33,14 @@ defineProps({
     prev: {
         type: String,
         default: ""
+    },
+    desc: {
+        type: String,
+        default: ""
+    },
+    link: {
+        type: String,
+        default: "/"
     }
 })
 </script>

@@ -75,11 +75,35 @@
   },
   "bread_crumb": {
     "about": "About Langua Learn",
-    "faq": "Common Questions"
+    "faq": "Common Questions",
+    "login": "Login",
+    "login_desc": "All you need to learn better is waiting for you... just register.",
+    "forgot_password": "Forgot Password"
   },
   "faq": {
     "desc": "Explore the most common questions about",
     "title1": "How can I register on the platform?",
     "content1": "You can register easily by clicking on the 'Create New Account' button on the homepage, then fill in the required data (name, email, password), and then you can start browsing the platform."
+  },
+  "auth": {
+    "login": "Login",
+    "email": "Email",
+    "password": "Password",
+    "forgot_password": "Did you Forgot Password?",
+    "example": "Example",
+    "create_account": "Create Account",
+    "dont_have_account": "Don't have an account?",
+    "submit": "Submit",
+    "forget_password_desc": "The email address linked to your account. We will send you an email containing a reset code.",
+    "check_otp1": "Please check your email ",
+    "check_otp_email": "{email}",
+    "check_otp2": " for a reset code. Please enter the code below to continue",
+    "enter_otp": "Enter Verification Code"
+  },
+  "validation": {
+    "email_required": "Email is required",
+    "email_invalid": "Email is invalid",
+    "password_required": "Password is required",
+    "code_required": "All code fields are required"
   }
 }

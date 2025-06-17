@@ -2,8 +2,8 @@
   <header class="py-6 px-6 lg:px-8 xl:px-20 2xl:px-60 xl:py-7 border-b border-[#EEEDEE]">
     <div class="flex justify-between items-center">
       <!-- Logo -->
-      <NuxtLink :to="localePath('/')">
-        <img alt="Langua Logo" src="/logo.png" class="h-[50px] w-[110px]" data-aos="zoom-in" />
+      <NuxtLink :to="localePath('/')" class="outline-none">
+        <img alt="Langua Logo" src="/logo.png" class="h-[50px] w-[110px] outline-none" data-aos="zoom-in" />
       </NuxtLink>
 
       <!-- Desktop Menu -->
@@ -31,12 +31,14 @@
           bg-color="#4B007D"
           icon="/feather.png"
         />
-        <BaseButton
-          :content="$t('nav.login')"
-          border-color="#4B007D"
-          bg-color="#E77C5A"
-          icon="/user_white.png"
-        />
+        <NuxtLink :to="localePath('/auth/login')">
+          <BaseButton
+            :content="$t('nav.login')"
+            border-color="#4B007D"
+            bg-color="#E77C5A"
+            icon="/user_white.png"
+          />
+        </NuxtLink>
         <img src="/bell.png" class="w-[24px] h-[24px] cursor-pointer" />
 
         <!-- Language Dropdown -->
@@ -106,12 +108,14 @@
           bg-color="#4B007D"
           icon="/feather.png"
         />
-        <BaseButton
-          :content="$t('nav.login')"
-          border-color="#4B007D"
-          bg-color="#E77C5A"
-          icon="/user_white.png"
-        />
+        <NuxtLink :to="localePath('/auth/login')">
+          <BaseButton
+            :content="$t('nav.login')"
+            border-color="#4B007D"
+            bg-color="#E77C5A"
+            icon="/user_white.png"
+          />
+        </NuxtLink>
       </div>
       <div
         class="flex items-center gap-2 px-4 py-2 cursor-pointer hover:bg-gray-100"

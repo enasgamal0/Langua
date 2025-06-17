@@ -6,7 +6,17 @@ export default defineNuxtConfig({
     "@nuxtjs/tailwindcss",
     "@nuxtjs/i18n",
     'nuxt-swiper',
+    '@vee-validate/nuxt',
   ],
+  veeValidate: {
+    autoImports: true,
+    componentNames: {
+      Form: 'VeeForm',
+      Field: 'VeeField',
+      FieldArray: 'VeeFieldArray',
+      ErrorMessage: 'VeeErrorMessage',
+    },
+  },
   i18n: {
     defaultLocale: 'ar',
     strategy: 'prefix_except_default',

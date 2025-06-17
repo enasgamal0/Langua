@@ -24,7 +24,7 @@
       <p class="text-[16px] font-[400] text-[#202020] md:w-[75%]" :class="home ? 'line-clamp-4' : ''">
         {{ $t("S2.desc") }}
       </p>
-      <NuxtLink :to="localePath('/about')">
+      <NuxtLink :to="localePath('/about')" class="block">
         <BaseButton
           :content="$t('S2.more')"
           border-color="#E77C5A"

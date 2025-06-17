@@ -1,12 +1,12 @@
 <template>
   <div
     data-aos="zoom-in"
-    class="relative hover:scale-[1.02] transition duration-300 ease-in-out cursor-pointer max-w-[200px]"
+    class="relative hover:scale-[1.02] transition duration-300 ease-in-out cursor-pointer"
     :class="`w-[${width}]`"
   >
     <button
-      class="flex items-center text-white text-[14px] font-[700] cursor-pointer w-[200px]"
-      :style="{ backgroundColor: bgColor }"
+      class="flex items-center text-white font-[700] cursor-pointer"
+      :style="{ backgroundColor: bgColor, width: width, fontSize: font_size }"
       :disabled="pending"
     >
       <UIButtonLoader v-if="pending" />
@@ -16,9 +16,9 @@
       </div>
     </button>
     <div
-      class="w-full absolute top-[5px] left-[5px] h-[48px] border-2 -z-1 hover:scale-[1.02] transition duration-300 ease-in-out cursor-pointer"
+      class="absolute top-[5px] left-[5px] h-[48px] border-2 -z-1 transition duration-300 ease-in-out"
       :class="{ '!top-[9px] !left-[9px]': lg_space, '!top-[9px] !right-[9px]': lg_reversed_space }"
-      :style="{ borderColor: borderColor }"
+      :style="{ borderColor: borderColor, width: width }"
     ></div>
   </div>
 </template>
@@ -55,6 +55,10 @@ const props = defineProps({
   lg_reversed_space: {
     type: Boolean,
     default: false,
+  },
+  font_size: {
+    type: String,
+    default: "14px",
   },
 });
 </script>

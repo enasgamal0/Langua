@@ -86,7 +86,7 @@
       </div>
     </div>
     <div class="mt-12">
-      <NuxtLink :to="localePath('/courses')">
+      <NuxtLink :to="localePath('/courses')" class="block">
         <BaseButton
           :content="$t('S3.start')"
           border-color="white"

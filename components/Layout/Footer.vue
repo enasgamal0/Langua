@@ -239,6 +239,7 @@ const data = {
   },
 };
 const localePath = useLocalePath();
+const { locale } = useI18n();
 const isLogin = false;
 const scrollTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 const route = useRoute();
