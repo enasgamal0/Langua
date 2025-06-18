@@ -78,7 +78,9 @@
     "faq": "Common Questions",
     "login": "Login",
     "login_desc": "All you need to learn better is waiting for you... just register.",
-    "forgot_password": "Forgot Password"
+    "forgot_password": "Forgot Password",
+    "register": "Create a New Account",
+    "register_desc": "Create your account now and start your journey toward mastering the English language from here"
   },
   "faq": {
     "desc": "Explore the most common questions about",
@@ -98,12 +100,32 @@
     "check_otp1": "Please check your email ",
     "check_otp_email": "{email}",
     "check_otp2": " for a reset code. Please enter the code below to continue",
-    "enter_otp": "Enter Verification Code"
+    "enter_otp": "Enter Verification Code",
+    "didnt_receive_code": "Didn't receive code?",
+    "resend_code": "Resend code",
+    "resend_in": "Resend in",
+    "sending": "Resending...",
+    "otp_resent_successfully": "Code has been resent successfully",
+    "resend_error": "Error resending Code",
+    "reset_password_desc": "Please enter a new password and confirm it to complete the password reset process.",
+    "new_password": "New Password",
+    "new_password_confirmation": "Confirm New Password",
+    "password_success_title": "Password has been Reset Successfully 🎉",
+    "password_success1": "You can now login using your new password ✅",
+    "password_success2": "We wish you a fun and enriching learning experience 📚🌟!",
+    "go_to_login": "Go to Login",
+    "already_have_account": "Already have an account?",
+    "first_name": "First Name",
+    "last_name": "Last Name",
+    "password_confirmation": "Password Confirmation",
+    "search_countries": "Search by country",
+    "phone": "Phone Number"
   },
   "validation": {
     "email_required": "Email is required",
     "email_invalid": "Email is invalid",
     "password_required": "Password is required",
-    "code_required": "All code fields are required"
+    "code_required": "All code fields are required",
+    "new_password_confirmation": "New Password Confirmation is required"
   }
 }

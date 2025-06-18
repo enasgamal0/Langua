@@ -131,7 +131,7 @@ const handleSubmit = async () => {
       locale.value
     );
     email.value = form.email;
-    tokenCookie.value = result?.access_token;
+    tokenCookie.value = result?.data?.access_token;
     router.push("/auth/otp");
   } catch (error) {
     console.error("Error logging in:", error);
