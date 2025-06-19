@@ -9,7 +9,7 @@
   >
     <div class="md:!w-[50%] w-[100%] flex justify-center" data-aos="fade-up">
       <img
-        src="/about.png"
+        :src="about?.data?.data[0]?.value?.image || `/about.png`"
         alt="About Langua"
         class="lg:!w-[421px] lg:!h-[400px] w-[321px] h-[300px] m-auto"
       />
@@ -22,7 +22,7 @@
         {{ $t("S2.subtitle") }}
       </h2>
       <p class="text-[16px] font-[400] text-[#202020] md:w-[75%]" :class="home ? 'line-clamp-4' : ''">
-        {{ $t("S2.desc") }}
+        {{ locale === "ar" ? about?.data?.data[0]?.value?.text?.ar : about?.data?.data[0]?.value?.text?.en }}
       </p>
       <NuxtLink :to="localePath('/about')" class="block">
         <BaseButton
@@ -39,11 +39,30 @@
   </div>
 </template>
 <script setup>
+const about = ref(null);
+const tokenCookie = useCookie("langua_token");
+const { locale } = useI18n();
 defineProps({
   home: {
     type: Boolean,
     default: true,
   },
+});
+
+onMounted(async () => {
+  try {
+    about.value = await apiRequest(
+      "GET",
+      `/settings?key=about_us`,
+      {},
+      {},
+      tokenCookie.value,
+      locale.value
+    );
+  } catch (error) {
+    console.error("Failed to load advertisements:", error);
+    about.value = null;
+  }
 });
 </script>
 <style scoped>

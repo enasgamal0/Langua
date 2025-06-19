@@ -24,8 +24,8 @@
         class="w-full h-full"
       >
         <SwiperSlide
-          v-if="advertisements?.data?.data?.length > 0"
-          v-for="(advertisement, index) in advertisements?.data?.data"
+          v-if="advertisements?.data?.advertisment?.length > 0"
+          v-for="(advertisement, index) in advertisements?.data?.advertisment"
           :key="index"
         >
           <div class="flex flex-wrap w-full">
@@ -35,24 +35,14 @@
               style="background-image: url('/slider_text_bg.png')"
             >
               <h1
-                class="text-[40px] font-[800] leading-[1.2] mb-2 line-clamp-2" v-if="locale == 'ar'"
+                class="text-[40px] font-[800] leading-[1.2] mb-2 line-clamp-2"
               >
-                {{ advertisement?.name_ar }}
-              </h1>
-              <h1
-                class="text-[40px] font-[800] leading-[1.2] mb-2 line-clamp-2" v-if="locale == 'en'"
-              >
-                {{ advertisement?.name_en }}
+                {{ advertisement?.name }}
               </h1>
               <p
-                class="text-[16px] mt-4 mb-8 m-auto leading-[2.3] line-clamp-4 px-3" v-if="locale == 'ar'"
+                class="text-[16px] mt-4 mb-8 m-auto leading-[2.3] line-clamp-4 px-3"
               >
-                {{ advertisement?.description_ar }}
-              </p>
-              <p
-                class="text-[16px] mt-4 mb-8 m-auto leading-[2.3] line-clamp-4 px-3" v-if="locale == 'en'"
-              >
-                {{ advertisement?.description_en }}
+                {{ advertisement?.description }}
               </p>
               <div class="flex items-center gap-5 my-5">
                 <NuxtLink :to="localePath('/courses')">
@@ -66,12 +56,38 @@
                 </NuxtLink>
               </div>
             </div>
-            <div data-aos="zoom-out" class="w-[50%] lg:!w-[60%] h-[390px] relative">
+            <div
+              data-aos="zoom-out"
+              class="w-[50%] lg:!w-[60%] h-[390px] relative"
+            >
+              <!-- Image Media -->
               <img
-                :src="advertisement?.advertisement"
-                alt="Langua Image"
+                v-if="getMediaType(advertisement?.image) === 'image'"
+                :src="advertisement?.image"
+                alt="Advertisement Media"
                 class="w-full h-full object-cover"
               />
+              <!-- Video Media -->
+              <video
+                v-else-if="getMediaType(advertisement?.image) === 'video'"
+                :src="advertisement?.image"
+                class="w-full h-full object-cover"
+                autoplay
+                muted
+                loop
+                playsinline
+              >
+                Your browser does not support the video tag.
+              </video>
+
+              <!-- Fallback for legacy 'image' property -->
+              <img
+                v-else-if="advertisement?.image"
+                :src="advertisement?.image"
+                alt="Advertisement Image"
+                class="w-full h-full object-cover"
+              />
+
               <div
                 class="absolute bottom-0"
                 :class="{ 'rotate-180': $i18n.locale == 'en' }"
@@ -84,8 +100,7 @@
               </div>
               <div
                 class="absolute bottom-0 h-[100%] w-[100%] bg-[#00000033]"
-              >
-              </div>
+              ></div>
             </div>
           </div>
         </SwiperSlide>
@@ -104,98 +119,72 @@
     </div>
   </div>
 </template>
+
 <script setup>
 import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+
 const { locale } = useI18n();
-const advertisements = {
-  status: 200,
-  message: "--",
-  data: {
-    data: [
-      {
-        id: 3,
-        name: "مؤثرين حقيقيين",
-        name_ar: "مؤثرين حقيقيين",
-        name_en: "Real influencers",
-        description:
-          "من المرحلة الابتدائية إلى الثانوية، منصة Langua Learn تساعدك على تطوير مهارات اللغة الإنجليزية بأسلوب ممتع وتفاعلي.",
-        description_ar:
-          "هل تبحث عن مؤثرين حقيقيين يروجون لعلامتك التجارية باحترافية؟",
-        description_en:
-          "Are you looking for real influencers who promote your brand professionally",
-        advertisement: "/hero_section.jpg",
-        created_at: "2025-05-28",
-      },
-      {
-        id: 2,
-        name: "علامات تجارية متنوعة",
-        name_ar: "علامات تجارية متنوعة",
-        name_en: "Various brands",
-        description:
-          "من المرحلة الابتدائية إلى الثانوية، منصة Langua Learn تساعدك على تطوير مهارات اللغة الإنجليزية المرحلة الابتدائية المرحلة الابتدائية المرحلة الابتدائية بأسلوب ممتع وتفاعلي.",
-        description_ar: "تواصل مباشر مع علامات تجارية متنوعة",
-        description_en: "Direct contact with various brands",
-        advertisement:
-          "https://img.freepik.com/free-photo/learning-education-ideas-insight-intelligence-study-concept_53876-120116.jpg?semt=ais_hybrid&w=740",
-        created_at: "2025-05-28",
-      },
-      {
-        id: 1,
-        name: "أكبر العلامات التجارية",
-        name_ar: "أكبر العلامات التجارية",
-        name_en: "The largest brands",
-        description: "الآن يمكنك التعاون مع أكبر العلامات التجارية عبر منصتنا",
-        description_ar:
-          "الآن يمكنك التعاون مع أكبر العلامات التجارية عبر منصتنا",
-        description_en:
-          "Now you can collaborate with the biggest brands via our platform",
-        advertisement:
-          "https://school-education.ec.europa.eu/sites/default/files/styles/oe_theme_full_width/public/2025-05/course_ai_and_data_in_education.png?itok=RHk5qgp3",
-        created_at: "2025-05-28",
-      },
-    ],
-    links: {
-      first:
-        "https://backend.spark.moltaqadev.com/client-api/v1/advertisements?page=1",
-      last: "https://backend.spark.moltaqadev.com/client-api/v1/advertisements?page=1",
-      prev: null,
-      next: null,
-    },
-    meta: {
-      current_page: 1,
-      from: 1,
-      last_page: 1,
-      links: [
-        {
-          url: null,
-          label: "&laquo; السابق",
-          active: false,
-        },
-        {
-          url: "https://backend.spark.moltaqadev.com/client-api/v1/advertisements?page=1",
-          label: "1",
-          active: true,
-        },
-        {
-          url: null,
-          label: "التالي &raquo;",
-          active: false,
-        },
-      ],
-      path: "https://backend.spark.moltaqadev.com/client-api/v1/advertisements",
-      per_page: 10,
-      to: 3,
-      total: 3,
-    },
-    status: 200,
-  },
-  errors: {},
+const tokenCookie = useCookie("langua_token");
+const advertisements = ref([]);
+
+// Function to determine media type based on file extension
+const getMediaType = (mediaUrl) => {
+  if (!mediaUrl) return "unknown";
+
+  const videoExtensions = [
+    ".mp4",
+    ".webm",
+    ".ogg",
+    ".mov",
+    ".avi",
+    ".mkv",
+    ".m4v",
+  ];
+  const imageExtensions = [
+    ".jpg",
+    ".jpeg",
+    ".png",
+    ".gif",
+    ".webp",
+    ".svg",
+    ".bmp",
+  ];
+
+  const fileExtension = mediaUrl
+    .toLowerCase()
+    .substring(mediaUrl.lastIndexOf("."));
+
+  if (videoExtensions.includes(fileExtension)) {
+    return "video";
+  } else if (imageExtensions.includes(fileExtension)) {
+    return "image";
+  }
+
+  // Default to image if extension is not recognized
+  return "image";
 };
+
+onMounted(async () => {
+  try {
+    advertisements.value = await apiRequest(
+      "GET",
+      `/advertisements?limit=0&page=0`,
+      {},
+      {},
+      tokenCookie.value,
+      locale.value
+    );
+  } catch (error) {
+    console.error("Failed to load advertisements:", error);
+    advertisements.value = [];
+  }
+});
 </script>
+
 <style>
 .swiper-pagination-bullet-active {
   background: #4b007d !important;
@@ -221,5 +210,24 @@ const advertisements = {
 .swiper-button-prev:hover {
   background-color: #ffffff !important;
   color: #4b007d !important;
+}
+
+/* Video specific styles */
+video {
+  object-fit: cover;
+}
+
+/* Ensure videos don't show controls */
+video::-webkit-media-controls {
+  display: none !important;
+}
+video::-webkit-media-controls-panel {
+  display: none !important;
+}
+video::-webkit-media-controls-play-button {
+  display: none !important;
+}
+video::-webkit-media-controls-start-playback-button {
+  display: none !important;
 }
 </style>
