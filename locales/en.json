@@ -119,13 +119,33 @@
     "last_name": "Last Name",
     "password_confirmation": "Password Confirmation",
     "search_countries": "Search by country",
-    "phone": "Phone Number"
+    "phone": "Phone Number",
+    "select_stage": "Select Stage",
+    "select_grade": "Select Grade",
+    "register": "Create Account",
+    "agree_terms": "I Accept ",
+    "terms_and_conditions": "Terms and Conditions",
+    "register_success_title": "Account has been created successfully 🎉",
+    "register_success": "You have started a free trial for 7 days 🚀, you can browse the platform's content completely during this time! You will be redirected to the home page automatically now 🧭 ✅",
+    "go_to_home": "Go to Home"
   },
   "validation": {
     "email_required": "Email is required",
     "email_invalid": "Email is invalid",
     "password_required": "Password is required",
     "code_required": "All code fields are required",
-    "new_password_confirmation": "New Password Confirmation is required"
+    "new_password_confirmation": "New Password Confirmation is required",
+    "phone_required": "Phone Number is required",
+    "select_stage": "Stage is required",
+    "select_grade": "Grade is required",
+    "first_name_required": "First Name is required",
+    "last_name_required": "Last Name is required",
+    "password_mismatch": "Passwords do not match",
+    "password_confirmation_required": "Password Confirmation is required",
+    "phone_length": "Phone Number should be {length} digits",
+    "select_stage_first": "Stage is required",
+    "stage_required": "Stage is required",
+    "grade_required": "Grade is required",
+    "terms_required": "Accepting Terms and Conditions is required"
   }
 }

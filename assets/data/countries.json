@@ -1123,6 +1123,20 @@
       "phoneLength": 10
     },
     {
+      "name": "Saudi Arabia",
+      "name_ar": "السعودية",
+      "region": "Asia",
+      "timezones": {
+        "Asia/Riyadh": "+03:00"
+      },
+      "iso": {
+        "alpha2": "SA",
+        "alpha-3": "SAU",
+        "numeric": "682"
+      },
+      "phone": ["+966"],
+      "emoji": "🇸🇦",
+      "image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/SA.svg",
       "phoneLength": 9
     },
     {
@@ -3295,23 +3309,6 @@
       "phone": ["+250"],
       "emoji": "🇷🇼",
       "image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/RW.svg",
-      "phoneLength": 9
-    },
-    {
-      "name": "Saudi Arabia",
-      "name_ar": "السعودية",
-      "region": "Asia",
-      "timezones": {
-        "Asia/Riyadh": "+03:00"
-      },
-      "iso": {
-        "alpha2": "SA",
-        "alpha-3": "SAU",
-        "numeric": "682"
-      },
-      "phone": ["+966"],
-      "emoji": "🇸🇦",
-      "image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/SA.svg",
       "phoneLength": 9
     },
     {

@@ -83,7 +83,7 @@
     </div>
 
     <!-- Validation Message -->
-    <p v-if="validationMessage" class="mt-1 text-sm text-red-600">
+    <p v-if="validationMessage" class="mt-1 text-sm text-red-600" :dir="locale == 'ar' ? 'rtl' : 'ltr'">
       {{ validationMessage }}
     </p>
   </div>
@@ -120,6 +120,7 @@ const searchQuery = ref("");
 const phoneNumber = ref("");
 const selectedCountry = ref(null);
 const validationMessage = ref("");
+const isInitialized = ref(false);
 
 // Computed
 const filteredCountries = computed(() => {
@@ -127,17 +128,16 @@ const filteredCountries = computed(() => {
 
   const query = searchQuery.value.toLowerCase();
   return props.countries.filter((country) => {
-  const name = country.name || "";
-  const nameAr = country.name_ar || "";
-  const phone = country?.phone?.[0] || "";
+    const name = country.name || "";
+    const nameAr = country.name_ar || "";
+    const phone = country?.phone?.[0] || "";
 
-  return (
-    name.toLowerCase().includes(query) ||
-    nameAr.includes(query) ||
-    phone.includes(query)
-  );
-});
-
+    return (
+      name.toLowerCase().includes(query) ||
+      nameAr.includes(query) ||
+      phone.includes(query)
+    );
+  });
 });
 
 // Methods
@@ -165,6 +165,9 @@ const selectCountry = (country) => {
 };
 
 const onPhoneNumberInput = () => {
+  // Check if user typed a country code manually
+  handleManualCountryCodeInput();
+  
   updateModelValue();
 
   if (props.validate) {
@@ -174,7 +177,15 @@ const onPhoneNumberInput = () => {
 
 const updateModelValue = () => {
   if (selectedCountry.value?.phone?.[0]) {
-    const cleanNumber = phoneNumber.value.replace(/[^\d\s-]/g, "");
+    // Don't clean the number if it already starts with the country code
+    let numberToProcess = phoneNumber.value;
+    
+    // If user typed the country code, extract just the local number
+    if (numberToProcess.startsWith(selectedCountry.value.phone[0])) {
+      numberToProcess = numberToProcess.replace(selectedCountry.value.phone[0], "");
+    }
+    
+    const cleanNumber = numberToProcess.replace(/[^\d\s-]/g, "");
     const digitsOnly = cleanNumber.replace(/[\s-]/g, "");
     const fullNumber = selectedCountry.value.phone[0] + digitsOnly;
     emit("update:modelValue", fullNumber);
@@ -196,23 +207,54 @@ const validatePhoneNumber = () => {
   const digitsOnly = phoneNumber.value.replace(/[\s-]/g, "");
   const expectedLength = selectedCountry.value.phoneLength || 10;
 
-  if (digitsOnly.length < expectedLength) {
-    validationMessage.value = `Phone number should be ${expectedLength} digits`;
-  } else if (digitsOnly.length > expectedLength) {
-    validationMessage.value = `Phone number should not exceed ${expectedLength} digits`;
+  if (digitsOnly.length != expectedLength) {
+    validationMessage.value = t("validation.phone_length", { length: expectedLength });
   } else {
     validationMessage.value = "";
   }
 };
 
-const closeDropdown = (event) => {
-  if (!event.target.closest(".relative")) {
-    isDropdownOpen.value = false;
+const handleManualCountryCodeInput = () => {
+  if (!phoneNumber.value || !props.countries) return;
+  
+  // Check if user typed a country code manually (starts with +)
+  if (phoneNumber.value.startsWith('+')) {
+    const matchingCountry = props.countries.find(
+      (c) => c?.phone?.[0] && phoneNumber.value.startsWith(c.phone[0])
+    );
+    
+    if (matchingCountry && matchingCountry !== selectedCountry.value) {
+      // Switch to the matching country
+      selectedCountry.value = matchingCountry;
+      // Remove the country code from the input
+      phoneNumber.value = phoneNumber.value.replace(matchingCountry.phone[0], "");
+      emit("country-changed", matchingCountry);
+    }
   }
 };
 
+const initializeDefaultCountry = () => {
+  if (!props.countries || props.countries.length === 0) return null;
+  
+  // First try to find the default country (SA)
+  const defaultCountry = props.countries.find(
+    (c) => c?.iso?.alpha2 === props.defaultCountry && c?.phone?.[0]
+  );
+  
+  if (defaultCountry) {
+    return defaultCountry;
+  }
+  
+  // Fallback to first valid country
+  return props.countries.find((c) => c?.phone?.[0]) || props.countries[0];
+};
+
 const parseInitialValue = () => {
-  if (props.modelValue && props.countries && props.countries.length > 0) {
+  // Only parse if there's a modelValue and we haven't initialized yet
+  if (!props.modelValue || isInitialized.value) return false;
+  
+  if (props.countries && props.countries.length > 0) {
+    // Find matching country by phone code
     const matchingCountry = props.countries.find(
       (c) => c?.phone?.[0] && props.modelValue.startsWith(c.phone[0])
     );
@@ -223,32 +265,48 @@ const parseInitialValue = () => {
         matchingCountry.phone[0],
         ""
       );
+      return true;
     }
   }
+  return false;
+};
+
+const initialize = () => {
+  if (isInitialized.value) return;
+  
+  // First, try to parse any existing modelValue
+  const hasExistingValue = parseInitialValue();
+  
+  // If no existing value was parsed, set default country
+  if (!hasExistingValue) {
+    const defaultCountry = initializeDefaultCountry();
+    if (defaultCountry) {
+      selectedCountry.value = defaultCountry;
+    }
+  }
+  
+  isInitialized.value = true;
 };
 
 onMounted(() => {
-  if (props.countries && props.countries.length > 0) {
-    const defaultCountry = props.countries.find(
-      (c) => c?.iso?.alpha2 === props.defaultCountry && c?.phone?.[0]
-    );
-    selectedCountry.value =
-      defaultCountry ||
-      props.countries.find((c) => c?.phone?.[0]) ||
-      props.countries[0];
-  }
-
-  parseInitialValue();
+  initialize();
   document.addEventListener("click", closeDropdown);
 });
 
 onUnmounted(() => {
   document.removeEventListener("click", closeDropdown);
 });
+const closeDropdown = (event) => {
+  if (!event.target.closest(".relative")) {
+    isDropdownOpen.value = false;
+  }
+};
 
 watch(
   () => props.modelValue,
   (newValue) => {
+    if (!isInitialized.value) return;
+    
     if (newValue && props.countries && props.countries.length > 0) {
       const country = props.countries.find(
         (c) => c?.phone?.[0] && newValue.startsWith(c.phone[0])
@@ -274,18 +332,17 @@ watch(
 watch(
   () => props.countries,
   () => {
-    if (
+    if (!isInitialized.value) {
+      initialize();
+    } else if (
       props.countries &&
       props.countries.length > 0 &&
       !selectedCountry.value
     ) {
-      const defaultCountry = props.countries.find(
-        (c) => c?.iso?.alpha2 === props.defaultCountry && c?.phone?.[0]
-      );
-      selectedCountry.value =
-        defaultCountry ||
-        props.countries.find((c) => c?.phone?.[0]) ||
-        props.countries[0];
+      const defaultCountry = initializeDefaultCountry();
+      if (defaultCountry) {
+        selectedCountry.value = defaultCountry;
+      }
     }
   },
   { immediate: true }

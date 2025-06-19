@@ -29,7 +29,7 @@
           >
             <div class="flex gap-3">
               <!-- First Name Field -->
-              <div class="relative">
+              <div class="relative w-[100%]">
                 <label
                   for="firstName"
                   class="block text-[16px] font-[400] text-[#202020] mb-2"
@@ -60,7 +60,7 @@
                 />
               </div>
               <!-- Last Name Field -->
-              <div class="relative">
+              <div class="relative w-[100%]">
                 <label
                   for="lastName"
                   class="block text-[16px] font-[400] text-[#202020] mb-2"
@@ -77,7 +77,7 @@
                       'border-red-500': errors.lastName,
                       'border-[#EEEDEE]': !errors.lastName,
                     }"
-                    class="w-full px-4 py-3 ps-12 border outline-none focus:ring-2 focus:ring-[#4B007D] placeholder:text-[#A3A2A3] placeholder:text-[14px]"
+                    class="w-full px-4 py-3 border outline-none focus:ring-2 focus:ring-[#4B007D] placeholder:text-[#A3A2A3] placeholder:text-[14px]"
                   />
                 </div>
                 <VeeErrorMessage
@@ -132,17 +132,323 @@
                 {{ $t("auth.phone") }}
               </label>
               <div class="relative">
-                <TelephoneInput
-                  v-model="form.phone"
-                  :countries="countries"
-                  default-country="SA"
-                  @country-changed="onCountryChanged"
-                />
+                <VeeField name="phone" v-slot="{ field, errors }">
+                  <TelephoneInput
+                    v-bind="field"
+                    v-model="form.phone"
+                    :countries="countries"
+                    default-country="SA"
+                    @country-changed="onCountryChanged"
+                    :class="{
+                      'border-red-500': errors.phone,
+                      'border-[#EEEDEE]': !errors.phone,
+                    }"
+                  />
+                </VeeField>
               </div>
               <VeeErrorMessage
                 name="phone"
                 class="text-red-500 text-sm mt-1 block"
               />
+            </div>
+
+            <!-- Stage and Grade Fields -->
+            <div class="flex gap-3">
+              <!-- Stage Field - Fixed Version -->
+              <div class="w-[100%]">
+                <label
+                  for="select_stage"
+                  class="block text-[16px] font-[400] text-[#202020] mb-2"
+                >
+                  {{ $t("auth.select_stage") }}
+                </label>
+                <VeeField
+                  name="stage"
+                  v-slot="{ field, errors, handleChange, handleBlur }"
+                >
+                  <Listbox
+                    :model-value="selectedStage"
+                    @update:model-value="
+                      (value) => {
+                        selectedStage = value;
+                        handleChange(value);
+                        handleBlur();
+                      }
+                    "
+                  >
+                    <div class="relative">
+                      <ListboxButton
+                        :class="{
+                          'border-red-500': errors.length > 0,
+                          'border-[#EEEDEE]': errors.length === 0,
+                        }"
+                        class="flex justify-between cursor-pointer w-full px-4 py-3 ps-12 border outline-none focus:ring-2 focus:ring-[#4B007D] placeholder:text-[#A3A2A3] placeholder:text-[14px]"
+                      >
+                        <div class="flex-1 text-justify">
+                          <span
+                            v-if="!selectedStage?.name"
+                            class="text-[#A3A2A3]"
+                          >
+                            {{ $t("auth.select_stage") }}
+                          </span>
+                          <span v-else class="block truncate">{{
+                            selectedStage.name
+                          }}</span>
+                          <span
+                            class="absolute inset-y-0 right-0 flex items-center pr-2"
+                          >
+                            <img
+                              alt="stage"
+                              src="/stage.png"
+                              class="w-[24px] h-[24px] inlinee my-auto ms-1"
+                            />
+                          </span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                          <button
+                            v-if="selectedStage"
+                            type="button"
+                            @click.stop="
+                              () => {
+                                selectedStage = null;
+                                handleChange(null);
+                                handleBlur();
+                                clearStage();
+                              }
+                            "
+                            class="text-[#a2a2a2] hover:text-red-500 cursor-pointer"
+                          >
+                            <svg
+                              class="w-4 h-4"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12"
+                              />
+                            </svg>
+                          </button>
+                          <img
+                            alt="arrow"
+                            src="/arrow_down.svg"
+                            class="w-[16px] h-[16px] inline my-auto"
+                          />
+                        </div>
+                      </ListboxButton>
+                      <ListboxOptions
+                        class="z-[900] absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base ring-1 ring-black/5 focus:outline-none"
+                      >
+                        <ListboxOption
+                          v-slot="{ active, selected }"
+                          v-for="stage in stages?.data?.data"
+                          :key="stage.id"
+                          :value="stage"
+                          as="template"
+                          class="cursor-pointer"
+                          @click="
+                            () => {
+                              getGrades(stage?.id);
+                              selectedGrade = null;
+                              handleChange(stage);
+                              handleBlur();
+                            }
+                          "
+                        >
+                          <li
+                            :class="[
+                              active
+                                ? 'bg-[#4d008033] text-[#4d0080]'
+                                : 'text-gray-900',
+                              'relative cursor-default select-none py-2 pl-10 pr-4',
+                            ]"
+                          >
+                            <span
+                              :class="[
+                                selected ? 'font-medium' : 'font-normal',
+                                'block truncate',
+                              ]"
+                              >{{ stage.name }}</span
+                            >
+                            <span
+                              v-if="selected"
+                              class="absolute inset-y-0 left-0 flex items-center pl-3 text-[#4d0080]"
+                            >
+                              <img
+                                alt="check"
+                                src="/check.svg"
+                                class="w-[16px] h-[16px]"
+                              />
+                            </span>
+                          </li>
+                        </ListboxOption>
+                      </ListboxOptions>
+                    </div>
+                  </Listbox>
+                </VeeField>
+                <VeeErrorMessage
+                  name="stage"
+                  class="text-red-500 text-sm mt-1 block"
+                />
+              </div>
+
+              <!-- Grade Field - Fixed Version -->
+              <div class="w-[100%]">
+                <label
+                  for="select_grade"
+                  class="block text-[16px] font-[400] text-[#202020] mb-2"
+                >
+                  {{ $t("auth.select_grade") }}
+                </label>
+                <VeeField
+                  name="grade"
+                  v-slot="{ field, errors, handleChange, handleBlur }"
+                >
+                  <Listbox
+                    :model-value="selectedGrade"
+                    @update:model-value="
+                      (value) => {
+                        selectedGrade = value;
+                        handleChange(value);
+                        handleBlur();
+                      }
+                    "
+                    :disabled="!selectedStage"
+                  >
+                    <div class="relative">
+                      <ListboxButton
+                        :class="{
+                          'border-red-500': errors.length > 0,
+                          'border-[#EEEDEE]': errors.length === 0,
+                          'opacity-50 cursor-not-allowed': !selectedStage,
+                          'cursor-pointer': selectedStage,
+                        }"
+                        class="flex justify-between text w-full px-4 py-3 ps-12 border outline-none focus:ring-2 focus:ring-[#4B007D] placeholder:text-[#A3A2A3] placeholder:text-[14px]"
+                      >
+                        <div class="flex-1 text-justify">
+                          <span
+                            v-if="!selectedGrade?.name"
+                            class="text-[#A3A2A3]"
+                          >
+                            {{
+                              !selectedStage
+                                ? $t("validation.select_stage_first")
+                                : $t("validation.select_grade")
+                            }}
+                          </span>
+                          <span v-else class="block truncate">{{
+                            selectedGrade.name
+                          }}</span>
+                          <span
+                            class="absolute inset-y-0 right-0 flex items-center pr-2"
+                          >
+                            <img
+                              alt="grade"
+                              src="/grade.png"
+                              class="w-[24px] h-[24px] inlinee my-auto ms-1"
+                            />
+                          </span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                          <button
+                            v-if="selectedGrade"
+                            type="button"
+                            @click.stop="
+                              () => {
+                                selectedGrade = null;
+                                handleChange(null);
+                                handleBlur();
+                              }
+                            "
+                            class="text-[#a2a2a2] hover:text-red-500 cursor-pointer"
+                          >
+                            <svg
+                              class="w-4 h-4"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12"
+                              />
+                            </svg>
+                          </button>
+                          <img
+                            alt="arrow"
+                            src="/arrow_down.svg"
+                            class="w-[16px] h-[16px] inline my-auto"
+                            :class="{ 'opacity-50': !selectedStage }"
+                          />
+                        </div>
+                      </ListboxButton>
+                      <ListboxOptions
+                        v-if="selectedStage"
+                        class="z-[900] absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base ring-1 ring-black/5 focus:outline-none"
+                      >
+                        <ListboxOption
+                          v-if="!grades?.data?.data?.length"
+                          class="relative cursor-default select-none py-2 pl-10 pr-4 text-gray-500"
+                          disabled
+                        >
+                          {{ $t("auth.no_grades_available") }}
+                        </ListboxOption>
+                        <ListboxOption
+                          v-else
+                          v-slot="{ active, selected }"
+                          v-for="grade in grades?.data?.data"
+                          :key="grade.id"
+                          :value="grade"
+                          as="template"
+                          class="cursor-pointer"
+                          @click="
+                            () => {
+                              handleChange(grade);
+                              handleBlur();
+                            }
+                          "
+                        >
+                          <li
+                            :class="[
+                              active
+                                ? 'bg-[#4d008033] text-[#4d0080]'
+                                : 'text-gray-900',
+                              'relative cursor-default select-none py-2 pl-10 pr-4',
+                            ]"
+                          >
+                            <span
+                              :class="[
+                                selected ? 'font-medium' : 'font-normal',
+                                'block truncate',
+                              ]"
+                              >{{ grade.name }}</span
+                            >
+                            <span
+                              v-if="selected"
+                              class="absolute inset-y-0 left-0 flex items-center pl-3 text-[#4d0080]"
+                            >
+                              <img
+                                alt="check"
+                                src="/check.svg"
+                                class="w-[16px] h-[16px]"
+                              />
+                            </span>
+                          </li>
+                        </ListboxOption>
+                      </ListboxOptions>
+                    </div>
+                  </Listbox>
+                </VeeField>
+                <VeeErrorMessage
+                  name="grade"
+                  class="text-red-500 text-sm mt-1 block"
+                />
+              </div>
             </div>
 
             <!-- Password Field -->
@@ -183,20 +489,7 @@
                         stroke-linecap="round"
                         stroke-linejoin="round"
                         stroke-width="2"
-                        d="M2.458 12C3.732 7.943 7.522 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.478 0-8.268-2.943-9.542-7z"
-                      />
-                      <circle
-                        cx="12"
-                        cy="12"
-                        r="3"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      />
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M3 3l18 18"
+                        d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21"
                       />
                     </svg>
                     <svg
@@ -274,20 +567,7 @@
                         stroke-linecap="round"
                         stroke-linejoin="round"
                         stroke-width="2"
-                        d="M2.458 12C3.732 7.943 7.522 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.478 0-8.268-2.943-9.542-7z"
-                      />
-                      <circle
-                        cx="12"
-                        cy="12"
-                        r="3"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      />
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M3 3l18 18"
+                        d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21"
                       />
                     </svg>
                     <svg
@@ -336,16 +616,38 @@
               </p>
             </div>
 
+            <div class="text-[13px] flex gap-3">
+              <div>
+                <input
+                  type="checkbox"
+                  id="terms"
+                  name="terms"
+                  value="terms"
+                  v-model="terms"
+                  class="w-[18px] h-[18px] rounded-none accent-[#4B007D] cursor-pointer"
+                />
+              </div>
+              <div>
+                <span class="text-[#202020]">{{ $t("auth.agree_terms") }}</span>
+                <span
+                  class="text-[#E77C5A] font-[700] cursor-pointer hover:underline"
+                  @click="openTermsPopup = true"
+                  >{{ $t("auth.terms_and_conditions") }}</span
+                >
+              </div>
+            </div>
+
             <!-- Submit Button -->
             <BaseButton
-              :content="$t('auth.login')"
+              :content="$t('auth.register')"
               border-color="#E77C5A"
               bg-color="#4B007D"
               class="!mt-12 !mb-8 z-50 m-auto text-[18px]"
               :lg_reversed_space="true"
               width="100%"
               font_size="18px"
-              :disabled="Object.keys(errors).length > 0"
+              :disabled="Object.keys(errors).length > 0 || isSubmitting"
+              :loading="isSubmitting"
             />
           </VeeForm>
           <div class="mt-12 flex justify-center text-[16px]">
@@ -361,46 +663,123 @@
       </div>
     </div>
   </div>
+  <Popup :show="openTermsPopup" @close="openTermsPopup = false" type="terms" />
 </template>
 
 <script setup>
 import * as yup from "yup";
-import { apiRequest, get, post, put, del } from "~/utils/api";
+import { apiRequest } from "~/utils/api";
 import countries from "~/assets/data/countries.json";
+import {
+  Listbox,
+  ListboxButton,
+  ListboxOptions,
+  ListboxOption,
+} from "@headlessui/vue";
 
 const { t } = useI18n();
 const router = useRouter();
 const { locale } = useI18n();
-const form = reactive({
-  email: "",
-  password: "",
-});
-const selectedCountryName = ref("");
+const localePath = useLocalePath();
 
+const form = reactive({
+  firstName: "",
+  lastName: "",
+  email: "",
+  phone: null,
+  password: "",
+  password_confirmation: "",
+});
+const terms = ref(false);
+const email = useCookie("langua_email_otp");
+const selectedCountryCode = ref("");
 const showPassword = ref(false);
+const showPasswordConfirmation = ref(false);
 const tokenCookie = useCookie("langua_token");
 const backendError = ref("");
+const selectedStage = ref(null);
+const selectedGrade = ref(null);
+const stages = ref([]);
+const grades = ref([]);
+const isSubmitting = ref(false);
+const openTermsPopup = ref(false);
 
 const onCountryChanged = (country) => {
-  selectedCountryName.value = country.name;
   console.log("Country changed to:", country);
+  selectedCountryCode.value = country?.phone[0];
 };
 
 const validationSchema = yup.object({
+  firstName: yup
+    .string()
+    .required(t("validation.first_name_required"))
+    .trim()
+    .min(2, t("validation.first_name_min")),
+  lastName: yup
+    .string()
+    .required(t("validation.last_name_required"))
+    .trim()
+    .min(2, t("validation.last_name_min")),
   email: yup
     .string()
     .required(t("validation.email_required"))
-    .email(t("validation.email_invalid")),
-  password: yup.string().required(t("validation.password_required")),
+    .email(t("validation.email_invalid"))
+    .trim()
+    .lowercase(),
+  phone: yup.string().required(t("validation.phone_required")),
+  stage: yup.object().required(t("validation.stage_required")),
+  grade: yup.object().required(t("validation.grade_required")),
+  password: yup
+    .string()
+    .required(t("validation.password_required"))
+    .min(8, t("validation.password_min"))
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
+      t("validation.password_strength")
+    ),
+  password_confirmation: yup
+    .string()
+    .oneOf([yup.ref("password")], t("validation.password_mismatch"))
+    .required(t("validation.password_confirmation_required")),
 });
 
-const handleSubmit = async () => {
+const clearStage = () => {
+  selectedStage.value = null;
+  selectedGrade.value = null;
+  grades.value = [];
+};
+
+const clearGrade = () => {
+  selectedGrade.value = null;
+};
+
+const handleSubmit = async (values) => {
+  if (isSubmitting.value) return;
+
   backendError.value = "";
+  isSubmitting.value = true;
+
   try {
+    // Validate required fields
+    if (!selectedStage.value?.id || !selectedGrade.value?.id) {
+      backendError.value = t("validation.stage_grade_required");
+      return;
+    }
     const userData = {
-      email: form.email,
-      password: form.password,
+      first_name: values.firstName.trim(),
+      last_name: values.lastName.trim(),
+      email: values.email.trim().toLowerCase(),
+      phone: values.phone,
+      password: values.password,
+      password_confirmation: values.password_confirmation,
+      academic_stage_id: selectedStage.value.id,
+      academic_year_id: selectedGrade.value.id,
+      country_code: selectedCountryCode.value
+        ? selectedCountryCode.value
+        : "+966",
+      terms: terms.value ? 1 : 0,
     };
+
     const result = await apiRequest(
       "POST",
       "/auth/register",
@@ -409,13 +788,65 @@ const handleSubmit = async () => {
       tokenCookie.value,
       locale.value
     );
-    tokenCookie.value = result?.data?.access_token;
-    router.push("/");
+    if (result?.data?.access_token) {
+      tokenCookie.value = result.data?.access_token;
+      email.value = values?.email;
+      router.push(localePath("/auth/otp?type=register"));
+    } else {
+      throw new Error("Registration failed - no token received");
+    }
   } catch (error) {
-    console.error("Error logging in:", error);
-    backendError.value = error?.response?.data?.message;
+    console.error("Error registering:", error);
+    backendError.value =
+      error?.response?.data?.message ||
+      error?.message ||
+      t("validation.registration_failed");
+  } finally {
+    isSubmitting.value = false;
   }
 };
+
+const getGrades = async (stageId) => {
+  if (!stageId) return;
+
+  try {
+    grades.value = await apiRequest(
+      "GET",
+      `/academic-years?academic_stage=${stageId}&page=0&limit=0`,
+      {},
+      {},
+      tokenCookie.value,
+      locale.value
+    );
+  } catch (error) {
+    console.error("Failed to load grades:", error);
+    grades.value = [];
+  }
+};
+
+// Watch for stage changes to reset grade selection
+watch(selectedStage, (newStage) => {
+  if (newStage?.id) {
+    selectedGrade.value = null;
+    getGrades(newStage.id);
+  }
+});
+
+onMounted(async () => {
+  try {
+    stages.value = await apiRequest(
+      "GET",
+      "/academic-stages?page=0&limit=0",
+      {},
+      {},
+      tokenCookie.value,
+      locale.value
+    );
+  } catch (error) {
+    console.error("Failed to load stages:", error);
+    stages.value = [];
+  }
+});
 </script>
 
 <style>

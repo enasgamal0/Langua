@@ -194,6 +194,7 @@ import { apiRequest, get, post, put, del } from "~/utils/api";
 
 const { t } = useI18n();
 const router = useRouter();
+const route = useRoute();
 const { locale } = useI18n();
 const form = reactive({
   digit1: "",
@@ -315,7 +316,11 @@ const handleSubmit = async () => {
       tokenCookie.value,
       locale.value
     );
-    router.push("/auth/reset_password");
+    if (route?.query?.type == "register") {
+      router.push("/auth/success?type=register");
+    } else if (route?.query?.type == "password") {
+      router.push("/auth/reset_password");
+    }
   } catch (error) {
     console.error("Error verifying OTP:", error);
     backendError.value = error?.response?.data?.message;

@@ -2,7 +2,7 @@
   <div
     data-aos="zoom-in"
     class="relative hover:scale-[1.02] transition duration-300 ease-in-out cursor-pointer"
-    :class="`w-[${width}]`"
+    :class="`w-[${width || `200px`}]`"
   >
     <button
       class="flex items-center text-white font-[700] cursor-pointer"

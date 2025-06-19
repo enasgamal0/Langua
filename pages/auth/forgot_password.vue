@@ -132,7 +132,7 @@ const handleSubmit = async () => {
     );
     email.value = form.email;
     tokenCookie.value = result?.data?.access_token;
-    router.push("/auth/otp");
+    router.push("/auth/otp?type=password");
   } catch (error) {
     console.error("Error logging in:", error);
     backendError.value = error?.response?.data?.message;
