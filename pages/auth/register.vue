@@ -647,7 +647,7 @@
               width="100%"
               font_size="18px"
               :disabled="Object.keys(errors).length > 0 || isSubmitting"
-              :loading="isSubmitting"
+              :pending="isSubmitting"
             />
           </VeeForm>
           <div class="mt-12 flex justify-center text-[16px]">

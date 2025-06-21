@@ -1,18 +1,21 @@
 <template>
   <div
-    data-aos="zoom-in"
-    class="relative hover:scale-[1.02] transition duration-300 ease-in-out cursor-pointer"
-    :class="`w-[${width || `200px`}]`"
+    class="relative hover:scale-[1.02] transition duration-300 ease-in-out"
+    :class="`w-[${width || `200px`}]`, pending ? 'cursor-not-allowed' : 'cursor-pointer'"
   >
     <button
-      class="flex items-center text-white font-[700] cursor-pointer"
+      class="flex items-center text-white font-[700]"
+      :class="pending ? 'cursor-not-allowed' : 'cursor-pointer'"
       :style="{ backgroundColor: bgColor, width: width, fontSize: font_size }"
       :disabled="pending"
     >
-      <UIButtonLoader v-if="pending" />
+      <div v-if="pending" class="flex justify-center items-center gap-3 px-3 h-[48px] m-auto">
+        <UIButtonLoader />
+      </div>
       <div v-else class="flex justify-center items-center gap-3 px-3 h-[48px] m-auto">
         <img v-if="icon" :alt="content" :src="icon" class="w-[20px] h-[20px]" />
         <span>{{ content }}</span>
+        <img v-if="hasArrow" src="/arrow_nav.png" class="w-[24px] h-[24px]" />
       </div>
     </button>
     <div
@@ -35,6 +38,7 @@ const props = defineProps({
   },
   pending: {
     type: Boolean,
+    default: false,
   },
   bgColor: {
     type: String,
@@ -59,6 +63,10 @@ const props = defineProps({
   font_size: {
     type: String,
     default: "14px",
+  },
+  hasArrow: {
+    type: Boolean,
+    default: false,
   },
 });
 </script>

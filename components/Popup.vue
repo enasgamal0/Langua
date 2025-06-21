@@ -6,7 +6,8 @@
   >
     <div
       ref="modalRef"
-      class="relative w-full max-w-3xl p-6 bg-white bg-no-repeat mx-5"
+      class="relative w-full p-6 bg-white bg-no-repeat mx-5"
+      :class="type == 'logout' ? 'max-w-xl' : 'max-w-3xl'"
       style="
         background-image: url('/slider_top.png'), url('/slider_bottom.png');
         background-position: top 0 right 0, bottom 0 left 0;
@@ -34,20 +35,39 @@
       >
         {{ $t("static_pages.privacy") }}
       </h2>
+      <h2
+        class="text-center text-[24px] font-[700] mb-3"
+        v-if="type === 'logout'"
+      >
+        {{ $t("static_pages.logout") }}
+      </h2>
+
+      <p
+        v-if="type === 'logout'"
+        class="text-center text-[16px] font-[400] text-[#202020] mb-8"
+      >
+        {{ $t("static_pages.logout_desc") }}
+      </p>
 
       <!-- Image -->
       <div class="flex justify-center mb-4">
         <img
-          v-if="type === 'terms'"
+          v-if="type == 'terms'"
           src="/terms.png"
           alt="Terms Icon"
           class="w-[106px] h-[120px]"
         />
         <img
-          v-if="type === 'privacy'"
+          v-if="type == 'privacy'"
           src="/privacy.png"
           alt="Privacy Icon"
           class="w-[111px] h-[120px]"
+        />
+        <img
+          v-if="type == 'logout'"
+          src="/logout_img.png"
+          alt="Logout Icon"
+          class="w-[120px] h-[120px]"
         />
       </div>
 
@@ -57,6 +77,20 @@
       >
         <div v-if="type === 'terms'" v-html="terms_ar"></div>
         <div v-if="type === 'privacy'" v-html="privacy_ar"></div>
+      </div>
+
+      <!-- Logout Button -->
+      <div
+        v-if="type === 'logout'"
+        class="flex items-center justify-center mt-4 mb-2 text-[#DC3545] cursor-pointer transition-colors duration-200"
+        @click="handleLogout"
+      >
+        <div
+          class="flex items-center justify-center gap-3 border border-[#DC3545] px-5 py-2 hover:bg-red-50 w-[314px] h-[48px]"
+        >
+          <img src="/logout.png" class="w-[20px] h-[20px]" />
+          <span>{{ $t("nav.logout") }}</span>
+        </div>
       </div>
     </div>
   </div>
@@ -75,6 +109,15 @@ const handleClickOutside = (e) => {
   if (modalRef.value && !modalRef.value.contains(e.target)) {
     emit("close");
   }
+};
+
+const handleLogout = () => {
+  apiRequest("POST", "/auth/logout");
+  const languaCookie = useCookie("langua_token");
+  languaCookie.value = null;
+  document.body.classList.remove("overflow-hidden");
+  emit("close");
+  navigateTo(localePath("/"));
 };
 
 watch(

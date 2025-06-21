@@ -7,7 +7,14 @@
     "contact": "Contact Us",
     "menu": "Menu",
     "placement_test": "Placement Test",
-    "login": "Login"
+    "login": "Login",
+    "notifications": "Notifications",
+    "profile": "Profile",
+    "profile_settings": "Profile Settings",
+    "my_courses": "My Courses",
+    "favorites": "Favorites",
+    "subscriptions": "Subscriptions",
+    "logout": "Logout"
   },
   "language": {
     "current": "English"
@@ -71,7 +78,9 @@
   },
   "static_pages": {
     "terms": "Terms and Use",
-    "privacy": "Privacy Policy"
+    "privacy": "Privacy Policy",
+    "logout": "Logout",
+    "logout_desc": "Are you sure you want to logout?"
   },
   "bread_crumb": {
     "about": "About Langua Learn",

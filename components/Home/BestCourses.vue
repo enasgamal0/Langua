@@ -24,6 +24,7 @@
       <CourseCard
         v-for="course in courses"
         :key="course.title"
+        :id="course.id"
         :title="course.title"
         :grade="course.grade"
         :stage="course.stage"
@@ -50,6 +51,7 @@ const { t, locale } = useI18n();
 
 const courses = [
   {
+    id: 1,
     title: t("S4.course1_title"),
     grade: t("S4.course_grade"),
     stage: t("S4.course_stage"),
@@ -59,6 +61,7 @@ const courses = [
     is_fav: true,
   },
   {
+    id: 2,
     title: t("S4.course2_title"),
     grade: t("S4.course_grade"),
     stage: t("S4.course_stage"),
@@ -68,6 +71,7 @@ const courses = [
     is_fav: false,
   },
   {
+    id: 3,
     title: t("S4.course3_title"),
     grade: t("S4.course_grade"),
     stage: t("S4.course_stage"),
@@ -77,6 +81,7 @@ const courses = [
     is_fav: true,
   },
   {
+    id: 4,
     title: t("S4.course4_title"),
     grade: t("S4.course_grade"),
     stage: t("S4.course_stage"),

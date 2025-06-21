@@ -180,6 +180,7 @@
               width="100%"
               font_size="18px"
               :disabled="Object.keys(errors).length > 0"
+              :pending="isSubmitting"
             />
           </VeeForm>
         </div>
@@ -198,6 +199,7 @@ configure({
   validateOnInput: true,
   validateOnModelUpdate: true,
 });
+const isSubmitting = ref(false);
 const { t } = useI18n();
 const router = useRouter();
 const route = useRoute();
@@ -310,6 +312,7 @@ const handleSubmit = async () => {
   backendError.value = "";
   resendSuccess.value = "";
   try {
+    isSubmitting.value = true;
     const otpCode = form.digit1 + form.digit2 + form.digit3 + form.digit4;
     const userData = {
       code: otpCode,
@@ -330,6 +333,8 @@ const handleSubmit = async () => {
   } catch (error) {
     console.error("Error verifying OTP:", error);
     backendError.value = error?.response?.data?.message;
+  } finally {
+    isSubmitting.value = false;
   }
 };
 

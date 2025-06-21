@@ -72,19 +72,24 @@
         </div>
       </div>
 
-      <BaseButton
-        :content="$t('S4.course_details')"
-        border-color="#E77C5A"
-        bg-color="#4B007D"
-        width="200px"
-        class="m-auto !mb-2 z-50"
-      />
+      <NuxtLink :to="localePath('/courses/' + id)">
+        <BaseButton
+          :content="$t('S4.course_details')"
+          border-color="#E77C5A"
+          bg-color="#4B007D"
+          width="200px"
+          class="m-auto !mb-2 z-50"
+        />
+      </NuxtLink>
     </div>
   </div>
 </template>
 
 <script setup>
 const props = defineProps({
+  id: {
+    type: String,
+  },
   title: {
     type: String,
   },

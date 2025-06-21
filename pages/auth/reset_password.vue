@@ -233,6 +233,7 @@
               width="100%"
               font_size="18px"
               :disabled="Object.keys(errors).length > 0"
+              :pending="isSubmitting"
             />
           </VeeForm>
         </div>
@@ -258,7 +259,7 @@ const form = reactive({
   password: "",
   password_confirmation: "",
 });
-
+const isSubmitting = ref(false);
 const tokenCookie = useCookie("langua_token");
 const backendError = ref("");
 const showPassword = ref(false);
@@ -272,6 +273,7 @@ const validationSchema = yup.object({
 });
 
 const handleSubmit = async () => {
+  isSubmitting.value = true;
   backendError.value = "";
   try {
     const userData = {
@@ -290,6 +292,8 @@ const handleSubmit = async () => {
   } catch (error) {
     console.error("Error logging in:", error);
     backendError.value = error?.response?.data?.message;
+  } finally {
+    isSubmitting.value = false;
   }
 };
 </script>
