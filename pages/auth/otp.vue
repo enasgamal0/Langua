@@ -191,7 +191,13 @@
 <script setup>
 import * as yup from "yup";
 import { apiRequest, get, post, put, del } from "~/utils/api";
-
+import { configure } from "vee-validate";
+configure({
+  validateOnBlur: true,
+  validateOnChange: true,
+  validateOnInput: true,
+  validateOnModelUpdate: true,
+});
 const { t } = useI18n();
 const router = useRouter();
 const route = useRoute();

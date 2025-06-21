@@ -11,7 +11,11 @@
           <img
             v-if="selectedCountry?.image"
             :src="selectedCountry.image"
-            :alt="locale === 'ar' ? selectedCountry.name_ar || selectedCountry.name : selectedCountry.name"
+            :alt="
+              locale === 'ar'
+                ? selectedCountry.name_ar || selectedCountry.name
+                : selectedCountry.name
+            "
             class="w-5 h-3 mr-2 object-cover"
           />
           <span class="text-gray-700 text-sm font-medium">
@@ -59,11 +63,15 @@
             >
               <img
                 :src="country.image"
-                :alt="locale === 'ar' ? country.name_ar || country.name : country.name"
+                :alt="
+                  locale === 'ar'
+                    ? country.name_ar || country.name
+                    : country.name
+                "
                 class="w-5 h-3 mr-3 object-cover"
               />
               <span class="flex-1 text-sm text-gray-900">{{
-                locale === 'ar' ? country.name_ar || country.name : country.name
+                locale === "ar" ? country.name_ar || country.name : country.name
               }}</span>
               <span class="text-sm text-gray-500 font-medium">{{
                 (country.phone && country.phone[0]) || "N/A"
@@ -77,13 +85,17 @@
       <input
         v-model="phoneNumber"
         type="tel"
-        class="flex-1 px-4 py-3  border border-l-0 border-[#EEEDEE] focus:outline-none focus:ring-2 focus:ring-[#4B007D]"
+        class="flex-1 px-4 py-3 border border-l-0 border-[#EEEDEE] focus:outline-none focus:ring-2 focus:ring-[#4B007D]"
         @input="onPhoneNumberInput"
       />
     </div>
 
     <!-- Validation Message -->
-    <p v-if="validationMessage" class="mt-1 text-sm text-red-600" :dir="locale == 'ar' ? 'rtl' : 'ltr'">
+    <p
+      v-if="validationMessage"
+      class="mt-1 text-sm text-red-500"
+      :dir="locale == 'ar' ? 'rtl' : 'ltr'"
+    >
       {{ validationMessage }}
     </p>
   </div>
@@ -167,7 +179,7 @@ const selectCountry = (country) => {
 const onPhoneNumberInput = () => {
   // Check if user typed a country code manually
   handleManualCountryCodeInput();
-  
+
   updateModelValue();
 
   if (props.validate) {
@@ -179,12 +191,15 @@ const updateModelValue = () => {
   if (selectedCountry.value?.phone?.[0]) {
     // Don't clean the number if it already starts with the country code
     let numberToProcess = phoneNumber.value;
-    
+
     // If user typed the country code, extract just the local number
     if (numberToProcess.startsWith(selectedCountry.value.phone[0])) {
-      numberToProcess = numberToProcess.replace(selectedCountry.value.phone[0], "");
+      numberToProcess = numberToProcess.replace(
+        selectedCountry.value.phone[0],
+        ""
+      );
     }
-    
+
     const cleanNumber = numberToProcess.replace(/[^\d\s-]/g, "");
     const digitsOnly = cleanNumber.replace(/[\s-]/g, "");
     const fullNumber = selectedCountry.value.phone[0] + digitsOnly;
@@ -208,7 +223,9 @@ const validatePhoneNumber = () => {
   const expectedLength = selectedCountry.value.phoneLength || 10;
 
   if (digitsOnly.length != expectedLength) {
-    validationMessage.value = t("validation.phone_length", { length: expectedLength });
+    validationMessage.value = t("validation.phone_length", {
+      length: expectedLength,
+    });
   } else {
     validationMessage.value = "";
   }
@@ -216,18 +233,21 @@ const validatePhoneNumber = () => {
 
 const handleManualCountryCodeInput = () => {
   if (!phoneNumber.value || !props.countries) return;
-  
+
   // Check if user typed a country code manually (starts with +)
-  if (phoneNumber.value.startsWith('+')) {
+  if (phoneNumber.value.startsWith("+")) {
     const matchingCountry = props.countries.find(
       (c) => c?.phone?.[0] && phoneNumber.value.startsWith(c.phone[0])
     );
-    
+
     if (matchingCountry && matchingCountry !== selectedCountry.value) {
       // Switch to the matching country
       selectedCountry.value = matchingCountry;
       // Remove the country code from the input
-      phoneNumber.value = phoneNumber.value.replace(matchingCountry.phone[0], "");
+      phoneNumber.value = phoneNumber.value.replace(
+        matchingCountry.phone[0],
+        ""
+      );
       emit("country-changed", matchingCountry);
     }
   }
@@ -235,16 +255,16 @@ const handleManualCountryCodeInput = () => {
 
 const initializeDefaultCountry = () => {
   if (!props.countries || props.countries.length === 0) return null;
-  
+
   // First try to find the default country (SA)
   const defaultCountry = props.countries.find(
     (c) => c?.iso?.alpha2 === props.defaultCountry && c?.phone?.[0]
   );
-  
+
   if (defaultCountry) {
     return defaultCountry;
   }
-  
+
   // Fallback to first valid country
   return props.countries.find((c) => c?.phone?.[0]) || props.countries[0];
 };
@@ -252,7 +272,7 @@ const initializeDefaultCountry = () => {
 const parseInitialValue = () => {
   // Only parse if there's a modelValue and we haven't initialized yet
   if (!props.modelValue || isInitialized.value) return false;
-  
+
   if (props.countries && props.countries.length > 0) {
     // Find matching country by phone code
     const matchingCountry = props.countries.find(
@@ -273,10 +293,10 @@ const parseInitialValue = () => {
 
 const initialize = () => {
   if (isInitialized.value) return;
-  
+
   // First, try to parse any existing modelValue
   const hasExistingValue = parseInitialValue();
-  
+
   // If no existing value was parsed, set default country
   if (!hasExistingValue) {
     const defaultCountry = initializeDefaultCountry();
@@ -284,7 +304,7 @@ const initialize = () => {
       selectedCountry.value = defaultCountry;
     }
   }
-  
+
   isInitialized.value = true;
 };
 
@@ -306,7 +326,7 @@ watch(
   () => props.modelValue,
   (newValue) => {
     if (!isInitialized.value) return;
-    
+
     if (newValue && props.countries && props.countries.length > 0) {
       const country = props.countries.find(
         (c) => c?.phone?.[0] && newValue.startsWith(c.phone[0])

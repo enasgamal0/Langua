@@ -146,6 +146,13 @@
     "select_stage_first": "Stage is required",
     "stage_required": "Stage is required",
     "grade_required": "Grade is required",
-    "terms_required": "Accepting Terms and Conditions is required"
+    "terms_required": "Accepting Terms and Conditions is required",
+    "first_name_min": "First Name should be at least 2 characters long",
+    "first_name_max": "First Name should be at most 20 characters long",
+    "last_name_min": "Last Name should be at least 2 characters long",
+    "last_name_max": "Last Name should be at most 20 characters long",
+    "password_min": "Password should be at least 8 characters long",
+    "password_strength": "Password must contain at least one uppercase letter, one lowercase letter, and one number",
+    "password_confirmation": "Password Confirmation is required"
   }
 }

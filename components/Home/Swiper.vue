@@ -89,7 +89,12 @@
               />
 
               <div
-                class="absolute bottom-0"
+                class="absolute bottom-0 bg-[#00000033] h-[100%] w-[100%]"
+              >
+              </div>
+
+              <div
+                class="absolute bottom-0 z-[999]"
                 :class="{ 'rotate-180': $i18n.locale == 'en' }"
               >
                 <img

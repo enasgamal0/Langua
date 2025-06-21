@@ -676,7 +676,13 @@ import {
   ListboxOptions,
   ListboxOption,
 } from "@headlessui/vue";
-
+import { configure } from "vee-validate";
+configure({
+  validateOnBlur: true,
+  validateOnChange: true,
+  validateOnInput: true,
+  validateOnModelUpdate: true,
+});
 const { t } = useI18n();
 const router = useRouter();
 const { locale } = useI18n();
@@ -714,12 +720,14 @@ const validationSchema = yup.object({
     .string()
     .required(t("validation.first_name_required"))
     .trim()
-    .min(2, t("validation.first_name_min")),
+    .min(2, t("validation.first_name_min"))
+    .max(20, t("validation.first_name_max")),
   lastName: yup
     .string()
     .required(t("validation.last_name_required"))
     .trim()
-    .min(2, t("validation.last_name_min")),
+    .min(2, t("validation.last_name_min"))
+    .max(20, t("validation.last_name_max")),
   email: yup
     .string()
     .required(t("validation.email_required"))
