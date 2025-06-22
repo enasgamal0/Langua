@@ -85,7 +85,8 @@
       <input
         v-model="phoneNumber"
         type="tel"
-        class="flex-1 px-4 py-3 border border-l-0 border-[#EEEDEE] focus:outline-none focus:ring-2 focus:ring-[#4B007D]"
+        class="flex-1 px-4 py-3 border border-l-0 focus:outline-none focus:ring-2 focus:ring-[#4B007D]"
+        :class="validationMessage ? 'border-red-500' : 'border-[#EEEDEE]'"
         @input="onPhoneNumberInput"
       />
     </div>

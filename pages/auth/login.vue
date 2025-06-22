@@ -5,18 +5,18 @@
       :desc="$t('bread_crumb.login_desc')"
     />
     <div
-      class="bg-no-repeat py-10 lg:px-20 lg:m-20 m-10"
+      class="bg-no-repeat py-10 lg:px-20 lg:!m-20 m-5"
       style="
         background-image: url('/slider_top.png'), url('/slider_bottom.png');
         background-position: top 0 right 0, bottom 0 left 0;
       "
     >
-      <div class="flex flex-wrap justify-center gap-10">
+      <div class="flex flex-wrap justify-center gap-10 mx-10 lg:!mx-0">
         <div class="w-[80%] lg:!w-[50%]">
           <img
             src="/auth.png"
             alt="Auth Img"
-            class="m-auto"
+            class="m-auto hidden lg:!block"
             data-aos="zoom-in"
           />
         </div>
@@ -177,7 +177,7 @@
               :pending="isSubmitting"
             />
           </VeeForm>
-          <div class="mt-12 flex justify-center text-[16px]">
+          <div class="mt-12 flex justify-center xl:!text-[16px] text-[14px]">
             <span>{{ $t("auth.dont_have_account") }}</span>
             <NuxtLink
               :to="localePath('/auth/register')"

@@ -13,12 +13,12 @@
         background-position: top 0 right 0, bottom 0 left 0;
       "
     >
-      <div class="flex flex-wrap justify-center gap-10">
+      <div class="flex flex-wrap justify-center gap-10 mx-10 lg:!mx-0">
         <div class="w-[80%] lg:!w-[50%]">
           <img
             src="/auth.png"
             alt="Auth Img"
-            class="m-auto"
+            class="m-auto hidden lg:!block"
             data-aos="zoom-in"
           />
         </div>

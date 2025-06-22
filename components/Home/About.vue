@@ -1,6 +1,7 @@
 <template>
   <div
-    class="flex flex-wrap py-20 bg-no-repeat about_bg items-center"
+    v-if="!loading"
+    class="flex flex-wrap pt-10 pb-20 bg-no-repeat about_bg items-center"
     style="
       background-image: url('/about_top.png'), url('/about_bottom.png');
       background-position: bottom 400px right 48px, bottom 50px left 48px;
@@ -11,7 +12,7 @@
       <img
         :src="about?.data?.data[0]?.value?.image || `/about.png`"
         alt="About Langua"
-        class="lg:!w-[421px] lg:!h-[400px] w-[321px] h-[300px] m-auto"
+        class="lg:!w-[421px] lg:!h-[400px] md:!w-[321px] md:!h-[300px] w-[221px] h-[200px] m-auto"
       />
     </div>
     <div class="md:!w-[50%] w-[100%] mx-10 md:mx-0" data-aos="fade-down">
@@ -37,11 +38,15 @@
       </NuxtLink>
     </div>
   </div>
+  <div v-else>
+    <UIButtonLoader :borderColor="`#4B007D`" class="mx-auto !my-20" />
+  </div>
 </template>
 <script setup>
 const about = ref(null);
 const tokenCookie = useCookie("langua_token");
 const { locale } = useI18n();
+const loading = ref(true);
 defineProps({
   home: {
     type: Boolean,
@@ -50,6 +55,7 @@ defineProps({
 });
 
 onMounted(async () => {
+  loading.value = true;
   try {
     about.value = await apiRequest(
       "GET",
@@ -62,13 +68,16 @@ onMounted(async () => {
   } catch (error) {
     console.error("Failed to load advertisements:", error);
     about.value = null;
+  } finally {
+    loading.value = false;
   }
 });
 </script>
 <style scoped>
-@media (max-width: 570px) {
+@media (max-width: 1040px) {
   .about_bg {
-    background-position: bottom 680px right 20px, bottom 50px left 48px !important;
+    background-position: bottom 300px right 20px, bottom 50px left 48px !important;
+    background-image: url('/about_top.png'),url('') !important;
   }
 }
 </style>

@@ -74,6 +74,7 @@
 
       <div
         class="text-start text-[16px] font-[400] overflow-y-auto px-5 lg:px-16 max-h-[calc(80vh-300px)]"
+        v-if="!loading"
       >
         <div
           v-if="type === 'terms' && locale === 'ar'"
@@ -128,6 +129,7 @@
         </div>
       </div>
     </div>
+    <UIButtonLoader class="mx-auto !my-20" v-if="loading" />
   </div>
 </template>
 
@@ -146,6 +148,7 @@ const tokenCookie = useCookie("langua_token");
 const OtpTokenCookie = useCookie("langua_otp_token");
 const router = useRouter();
 const localePath = useLocalePath();
+const loading = ref(true);
 const handleClickOutside = (e) => {
   if (modalRef.value && !modalRef.value.contains(e.target)) {
     emit("close");
@@ -176,28 +179,39 @@ watch(
 );
 
 onMounted(() => {
-  const termsResponse = apiRequest(
-    "GET",
-    "/settings?key=terms_and_conditions",
-    {},
-    {},
-    tokenCookie.value,
-    locale.value
-  );
-  const privacyResponse = apiRequest(
-    "GET",
-    "/settings?key=privacy_policy",
-    {},
-    {},
-    tokenCookie.value,
-    locale.value
-  );
-  termsResponse.then((response) => {
-    terms.value = response?.data?.data[0];
-  });
-  privacyResponse.then((response) => {
-    privacy.value = response?.data?.data[0];
-  });
+  loading.value = true;
+  if (props.type === "terms") {
+    const termsResponse = apiRequest(
+      "GET",
+      "/settings?key=terms_and_conditions",
+      {},
+      {},
+      tokenCookie.value,
+      locale.value
+    );
+    termsResponse.then((response) => {
+      terms.value = response?.data?.data[0];
+      loading.value = false;
+    });
+  }
+  if (props.type === "privacy") {
+    const privacyResponse = apiRequest(
+      "GET",
+      "/settings?key=privacy_policy",
+      {},
+      {},
+      tokenCookie.value,
+      locale.value
+    );
+
+    privacyResponse.then((response) => {
+      privacy.value = response?.data?.data[0];
+      loading.value = false;
+    });
+  }
+  if (props.type === "logout") {
+    loading.value = false;
+  }
 });
 
 onUnmounted(() => {

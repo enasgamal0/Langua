@@ -13,7 +13,7 @@
       v-if="route?.query?.type == 'register'"
     />
     <div
-      class="bg-no-repeat py-10 lg:px-20 lg:m-20 m-10"
+      class="bg-no-repeat py-10 lg:px-20 lg:!m-20 m-5"
       style="
         background-image: url('/slider_top.png'), url('/slider_bottom.png');
         background-position: top 0 right 0, bottom 0 left 0;

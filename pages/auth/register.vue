@@ -5,22 +5,22 @@
       :desc="$t('bread_crumb.register_desc')"
     />
     <div
-      class="bg-no-repeat py-10 lg:px-20 lg:m-20 m-10"
+      class="bg-no-repeat py-10 lg:px-20 lg:!m-20 m-5"
       style="
         background-image: url('/slider_top.png'), url('/slider_bottom.png');
         background-position: top 0 right 0, bottom 0 left 0;
       "
     >
-      <div class="flex flex-wrap justify-center gap-15">
-        <div class="w-[80%] lg:!w-[50%]">
+      <div class="flex flex-wrap justify-center items-center gap-15 mx-10 lg:!mx-0">
+        <div class="w-[80%] xl:!w-[30%]">
           <img
             src="/register.png"
             alt="Auth Img"
-            class="m-auto"
+            class="m-auto w-[50%] xl:!w-auto hidden lg:!block"
             data-aos="zoom-in"
           />
         </div>
-        <div class="w-[90%] lg:!w-[40%]">
+        <div class="w-[90%] xl:!w-[60%]">
           <VeeForm
             @submit="handleSubmit"
             :validation-schema="validationSchema"
@@ -153,7 +153,7 @@
             </div>
 
             <!-- Stage and Grade Fields -->
-            <div class="flex gap-3">
+            <div class="flex flex-wrap lg:!flex-nowrap gap-3">
               <!-- Stage Field - Fixed Version -->
               <div class="w-[100%]">
                 <label
@@ -195,7 +195,7 @@
                             selectedStage.name
                           }}</span>
                           <span
-                            class="absolute inset-y-0 right-0 flex items-center pr-2"
+                            class="absolute inset-y-0 start-0 flex items-center ps-2"
                           >
                             <img
                               alt="stage"
@@ -263,7 +263,7 @@
                               active
                                 ? 'bg-[#4d008033] text-[#4d0080]'
                                 : 'text-gray-900',
-                              'relative cursor-default select-none py-2 pl-10 pr-4',
+                              'relative cursor-default select-none py-2 pe-10 ps-4',
                             ]"
                           >
                             <span
@@ -275,7 +275,7 @@
                             >
                             <span
                               v-if="selected"
-                              class="absolute inset-y-0 left-0 flex items-center pl-3 text-[#4d0080]"
+                              class="absolute inset-y-0 end-0 flex items-center pe-3 text-[#4d0080]"
                             >
                               <img
                                 alt="check"
@@ -295,7 +295,7 @@
                 />
               </div>
 
-              <!-- Grade Field - Fixed Version -->
+              <!-- Grade Field -->
               <div class="w-[100%]">
                 <label
                   for="select_grade"
@@ -343,7 +343,7 @@
                             selectedGrade.name
                           }}</span>
                           <span
-                            class="absolute inset-y-0 right-0 flex items-center pr-2"
+                            class="absolute inset-y-0 start-0 flex items-center ps-2"
                           >
                             <img
                               alt="grade"
@@ -393,7 +393,7 @@
                       >
                         <ListboxOption
                           v-if="!grades?.data?.data?.length"
-                          class="relative cursor-default select-none py-2 pl-10 pr-4 text-gray-500"
+                          class="relative cursor-default select-none py-2 pe-10 pe-4 text-gray-500"
                           disabled
                         >
                           {{ $t("auth.no_grades_available") }}
@@ -418,7 +418,7 @@
                               active
                                 ? 'bg-[#4d008033] text-[#4d0080]'
                                 : 'text-gray-900',
-                              'relative cursor-default select-none py-2 pl-10 pr-4',
+                              'relative cursor-default select-none py-2 pe-10 ps-4',
                             ]"
                           >
                             <span
@@ -430,7 +430,7 @@
                             >
                             <span
                               v-if="selected"
-                              class="absolute inset-y-0 left-0 flex items-center pl-3 text-[#4d0080]"
+                              class="absolute inset-y-0 end-0 flex items-center pe-3 text-[#4d0080]"
                             >
                               <img
                                 alt="check"
@@ -470,7 +470,7 @@
                       'border-red-500': errors.password,
                       'border-[#EEEDEE]': !errors.password,
                     }"
-                    class="w-full px-4 py-3 pr-12 pl-12 border outline-none focus:ring-2 focus:ring-[#4B007D] placeholder:text-[#A3A2A3] placeholder:text-[14px] text-start"
+                    class="w-full px-4 py-3 ps-12 pe-12 border outline-none focus:ring-2 focus:ring-[#4B007D] placeholder:text-[#A3A2A3] placeholder:text-[14px] text-start"
                   />
                   <!-- Password toggle button -->
                   <button
@@ -546,7 +546,7 @@
                       'border-red-500': errors.password_confirmation,
                       'border-[#EEEDEE]': !errors.password_confirmation,
                     }"
-                    class="w-full px-4 py-3 pr-12 pl-12 border outline-none focus:ring-2 focus:ring-[#4B007D] placeholder:text-[#A3A2A3] placeholder:text-[14px] text-start"
+                    class="w-full px-4 py-3 ps-12 pe-12 border outline-none focus:ring-2 focus:ring-[#4B007D] placeholder:text-[#A3A2A3] placeholder:text-[14px] text-start"
                   />
                   <!-- Password toggle button -->
                   <button

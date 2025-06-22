@@ -33,7 +33,8 @@
     "rightsReserved": "All rights reserved for"
   },
   "S1": {
-    "start_learning": "Start Learning Now"
+    "start_learning": "Start Learning Now",
+    "desc": "From elementary to secondary school, the Langua Learn platform helps you develop English language skills in an engaging and interactive way."
   },
   "S2": {
     "title": "About Us",
@@ -94,7 +95,8 @@
     "register_otp": "Account Activation"
   },
   "faq": {
-    "desc": "Explore the most common questions about"
+    "desc": "Explore the most common questions about",
+    "no_faq": "There's no added questions"
   },
   "auth": {
     "login": "Login",

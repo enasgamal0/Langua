@@ -19,12 +19,12 @@
         background-position: top 0 right 0, bottom 0 left 0;
       "
     >
-      <div class="flex flex-wrap justify-center gap-10">
+      <div class="flex flex-wrap justify-center gap-10 mx-10 lg:!mx-0">
         <div class="w-[80%] lg:!w-[50%]">
           <img
             src="/auth.png"
             alt="Auth Img"
-            class="m-auto"
+            class="m-auto hidden lg:!block"
             data-aos="zoom-in"
           />
         </div>
@@ -46,7 +46,7 @@
               <label class="block text-[16px] font-[400] text-[#202020] mb-5">
                 {{ $t("auth.enter_otp") }}
               </label>
-              <div class="flex justify-between gap-2" dir="ltr">
+              <div class="flex justify-center lg:!justify-between gap-2" dir="ltr">
                 <div>
                   <input
                     v-model="form.digit1"
@@ -60,7 +60,7 @@
                       'border-red-500': hasError('digit1'),
                       'border-[#EEEDEE]': !hasError('digit1'),
                     }"
-                    class="w-[102.5px] h-[50px] px-4 py-3 border outline-none focus:ring-2 focus:ring-[#4B007D] placeholder:text-[#A3A2A3] placeholder:text-[14px] text-center"
+                    class="xl:!w-[102.5px] w-[50px] h-[50px] px-4 py-3 border outline-none focus:ring-2 focus:ring-[#4B007D] placeholder:text-[#A3A2A3] placeholder:text-[14px] text-center"
                     maxlength="1"
                   />
                   <VeeField v-model="form.digit1" name="digit1" type="hidden" />
@@ -78,7 +78,7 @@
                       'border-red-500': hasError('digit2'),
                       'border-[#EEEDEE]': !hasError('digit2'),
                     }"
-                    class="w-[102.5px] h-[50px] px-4 py-3 border outline-none focus:ring-2 focus:ring-[#4B007D] placeholder:text-[#A3A2A3] placeholder:text-[14px] text-center"
+                    class="xl:!w-[102.5px] w-[50px] h-[50px] px-4 py-3 border outline-none focus:ring-2 focus:ring-[#4B007D] placeholder:text-[#A3A2A3] placeholder:text-[14px] text-center"
                     maxlength="1"
                   />
                   <VeeField v-model="form.digit2" name="digit2" type="hidden" />
@@ -96,7 +96,7 @@
                       'border-red-500': hasError('digit3'),
                       'border-[#EEEDEE]': !hasError('digit3'),
                     }"
-                    class="w-[102.5px] h-[50px] px-4 py-3 border outline-none focus:ring-2 focus:ring-[#4B007D] placeholder:text-[#A3A2A3] placeholder:text-[14px] text-center"
+                    class="xl:!w-[102.5px] w-[50px] h-[50px] px-4 py-3 border outline-none focus:ring-2 focus:ring-[#4B007D] placeholder:text-[#A3A2A3] placeholder:text-[14px] text-center"
                     maxlength="1"
                   />
                   <VeeField v-model="form.digit3" name="digit3" type="hidden" />
@@ -114,7 +114,7 @@
                       'border-red-500': hasError('digit4'),
                       'border-[#EEEDEE]': !hasError('digit4'),
                     }"
-                    class="w-[102.5px] h-[50px] px-4 py-3 border outline-none focus:ring-2 focus:ring-[#4B007D] placeholder:text-[#A3A2A3] placeholder:text-[14px] text-center"
+                    class="xl:!w-[102.5px] w-[50px] h-[50px] px-4 py-3 border outline-none focus:ring-2 focus:ring-[#4B007D] placeholder:text-[#A3A2A3] placeholder:text-[14px] text-center"
                     maxlength="1"
                   />
                   <VeeField v-model="form.digit4" name="digit4" type="hidden" />

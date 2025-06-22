@@ -1,9 +1,11 @@
 <template>
   <div
     class="relative py-20 bg-no-repeat responsive-bg mx-5 lg:!mx-0"
+    v-if="!loading"
   >
     <div class="lg:!mx-20 mx-7 relative">
       <Swiper
+         v-if="advertisements || advertisements.length > 0"
         :slides-per-view="1"
         :space-between="10"
         :modules="[Autoplay, Pagination, Navigation]"
@@ -27,18 +29,18 @@
           <div class="flex flex-wrap w-full">
             <div
               data-aos="zoom-in"
-              class="bg-[#4B007D] z-50 text-white w-[100%] lg:!w-[40%] lg:!h-[390px] h-[187.5px] lg:!px-22 px-5 lg:!py-12 py-5"
+              class="bg-[#4B007D] z-50 text-white w-[100%] lg:!w-[40%] lg:!h-[390px] h-[210px] xl:!px-22 md:!px-12 px-5 lg:!py-12 py-5"
               style="background-image: url('/slider_text_bg.png')"
             >
               <h1
-                class="text-[18px] lg:!text-[40px] font-[800] leading-[1.2] mb-2 line-clamp-2"
+                class="text-[18px] 2xl:!text-[40px] xl:!text-[36px] lg:!text-[32px] font-[800] leading-[1.2] mb-2 line-clamp-2"
               >
                 {{ advertisement?.name }}
               </h1>
               <p
-                class="lg:!text-[16px] text-[12px] mt-4 mb-8 m-auto leading-[2.3] line-clamp-3 px-3"
+                class="lg:!text-[16px] text-[13px] mt-4 mb-8 m-auto leading-[2] lg:!leading-[2.3] line-clamp-3 px-3"
               >
-                {{ advertisement?.description }}aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa
+                {{ advertisement?.description }}
               </p>
               <div class="flex items-center gap-5 lg:!my-5 my-2 mx-5 lg:!mx-0">
                 <NuxtLink :to="localePath('/courses')">
@@ -54,7 +56,7 @@
             </div>
             <div
               data-aos="zoom-out"
-              class="w-[100%] lg:!w-[60%] lg:!h-[390px] h-[187.5px] relative"
+              class="w-[100%] lg:!w-[60%] lg:!h-[390px] sm:!h-[250px] h-[187.5px] relative"
             >
               <!-- Image Media -->
               <img
@@ -86,17 +88,23 @@
 
               <div
                 class="absolute bottom-0 bg-[#00000033] h-[100%] w-[100%]"
-              >
-              </div>
+              ></div>
 
               <div
-                class="absolute bottom-0 z-[999]"
+                class="absolute bottom-0 z-[999] hidden lg:!block"
                 :class="{ 'rotate-180': $i18n.locale == 'en' }"
               >
                 <img
                   src="/overlay.png"
-                  alt="Slider Layout"
+                  alt="Slider Overlay"
                   class="h-full w-[202px] z-[999]"
+                />
+              </div>
+              <div class="absolute top-0 z-[999] block lg:!hidden">
+                <img
+                  src="/overlay_top.png"
+                  alt="Slider Overlay"
+                  class="h-full w-[100vw] z-[999]"
                 />
               </div>
               <div
@@ -106,12 +114,75 @@
           </div>
         </SwiperSlide>
       </Swiper>
+      <div class="flex flex-wrap w-full" v-if="!advertisements || advertisements?.length == 0">
+        <div
+          data-aos="zoom-in"
+          class="bg-[#4B007D] z-50 text-white w-[100%] lg:!w-[40%] lg:!h-[390px] h-[210px] xl:!px-22 md:!px-12 px-5 lg:!py-12 py-5"
+          style="background-image: url('/slider_text_bg.png')"
+        >
+          <h1
+            class="text-[18px] 2xl:!text-[40px] xl:!text-[36px] lg:!text-[32px] font-[800] leading-[1.2] mb-2 line-clamp-2"
+          >
+            {{ $t("S1.start_learning") }}
+          </h1>
+          <p
+            class="lg:!text-[16px] text-[13px] mt-4 mb-8 m-auto leading-[2] lg:!leading-[2.3] line-clamp-3 px-3"
+          >
+            {{ $t("S1.desc") }}
+          </p>
+          <div class="flex items-center gap-5 lg:!my-5 my-2 mx-5 lg:!mx-0">
+            <NuxtLink :to="localePath('/courses')">
+              <BaseButton
+                :content="$t('S1.start_learning')"
+                border-color="white"
+                bg-color="#E77C5A"
+                width="200px"
+                :lg_space="true"
+              />
+            </NuxtLink>
+          </div>
+        </div>
+        <div
+          data-aos="zoom-out"
+          class="w-[100%] lg:!w-[60%] lg:!h-[390px] sm:!h-[250px] h-[187.5px] relative"
+        >
+          <!-- Image Media -->
+          <img
+            src="/hero_section.jpg"
+            alt="Advertisement Media"
+            class="w-full h-full object-cover"
+          />
+
+          <div class="absolute bottom-0 bg-[#00000033] h-[100%] w-[100%]"></div>
+
+          <div
+            class="absolute bottom-0 z-[999] hidden lg:!block"
+            :class="{ 'rotate-180': $i18n.locale == 'en' }"
+          >
+            <img
+              src="/overlay.png"
+              alt="Slider Overlay"
+              class="h-full w-[202px] z-[999]"
+            />
+          </div>
+          <div class="absolute top-0 z-[999] block lg:!hidden">
+            <img
+              src="/overlay_top.png"
+              alt="Slider Overlay"
+              class="h-full w-[100vw] z-[999]"
+            />
+          </div>
+          <div class="absolute bottom-0 h-[100%] w-[100%] bg-[#00000033]"></div>
+        </div>
+      </div>
 
       <!-- Pagination & Navigation elements -->
       <div
+        v-if="advertisements?.data?.advertisment?.length > 0"
         class="swiper-button-prev absolute left-4 top-1/2 -translate-y-1/2 z-40"
       ></div>
       <div
+        v-if="advertisements?.data?.advertisment?.length > 0"
         class="swiper-button-next absolute right-4 top-1/2 -translate-y-1/2 z-40"
       ></div>
       <div
@@ -119,6 +190,7 @@
       ></div>
     </div>
   </div>
+  <UIButtonLoader :borderColor="`#4B007D`" class="mx-auto !my-20" v-else />
 </template>
 
 <script setup>
@@ -131,6 +203,7 @@ import "swiper/css/navigation";
 const { locale } = useI18n();
 const tokenCookie = useCookie("langua_token");
 const advertisements = ref([]);
+const loading = ref(true);
 
 // Function to determine media type based on file extension
 const getMediaType = (mediaUrl) => {
@@ -170,6 +243,7 @@ const getMediaType = (mediaUrl) => {
 };
 
 onMounted(async () => {
+  loading.value = true;
   try {
     advertisements.value = await apiRequest(
       "GET",
@@ -182,6 +256,8 @@ onMounted(async () => {
   } catch (error) {
     console.error("Failed to load advertisements:", error);
     advertisements.value = [];
+  } finally {
+    loading.value = false;
   }
 });
 </script>
@@ -232,7 +308,7 @@ video::-webkit-media-controls-start-playback-button {
   display: none !important;
 }
 .responsive-bg {
-  background-image: url('/slider_top.png'), url('/slider_bottom.png');
+  background-image: url("/slider_top.png"), url("/slider_bottom.png");
   background-repeat: no-repeat;
   background-position: top 50px right 48px, bottom 50px left 48px;
   background-size: auto;

@@ -7,7 +7,7 @@
     width: 20px;
     aspect-ratio: 1;
     border-radius: 50%;
-    border: 4px solid white;
+    border: 4px solid v-bind(borderColor);
     animation: l20-1 0.8s infinite linear alternate, l20-2 1.6s infinite linear;
 }
 @keyframes l20-1 {
@@ -48,3 +48,11 @@
     }
 }
 </style>
+<script setup>
+const props = defineProps({
+    borderColor: {
+        type: String,
+        default: "white",
+    },
+});
+</script>

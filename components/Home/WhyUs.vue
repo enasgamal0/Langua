@@ -18,7 +18,7 @@
       </h1>
       <p class="text-[18px] font-[400] my-8">{{ $t("S3.subtitle") }}</p>
     </div>
-    <div class="flex flex-wrap gap-12 justify-center text-center">
+    <div class="flex flex-wrap gap-12 justify-center text-center" v-if="!loading && advantages && advantages?.data?.data?.length > 0">
       <Swiper
         :slides-per-view="
           advantages?.data?.data?.length == 1
@@ -57,7 +57,7 @@
         >
           <div
             class="bg-white w-[363px] h-[382px] pt-12 bg-no-repeat m-auto"
-            data-aos="zoom-in"
+            :data-aos="index % 2 == 0 ? `zoom-out` : `zoom-in`"
             style="
               background-image: url('/slider_top.png'),
                 url('/slider_bottom.png');
@@ -67,7 +67,7 @@
             <img
               :src="advantage?.image"
               alt="Why Us"
-              class="w-[118px] h-[128px] m-auto object-contain"
+              class="w-[118px] h-[128px] bottom-0 m-auto object-contain"
             />
             <div class="px-10">
               <h1 class="text-[24px] font-[800] my-3 line-clamp-2">
@@ -84,7 +84,7 @@
 
                 <button
                   v-if="advantage?.description?.length > 110"
-                  @click="showMore = true, feature = advantage"
+                  @click="(showMore = true), (feature = advantage)"
                   class="mt-2 text-[#4B007D] text-sm font-medium cursor-pointer"
                 >
                   {{ $t("S3.show_more") }}
@@ -101,6 +101,7 @@
         class="swiper-button-next absolute right-4 top-1/2 -translate-y-1/2 z-40"
       ></div>
     </div>
+    <UIButtonLoader class="mx-auto !my-20" v-if="loading" />
 
     <div class="mt-12">
       <NuxtLink :to="localePath('/courses')" class="block">
@@ -115,7 +116,12 @@
       </NuxtLink>
     </div>
   </div>
-  <Popup :show="showMore" @close="showMore = false" type="advantage" :advantage="feature" />
+  <Popup
+    :show="showMore"
+    @close="showMore = false"
+    type="advantage"
+    :advantage="feature"
+  />
 </template>
 <script setup>
 import { Swiper, SwiperSlide } from "swiper/vue";
@@ -128,8 +134,10 @@ const feature = ref({});
 const { locale } = useI18n();
 const advantages = ref([]);
 const tokenCookie = useCookie("langua_token");
+const loading = ref(true);
 onMounted(async () => {
   try {
+    loading.value = true;
     advantages.value = await apiRequest(
       "GET",
       `/advantage?limit=0&page=0`,
@@ -141,6 +149,8 @@ onMounted(async () => {
   } catch (error) {
     console.error("Failed to load advantages:", error);
     advantages.value = [];
+  } finally {
+    loading.value = false;
   }
 });
 </script>

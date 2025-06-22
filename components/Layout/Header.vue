@@ -1,6 +1,6 @@
 <template>
   <header
-    class="py-6 px-6 lg:px-8 xl:px-20 2xl:px-60 xl:py-7 border-b border-[#EEEDEE]"
+    class="py-6 px-6 xl:!px-8 xl:!px-20 2xl:!px-60 xl:!py-7 border-b border-[#EEEDEE]"
   >
     <div class="flex justify-between items-center">
       <!-- Logo -->
@@ -14,7 +14,7 @@
       </NuxtLink>
 
       <!-- Desktop Menu -->
-      <nav class="hidden lg:!flex xl:gap-6 gap-3 text-[15px] text-[#202020]">
+      <nav class="hidden xl:!flex xl:gap-6 gap-3 text-[15px] text-[#202020]">
         <NuxtLink
           v-for="item in navItems"
           :key="item.path"
@@ -31,7 +31,7 @@
       </nav>
 
       <!-- Right Actions (Desktop) -->
-      <div class="hidden lg:!flex items-center gap-5">
+      <div class="hidden xl:!flex items-center gap-5">
         <NuxtLink :to="localePath('/placement_test')">
           <BaseButton
             :content="$t('nav.placement_test')"
@@ -132,7 +132,7 @@
       </div>
 
       <!-- Burger Icon (Mobile) -->
-      <div class="lg:hidden cursor-pointer" @click="toggleSmallMenu">
+      <div class="xl:hidden cursor-pointer" @click="toggleSmallMenu">
         <img src="/bars.svg" class="w-[24px] h-[24px]" />
       </div>
     </div>
@@ -140,7 +140,7 @@
     <!-- Mobile Menu -->
     <div
       v-if="isSmallMenuOpen"
-      class="lg:!hidden mt-4 flex flex-col gap-3 text-[#202020] transition-all duration-300 h-[calc(100vh-64px)] pt-8 overflow-y-auto"
+      class="xl:!hidden mt-4 flex flex-col gap-3 text-[#202020] transition-all duration-300 h-[calc(100vh-64px)] pt-8 overflow-y-auto"
     >
       <!-- Regular Navigation Items -->
       <NuxtLink
@@ -221,7 +221,7 @@
       <!-- Language Switcher (Mobile) -->
       <div
         class="flex items-center gap-2 px-4 py-2 cursor-pointer hover:bg-gray-100"
-        @click="changeLanguage('en')"
+        @click="changeLanguage('en'), toggleSmallMenu()"
         v-if="locale === 'ar'"
       >
         <img src="/usa_flag.png" class="w-[20px] h-[14px]" />
@@ -229,7 +229,7 @@
       </div>
       <div
         class="flex items-center gap-2 px-4 py-2 cursor-pointer hover:bg-gray-100"
-        @click="changeLanguage('ar')"
+        @click="changeLanguage('ar'), toggleSmallMenu()"
         v-if="locale === 'en'"
       >
         <img src="/sa_flag.png" class="w-[20px] h-[14px]" />
@@ -317,14 +317,14 @@ const profileMenuItems = [
     label: "nav.profile_settings",
     icon: "/settings.png",
   },
-  { path: "/courses", label: "nav.my_courses", icon: "/book.png" },
+  { path: "/profile?name=courses", label: "nav.my_courses", icon: "/book.png" },
   {
-    path: "/favorites",
+    path: "/profile?name=favorites",
     label: "nav.favorites",
     icon: "/heart_nav.png",
   },
   {
-    path: "/subscriptions",
+    path: "/profile?name=subscriptions",
     label: "nav.subscriptions",
     icon: "/subscription.png",
   },
