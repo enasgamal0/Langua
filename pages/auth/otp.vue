@@ -5,6 +5,12 @@
       :current="$t('bread_crumb.forgot_password')"
       :prev="$t('bread_crumb.login')"
       :link="localePath('/auth/login')"
+      v-if="route?.query?.type == 'password'"
+    />
+    <BreadCrumb
+      :title="$t('bread_crumb.register_otp')"
+      :desc="$t('bread_crumb.register_desc')"
+      v-if="route?.query?.type == 'register'"
     />
     <div
       class="bg-no-repeat py-10 lg:px-20 lg:m-20 m-10"
@@ -211,7 +217,7 @@ const form = reactive({
   digit4: "",
 });
 
-const tokenCookie = useCookie("langua_token");
+const OtpTokenCookie = useCookie("langua_otp_token");
 const email = useCookie("langua_email_otp");
 const backendError = ref("");
 const resendSuccess = ref("");
@@ -272,7 +278,7 @@ const handleResendCode = async () => {
       "/auth/resend-otp",
       { email: email.value },
       {},
-      tokenCookie.value,
+      OtpTokenCookie.value,
       locale.value
     );
 
@@ -322,7 +328,7 @@ const handleSubmit = async () => {
       "/auth/verify-otp",
       userData,
       {},
-      tokenCookie.value,
+      OtpTokenCookie.value,
       locale.value
     );
     if (route?.query?.type == "register") {
@@ -409,6 +415,9 @@ const getInputRef = (index) => {
 };
 
 onMounted(() => {
+  if (route?.query?.type == "register") {
+    handleResendCode();
+  }
   nextTick(() => {
     const firstInput = getInputRef(0);
     if (firstInput) {

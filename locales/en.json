@@ -90,7 +90,8 @@
     "login_desc": "All you need to learn better is waiting for you... just register.",
     "forgot_password": "Forgot Password",
     "register": "Create a New Account",
-    "register_desc": "Create your account now and start your journey toward mastering the English language from here"
+    "register_desc": "Create your account now and start your journey toward mastering the English language from here",
+    "register_otp": "Account Activation"
   },
   "faq": {
     "desc": "Explore the most common questions about"

@@ -5,6 +5,12 @@
       :current="$t('bread_crumb.forgot_password')"
       :prev="$t('bread_crumb.login')"
       :link="localePath('/auth/login')"
+      v-if="route?.query?.type == 'password'"
+    />
+    <BreadCrumb
+      :title="$t('bread_crumb.register_otp')"
+      :desc="$t('bread_crumb.register_desc')"
+      v-if="route?.query?.type == 'register'"
     />
     <div
       class="bg-no-repeat py-10 lg:px-20 lg:m-20 m-10"

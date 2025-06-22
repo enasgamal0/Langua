@@ -111,7 +111,7 @@ const form = reactive({
   email: "",
 });
 
-const tokenCookie = useCookie("langua_token");
+const OtpTokenCookie = useCookie("langua_otp_token");
 const email = useCookie("langua_email_otp");
 const backendError = ref("");
 
@@ -133,11 +133,11 @@ const handleSubmit = async () => {
       "/auth/forget-password",
       userData,
       {},
-      tokenCookie.value,
+      OtpTokenCookie.value,
       locale.value
     );
     email.value = form.email;
-    tokenCookie.value = result?.data?.access_token;
+    OtpTokenCookie.value = result?.data?.access_token;
     router.push("/auth/otp?type=password");
   } catch (error) {
     console.error("Error logging in:", error);

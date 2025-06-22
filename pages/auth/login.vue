@@ -202,6 +202,7 @@ configure({
   validateOnInput: true,
   validateOnModelUpdate: true,
 });
+const localePath = useLocalePath();
 const { t } = useI18n();
 const router = useRouter();
 const { locale } = useI18n();
@@ -213,6 +214,7 @@ const isSubmitting = ref(false);
 
 const showPassword = ref(false);
 const tokenCookie = useCookie("langua_token");
+const OtpTokenCookie = useCookie("langua_otp_token");
 const backendError = ref("");
 
 const validationSchema = yup.object({
@@ -239,8 +241,14 @@ const handleSubmit = async () => {
       tokenCookie.value,
       locale.value
     );
-    tokenCookie.value = result?.data?.access_token;
-    router.push("/");
+    if (!result?.data?.user?.is_verified) {
+      OtpTokenCookie.value = result?.data?.access_token;
+      router.push(localePath("/auth/otp?type=register"));
+    } else {
+      tokenCookie.value = result?.data?.access_token;
+      OtpTokenCookie.value = null;
+      router.push(localePath("/"));
+    }
   } catch (error) {
     console.error("Error logging in:", error);
     backendError.value = error?.response?.data?.message;

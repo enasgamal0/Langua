@@ -313,7 +313,7 @@ const navItems = [
 // Profile menu items based on your image
 const profileMenuItems = [
   {
-    path: "/auth/profile",
+    path: "/profile",
     label: "nav.profile_settings",
     icon: "/settings.png",
   },

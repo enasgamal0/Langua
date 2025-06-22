@@ -260,7 +260,7 @@ const form = reactive({
   password_confirmation: "",
 });
 const isSubmitting = ref(false);
-const tokenCookie = useCookie("langua_token");
+const OtpTokenCookie = useCookie("langua_otp_token");
 const backendError = ref("");
 const showPassword = ref(false);
 const showPasswordConfirmation = ref(false);
@@ -285,7 +285,7 @@ const handleSubmit = async () => {
       "/auth/reset-password",
       userData,
       {},
-      tokenCookie.value,
+      OtpTokenCookie.value,
       locale.value
     );
     router.push("/auth/success?type=reset");

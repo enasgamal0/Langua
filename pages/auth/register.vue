@@ -701,7 +701,7 @@ const email = useCookie("langua_email_otp");
 const selectedCountryCode = ref("");
 const showPassword = ref(false);
 const showPasswordConfirmation = ref(false);
-const tokenCookie = useCookie("langua_token");
+const OtpTokenCookie = useCookie("langua_otp_token");
 const backendError = ref("");
 const selectedStage = ref(null);
 const selectedGrade = ref(null);
@@ -793,11 +793,11 @@ const handleSubmit = async (values) => {
       "/auth/register",
       userData,
       {},
-      tokenCookie.value,
+      OtpTokenCookie.value,
       locale.value
     );
     if (result?.data?.access_token) {
-      tokenCookie.value = result.data?.access_token;
+      OtpTokenCookie.value = result.data?.access_token;
       email.value = values?.email;
       router.push(localePath("/auth/otp?type=register"));
     } else {
@@ -823,7 +823,7 @@ const getGrades = async (stageId) => {
       `/academic-years?academic_stage=${stageId}&page=0&limit=0`,
       {},
       {},
-      tokenCookie.value,
+      OtpTokenCookie.value,
       locale.value
     );
   } catch (error) {
@@ -847,7 +847,7 @@ onMounted(async () => {
       "/academic-stages?page=0&limit=0",
       {},
       {},
-      tokenCookie.value,
+      OtpTokenCookie.value,
       locale.value
     );
   } catch (error) {
