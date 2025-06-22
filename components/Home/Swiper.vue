@@ -9,7 +9,7 @@
         :slides-per-view="1"
         :space-between="10"
         :modules="[Autoplay, Pagination, Navigation]"
-        :pagination="{ el: '.swiper-pagination1', clickable: true }"
+        :pagination="{ el: '.swiper-pagination', clickable: true }"
         :navigation="
           $i18n.locale === 'ar'
             ? { prevEl: '.swiper-button-next', nextEl: '.swiper-button-prev' }
@@ -186,7 +186,8 @@
         class="swiper-button-next absolute right-4 top-1/2 -translate-y-1/2 z-40"
       ></div>
       <div
-        class="swiper-pagination1 absolute !-bottom-[40px] left-1/2 -translate-x-1/2 z-40"
+        v-if="advertisements?.data?.advertisment?.length > 0"
+        class="swiper-pagination absolute !-bottom-[40px] left-1/2 -translate-x-1/2 z-40 m-auto flex gap-2 cursor-pointer"
       ></div>
     </div>
   </div>
