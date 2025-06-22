@@ -255,6 +255,7 @@ configure({
 const { t } = useI18n();
 const router = useRouter();
 const { locale } = useI18n();
+const localePath = useLocalePath();
 const form = reactive({
   password: "",
   password_confirmation: "",
@@ -288,7 +289,7 @@ const handleSubmit = async () => {
       OtpTokenCookie.value,
       locale.value
     );
-    router.push("/auth/success?type=reset");
+    router.push(localePath("/auth/success?type=reset"));
   } catch (error) {
     console.error("Error logging in:", error);
     backendError.value = error?.response?.data?.message;

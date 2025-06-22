@@ -65,11 +65,11 @@
 <script setup>
 const route = useRoute();
 const localePath = useLocalePath();
-
+const router = useRouter();
 onMounted(() => {
   if (route?.query?.type == "register") {
     setTimeout(() => {
-      navigateTo(localePath("/"));
+      router.push(localePath("/"));
     }, 5000);
   }
 });

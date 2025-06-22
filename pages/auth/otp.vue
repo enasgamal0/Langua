@@ -210,6 +210,7 @@ const { t } = useI18n();
 const router = useRouter();
 const route = useRoute();
 const { locale } = useI18n();
+const localePath = useLocalePath();
 const form = reactive({
   digit1: "",
   digit2: "",
@@ -332,9 +333,9 @@ const handleSubmit = async () => {
       locale.value
     );
     if (route?.query?.type == "register") {
-      router.push("/auth/success?type=register");
+      router.push(localePath("/auth/success?type=register"));
     } else if (route?.query?.type == "password") {
-      router.push("/auth/reset_password");
+      router.push(localePath("/auth/reset_password"));
     }
   } catch (error) {
     console.error("Error verifying OTP:", error);

@@ -144,6 +144,8 @@ const privacy = ref(``);
 const modalRef = ref(null);
 const tokenCookie = useCookie("langua_token");
 const OtpTokenCookie = useCookie("langua_otp_token");
+const router = useRouter();
+const localePath = useLocalePath();
 const handleClickOutside = (e) => {
   if (modalRef.value && !modalRef.value.contains(e.target)) {
     emit("close");
@@ -156,7 +158,7 @@ const handleLogout = () => {
   OtpTokenCookie.value = null;
   document.body.classList.remove("overflow-hidden");
   emit("close");
-  navigateTo(localePath("/"));
+  router.push(localePath("/"));
 };
 
 watch(

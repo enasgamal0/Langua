@@ -114,7 +114,7 @@ const form = reactive({
 const OtpTokenCookie = useCookie("langua_otp_token");
 const email = useCookie("langua_email_otp");
 const backendError = ref("");
-
+const localePath = useLocalePath();
 const validationSchema = yup.object({
   email: yup
     .string()
@@ -138,7 +138,7 @@ const handleSubmit = async () => {
     );
     email.value = form.email;
     OtpTokenCookie.value = result?.data?.access_token;
-    router.push("/auth/otp?type=password");
+    router.push(localePath("/auth/otp?type=password"));
   } catch (error) {
     console.error("Error logging in:", error);
     backendError.value = error?.response?.data?.message;
