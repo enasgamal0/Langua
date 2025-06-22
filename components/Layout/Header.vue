@@ -191,7 +191,7 @@
         <!-- Logout Button (Mobile) -->
         <div
           class="flex items-center gap-3 py-2 border-b border-gray-200 text-[#DC3545] cursor-pointer hover:bg-red-50 transition-colors duration-200"
-          @click="openLogoutPopup=true"
+          @click="openLogoutPopup=true, toggleSmallMenu"
         >
           <img src="/logout.png" class="w-[20px] h-[20px]" />
           <span>{{ $t("nav.logout") }}</span>
@@ -200,7 +200,7 @@
 
       <!-- Action Buttons -->
       <div class="flex flex-wrap items-center gap-5 my-5">
-        <NuxtLink :to="localePath('/placement_test')">
+        <NuxtLink :to="localePath('/placement_test')" @click="toggleSmallMenu">
           <BaseButton
             :content="$t('nav.placement_test')"
             border-color="#E77C5A"
@@ -208,7 +208,7 @@
             icon="/feather.png"
           />
         </NuxtLink>
-        <NuxtLink :to="localePath('/auth/login')" v-if="!isLoggedIn">
+        <NuxtLink :to="localePath('/auth/login')" v-if="!isLoggedIn" @click="toggleSmallMenu">
           <BaseButton
             :content="$t('nav.login')"
             border-color="#4B007D"

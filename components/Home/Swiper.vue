@@ -1,12 +1,8 @@
 <template>
   <div
-    class="relative py-20 bg-no-repeat"
-    style="
-      background-image: url('/slider_top.png'), url('/slider_bottom.png');
-      background-position: top 50px right 48px, bottom 50px left 48px;
-    "
+    class="relative py-20 bg-no-repeat responsive-bg mx-5 lg:!mx-0"
   >
-    <div class="lg:mx-20 mx-10 relative">
+    <div class="lg:!mx-20 mx-7 relative">
       <Swiper
         :slides-per-view="1"
         :space-between="10"
@@ -31,20 +27,20 @@
           <div class="flex flex-wrap w-full">
             <div
               data-aos="zoom-in"
-              class="bg-[#4B007D] z-50 text-white w-[50%] lg:!w-[40%] h-[390px] px-22 py-12"
+              class="bg-[#4B007D] z-50 text-white w-[100%] lg:!w-[40%] lg:!h-[390px] h-[187.5px] lg:!px-22 px-5 lg:!py-12 py-5"
               style="background-image: url('/slider_text_bg.png')"
             >
               <h1
-                class="text-[40px] font-[800] leading-[1.2] mb-2 line-clamp-2"
+                class="text-[18px] lg:!text-[40px] font-[800] leading-[1.2] mb-2 line-clamp-2"
               >
                 {{ advertisement?.name }}
               </h1>
               <p
-                class="text-[16px] mt-4 mb-8 m-auto leading-[2.3] line-clamp-4 px-3"
+                class="lg:!text-[16px] text-[12px] mt-4 mb-8 m-auto leading-[2.3] line-clamp-3 px-3"
               >
-                {{ advertisement?.description }}
+                {{ advertisement?.description }}aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa
               </p>
-              <div class="flex items-center gap-5 my-5">
+              <div class="flex items-center gap-5 lg:!my-5 my-2 mx-5 lg:!mx-0">
                 <NuxtLink :to="localePath('/courses')">
                   <BaseButton
                     :content="$t('S1.start_learning')"
@@ -58,7 +54,7 @@
             </div>
             <div
               data-aos="zoom-out"
-              class="w-[50%] lg:!w-[60%] h-[390px] relative"
+              class="w-[100%] lg:!w-[60%] lg:!h-[390px] h-[187.5px] relative"
             >
               <!-- Image Media -->
               <img
@@ -234,5 +230,17 @@ video::-webkit-media-controls-play-button {
 }
 video::-webkit-media-controls-start-playback-button {
   display: none !important;
+}
+.responsive-bg {
+  background-image: url('/slider_top.png'), url('/slider_bottom.png');
+  background-repeat: no-repeat;
+  background-position: top 50px right 48px, bottom 50px left 48px;
+  background-size: auto;
+}
+
+@media (max-width: 1022px) {
+  .responsive-bg {
+    background-position: top 50px right 0px, bottom 50px left 0px;
+  }
 }
 </style>
