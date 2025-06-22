@@ -165,5 +165,9 @@
     "password_min": "Password should be at least 8 characters long",
     "password_strength": "Password must contain at least one uppercase letter, one lowercase letter, and one number",
     "password_confirmation": "Password Confirmation is required"
+  },
+  "error": {
+    "not_found": "Sorry, we couldn't find the page",
+    "not_found_desc": "The page you are trying to access is unavailable. You can return to the home page and continue learning."
   }
 }

@@ -78,7 +78,7 @@ const loading = ref(true);
 onMounted(() => {
   apiRequest(
     "GET",
-    "/common-questiaons?page=0&limit=0",
+    "/common-questions?page=0&limit=0",
     {},
     {},
     tokenCookie.value,
