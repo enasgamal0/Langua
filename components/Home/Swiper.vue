@@ -10,16 +10,16 @@
         :space-between="10"
         :modules="[Autoplay, Pagination, Navigation]"
         :pagination="{ el: '.swiper-pagination', clickable: true }"
-        :navigation="
-          $i18n.locale === 'ar'
-            ? { prevEl: '.swiper-button-next', nextEl: '.swiper-button-prev' }
-            : { prevEl: '.swiper-button-prev', nextEl: '.swiper-button-next' }
-        "
+        :navigation="{
+          prevEl: '.swiper-button-prev',
+          nextEl: '.swiper-button-next'
+        }"
         :autoplay="{ delay: 3500, disableOnInteraction: false }"
         effect="fade"
         :speed="800"
         loop
         class="w-full h-full"
+        @swiper="onSwiper"
       >
         <SwiperSlide
           v-if="advertisements?.data?.advertisment?.length > 0"
@@ -114,6 +114,7 @@
           </div>
         </SwiperSlide>
       </Swiper>
+      
       <div class="flex flex-wrap w-full" v-if="!advertisements || advertisements?.length == 0">
         <div
           data-aos="zoom-in"
@@ -176,17 +177,17 @@
         </div>
       </div>
 
-      <!-- Pagination & Navigation elements -->
+      <!-- Navigation elements - moved outside conditional and using v-show -->
       <div
-        v-if="advertisements?.data?.advertisment?.length > 0"
+        v-show="advertisements?.data?.advertisment?.length > 0"
         class="swiper-button-prev absolute left-4 top-1/2 -translate-y-1/2 z-40"
       ></div>
       <div
-        v-if="advertisements?.data?.advertisment?.length > 0"
+        v-show="advertisements?.data?.advertisment?.length > 0"
         class="swiper-button-next absolute right-4 top-1/2 -translate-y-1/2 z-40"
       ></div>
       <div
-        v-if="advertisements?.data?.advertisment?.length > 0"
+        v-show="advertisements?.data?.advertisment?.length > 0"
         class="swiper-pagination absolute !-bottom-[40px] left-1/2 -translate-x-1/2 z-40 m-auto flex gap-2 cursor-pointer"
       ></div>
     </div>
@@ -205,6 +206,7 @@ const { locale } = useI18n();
 const tokenCookie = useCookie("langua_token");
 const advertisements = ref([]);
 const loading = ref(true);
+const swiperInstance = ref(null);
 
 // Function to determine media type based on file extension
 const getMediaType = (mediaUrl) => {
@@ -239,8 +241,18 @@ const getMediaType = (mediaUrl) => {
     return "image";
   }
 
-  // Default to image if extension is not recognized
   return "image";
+};
+
+const onSwiper = (swiper) => {
+  swiperInstance.value = swiper;
+  
+  // Force navigation update after swiper is ready
+  nextTick(() => {
+    if (swiper.navigation) {
+      swiper.navigation.update();
+    }
+  });
 };
 
 onMounted(async () => {
@@ -254,6 +266,12 @@ onMounted(async () => {
       tokenCookie.value,
       locale.value
     );
+    
+    // Force navigation update after data is loaded
+    await nextTick();
+    if (swiperInstance.value?.navigation) {
+      swiperInstance.value.navigation.update();
+    }
   } catch (error) {
     console.error("Failed to load advertisements:", error);
     advertisements.value = [];
@@ -275,6 +293,9 @@ onMounted(async () => {
   color: white !important;
   background-color: #ffffff4d !important;
   border-radius: 100% !important;
+  /* Ensure buttons are clickable */
+  pointer-events: auto !important;
+  cursor: pointer !important;
 }
 .swiper-button-next:after,
 .swiper-button-prev:after {
@@ -288,6 +309,13 @@ onMounted(async () => {
 .swiper-button-prev:hover {
   background-color: #ffffff !important;
   color: #4b007d !important;
+}
+
+/* Ensure navigation buttons are not disabled */
+.swiper-button-disabled {
+  opacity: 0.35 !important;
+  cursor: auto !important;
+  pointer-events: none !important;
 }
 
 /* Video specific styles */
