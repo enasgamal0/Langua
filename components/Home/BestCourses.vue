@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-no-repeat lg:m-10 2xl:m-20 m-8"
+    class="bg-no-repeat 2xl:m-10 2xl:m-20 m-8"
     style="
       background-image: url('/slider_top.png'), url('/slider_bottom.png');
       background-position: top 0 right 0, bottom 0 left 0;
@@ -20,7 +20,7 @@
       </h1>
       <p class="text-[18px] font-[400] mt-1 mb-12">{{ $t("S4.subtitle") }}</p>
     </div>
-    <div class="lg:!flex hidden flex-wrap gap-12 px-40 xl:!px-60 2xl:!px-0 justify-center text-center">
+    <div class="2xl:!flex hidden flex-wrap gap-12 px-40 xl:!px-60 2xl:!px-0 justify-center text-center">
       <CourseCard
         v-for="course in courses"
         :key="course.title"
@@ -34,7 +34,7 @@
         :is_fav="course.is_fav"
       />
     </div>
-    <div class="lg:!hidden flex flex-wrap justify-center gap-5 lg:!h-[500px] h-[450px] relative">
+    <div class="2xl:!hidden flex flex-wrap justify-center gap-5 lg:!h-[500px] h-[450px] relative lg:!px-30 md:!px-24 px-5">
       <Swiper
         :slides-per-view="
           courses?.length == 1
@@ -81,10 +81,10 @@
         </SwiperSlide>
       </Swiper>
       <div
-        class="swiper-button-prev absolute left-4 top-1/2 -translate-y-1/2 z-40 !bg-[#4B007D] hover:!bg-white hover:border hover:border-[#4B007D]"
+        class="swiper-button-prev absolute !left-5 lg:!left-0 top-1/2 -translate-y-1/2 z-40 !bg-[#4B007D] hover:!bg-white hover:border hover:border-[#4B007D]"
       ></div>
       <div
-        class="swiper-button-next absolute right-4 top-1/2 -translate-y-1/2 z-40 !bg-[#4B007D] hover:!bg-white hover:border hover:border-[#4B007D]"
+        class="swiper-button-next absolute !right-5 lg:!right-0  top-1/2 -translate-y-1/2 z-40 !bg-[#4B007D] hover:!bg-white hover:border hover:border-[#4B007D]"
       ></div>
     </div>
     <NuxtLink :to="localePath('/courses')">
@@ -93,7 +93,7 @@
         border-color="#E77C5A"
         bg-color="#4B007D"
         width="200px"
-        class="m-auto lg:!mt-20 z-50 !mb-20"
+        class="m-auto 2xl:!mt-10 lg:!-mt-15 z-50 !mb-20"
         :lg_reversed_space="true"
       />
     </NuxtLink>

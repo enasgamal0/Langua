@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex flex-wrap bg-[#4B007D] text-white bg-no-repeat"
+    class="flex flex-wrap items-center gap-14 bg-[#4B007D] text-white bg-no-repeat"
     style="
       background-image: url('/join_us_left.png'), url('/join_us_bottom.png');
       background-position: left 0 top 0, bottom 0 left 10%;
@@ -14,11 +14,11 @@
         background-position: center center;
       "
     >
-      <img alt="Join Us" src="/join_us.png" class="m-auto h-full" />
+      <img alt="Join Us" src="/join_us.png" class="m-auto h-full max-h-[684px] max-w-[488px]" />
     </div>
     <div
       data-aos="fade-down"
-      class="xl:!w-[30%] lg:!w-[40%] w-[100%] my-20 mx-10 lg:mx-2 xl:mx-0"
+      class="xl:!w-[30%] lg:!w-[40%] w-[100%] mb-20 mx-10 lg:mx-2 xl:mx-0"
     >
       <h1 class="lg:!text-[35px] text-[25px] font-[800]">
         {{ $t("S5.title") }}

@@ -247,7 +247,7 @@ onMounted(async () => {
   try {
     advertisements.value = await apiRequest(
       "GET",
-      `/advertisements?limit=0&page=0`,
+      `/advertisements?limit=0&page=0&is_active=1`,
       {},
       {},
       tokenCookie.value,

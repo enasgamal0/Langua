@@ -820,7 +820,7 @@ const getGrades = async (stageId) => {
   try {
     grades.value = await apiRequest(
       "GET",
-      `/academic-years?academic_stage=${stageId}&page=0&limit=0`,
+      `/academic-years?academic_stage=${stageId}&page=0&limit=0&is_active=1`,
       {},
       {},
       OtpTokenCookie.value,
@@ -844,7 +844,7 @@ onMounted(async () => {
   try {
     stages.value = await apiRequest(
       "GET",
-      "/academic-stages?page=0&limit=0",
+      "/academic-stages?page=0&limit=0&is_active=1",
       {},
       {},
       OtpTokenCookie.value,
