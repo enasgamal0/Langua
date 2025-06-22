@@ -127,7 +127,7 @@
                 <div class="footer_social_icon">
                   <img
                     alt="Whatsapp"
-                    src="/Whatsapp.png"
+                    src="/whatsapp.png"
                     class="w-[24px] h-[24px]"
                   />
                 </div>

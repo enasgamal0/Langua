@@ -10,6 +10,7 @@
       alt="Not Found"
       src="/not_found.png"
       class="w-[343px] h-[200px] m-auto"
+      data-aos="zoom-in"
     />
     <div class="text-center text-[#202020] mt-8">
       <h1 class="text-[24px] font-bold mb-5">{{ $t("error.not_found") }}</h1>
