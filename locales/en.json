@@ -52,7 +52,8 @@
     "title2": "Assess Your Level and Track Your Progress",
     "desc2": "Start with a placement test and track your progress through regular assessments that help identify your strengths and areas for improvement.",
     "title3": "Structured Learning Path and Flexible Subscriptions",
-    "desc3": "Follow a clear learning plan tailored to your needs, with full access through monthly or yearly subscriptions."
+    "desc3": "Follow a clear learning plan tailored to your needs, with full access through monthly or yearly subscriptions.",
+    "show_more": "Show More"
   },
   "S4": {
     "course_details": "Course Details",
@@ -92,9 +93,7 @@
     "register_desc": "Create your account now and start your journey toward mastering the English language from here"
   },
   "faq": {
-    "desc": "Explore the most common questions about",
-    "title1": "How can I register on the platform?",
-    "content1": "You can register easily by clicking on the 'Create New Account' button on the homepage, then fill in the required data (name, email, password), and then you can start browsing the platform."
+    "desc": "Explore the most common questions about"
   },
   "auth": {
     "login": "Login",

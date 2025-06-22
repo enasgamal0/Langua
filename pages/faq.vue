@@ -45,7 +45,7 @@
               : 'bg-[#4B007D] hover:bg-[#4B017EE5]'
           "
         >
-          {{ item.title }}
+          {{ item.question }}
           <img
             alt="arrow"
             src="/arrow.png"
@@ -57,7 +57,7 @@
           class="px-5 pt-4 pb-2 text-[16px] font-[400] text-[#202020] border-b border-[#EEEDEE]"
           data-aos="flip-down"
         >
-          {{ item.content }}
+          {{ item.answer }}
         </DisclosurePanel>
       </Disclosure>
     </div>
@@ -65,12 +65,14 @@
 </template>
 <script setup>
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
-const { t } = useI18n();
-
-const items = [
-  { title: t("faq.title1"), content: t("faq.content1") },
-  { title: t("faq.title1"), content: t("faq.content1") },
-  { title: t("faq.title1"), content: t("faq.content1") },
-  { title: t("faq.title1"), content: t("faq.content1") },
-];
+const { t, locale } = useI18n();
+const tokenCookie = useCookie("langua_token");
+const items = ref([]);
+onMounted(() => {
+  apiRequest("GET", "/common-questions?page=0&limit=0", {}, {}, tokenCookie.value, locale.value).then(
+    (response) => {
+      items.value = response?.data?.data;
+    }
+  );
+})
 </script>

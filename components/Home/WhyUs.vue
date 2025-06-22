@@ -73,9 +73,23 @@
               <h1 class="text-[24px] font-[800] my-3 line-clamp-2">
                 {{ advantage?.name }}
               </h1>
-              <p class="text-[16px] font-[400] text-[#202020] line-clamp-3">
-                {{ advantage?.description }}
-              </p>
+              <div>
+                <p
+                  :class="[
+                    'text-[16px] font-[400] text-[#202020] line-clamp-3',
+                  ]"
+                >
+                  {{ advantage?.description }}
+                </p>
+
+                <button
+                  v-if="advantage?.description?.length > 110"
+                  @click="showMore = true, feature = advantage"
+                  class="mt-2 text-[#4B007D] text-sm font-medium cursor-pointer"
+                >
+                  {{ $t("S3.show_more") }}
+                </button>
+              </div>
             </div>
           </div>
         </SwiperSlide>
@@ -87,7 +101,7 @@
         class="swiper-button-next absolute right-4 top-1/2 -translate-y-1/2 z-40"
       ></div>
     </div>
-    
+
     <div class="mt-12">
       <NuxtLink :to="localePath('/courses')" class="block">
         <BaseButton
@@ -101,6 +115,7 @@
       </NuxtLink>
     </div>
   </div>
+  <Popup :show="showMore" @close="showMore = false" type="advantage" :advantage="feature" />
 </template>
 <script setup>
 import { Swiper, SwiperSlide } from "swiper/vue";
@@ -108,7 +123,8 @@ import "swiper/css";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-
+const showMore = ref(false);
+const feature = ref({});
 const { locale } = useI18n();
 const advantages = ref([]);
 const tokenCookie = useCookie("langua_token");
