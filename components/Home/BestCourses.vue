@@ -36,20 +36,16 @@
     </div>
     <div class="2xl:!hidden flex flex-wrap justify-center gap-5 lg:!h-[500px] h-[450px] relative lg:!px-30 md:!px-24 px-5">
       <Swiper
-        :slides-per-view="
-          courses?.length == 1
-            ? 1
-            : courses?.length == 2
-            ? 2
-            : 3
-        "
+        ref="swiperRef"
+        :key="swiperKey"
+        :slides-per-view="getSlidesPerView()"
         :breakpoints="{
           0: { slidesPerView: 1 },
           900: {
-            slidesPerView: 2,
+            slidesPerView: Math.min(2, courses?.length || 1),
           },
           1200: {
-            slidesPerView: 3,
+            slidesPerView: Math.min(3, courses?.length || 1),
           },
         }"
         :space-between="10"
@@ -61,10 +57,16 @@
             : { prevEl: '.swiper-button-prev', nextEl: '.swiper-button-next' }
         "
         :autoplay="{ delay: 3500, disableOnInteraction: false }"
-        effect="fade"
         :speed="800"
-        loop
+        :loop="courses?.length > 1"
+        :observer="true"
+        :observe-parents="true"
+        :observe-slide-children="true"
+        :update-on-window-resize="true"
+        :resize-observer="true"
         class="w-full h-full"
+        @swiper="onSwiper"
+        @slide-change="onSlideChange"
       >
         <SwiperSlide v-for="course in courses" :key="course.title">
           <CourseCard
@@ -93,19 +95,24 @@
         border-color="#E77C5A"
         bg-color="#4B007D"
         width="200px"
-        class="m-auto 2xl:!mt-10 lg:!-mt-15 z-50 !mb-20"
+        class="m-auto 2xl:!mt-10 lg:!-mt-3 z-50 !mb-20"
         :lg_reversed_space="true"
       />
     </NuxtLink>
   </div>
 </template>
+
 <script setup>
 import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+
 const { t, locale } = useI18n();
+
+const swiperRef = ref(null);
+const swiperKey = ref(0);
 
 const courses = [
   {
@@ -151,8 +158,82 @@ const courses = [
 ];
 
 const props = defineProps({
-    type: {
-      type: String,
-    },
-  })
+  type: {
+    type: String,
+  },
+});
+
+// Helper function to get slides per view
+const getSlidesPerView = () => {
+  const dataLength = courses?.length || 1;
+  if (dataLength === 1) return 1;
+  if (dataLength === 2) return 2;
+  return 3;
+};
+
+// Swiper event handlers
+const onSwiper = (swiper) => {
+  // Force update after swiper initialization
+  nextTick(() => {
+    swiper.update();
+  });
+};
+
+const onSlideChange = () => {
+};
+
+const updateSwiper = () => {
+  if (swiperRef.value && swiperRef.value.$el) {
+    swiperRef.value.$el.swiper.update();
+    swiperRef.value.$el.swiper.updateSize();
+    swiperRef.value.$el.swiper.updateSlides();
+  }
+  swiperKey.value++;
+};
+
+onMounted(() => {
+  setTimeout(() => {
+    updateSwiper();
+  }, 100);
+  
+  const handleResize = () => {
+    setTimeout(() => {
+      updateSwiper();
+    }, 100);
+  };
+  
+  window.addEventListener('resize', handleResize);
+  
+  onUnmounted(() => {
+    window.removeEventListener('resize', handleResize);
+  });
+});
+
+watch(locale, () => {
+  nextTick(() => {
+    updateSwiper();
+  });
+});
 </script>
+
+<style scoped>
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.swiper-slide {
+  flex-shrink: 0;
+}
+</style>
