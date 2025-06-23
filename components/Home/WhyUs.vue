@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-[#4B007D] text-center px-12 py-20 bg-no-repeat relative"
+    class="bg-[#4B007D] text-center px-12 py-20 bg-no-repeat relative why_us"
     style="
       background-image: url('/why_us_top.png'), url('/why_us_bottom.png');
       background-position: top 0 right 0, bottom 0 left 0;
@@ -214,18 +214,18 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.swiper {
+.why_us .swiper {
   width: 100%;
   height: 100%;
 }
 
-.swiper-slide {
+.why_us .swiper-slide {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.swiper-wrapper {
+.why_us .swiper-wrapper {
   display: flex;
   align-items: center;
 }

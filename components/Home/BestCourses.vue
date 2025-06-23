@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-no-repeat 2xl:m-10 2xl:m-20 m-8"
+    class="bg-no-repeat 2xl:m-10 2xl:m-20 m-8 best_courses"
     style="
       background-image: url('/slider_top.png'), url('/slider_bottom.png');
       background-position: top 0 right 0, bottom 0 left 0;
@@ -216,24 +216,24 @@ watch(locale, () => {
 });
 </script>
 
-<style scoped>
-.swiper {
+<style>
+.best_courses .swiper {
   width: 100%;
   height: 100%;
 }
 
-.swiper-slide {
+.best_courses .swiper-slide {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.swiper-wrapper {
+.best_courses .swiper-wrapper {
   display: flex;
   align-items: center;
 }
 
-.swiper-slide {
+.best_courses.swiper-slide {
   flex-shrink: 0;
 }
 </style>
