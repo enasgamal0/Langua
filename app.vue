@@ -26,3 +26,11 @@ onMounted(async () => {
   }
 });
 </script>
+<style>
+@media only screen and (max-width: 480px) {
+    [data-aos] {
+        opacity: 1 !important;
+        transform: translate(0) scale(1) !important;
+    }
+}
+</style>
