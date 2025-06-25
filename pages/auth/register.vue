@@ -350,7 +350,7 @@
                             <img
                               alt="grade"
                               src="/grade.png"
-                              class="w-[24px] h-[24px] inlinee my-auto ms-1"
+                              class="w-[24px] h-[24px] inline my-auto ms-1"
                             />
                           </span>
                         </div>
