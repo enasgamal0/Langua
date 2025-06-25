@@ -11,7 +11,7 @@
       <img
         alt="FAQ"
         src="/faq.png"
-        class="w-[120px] h-[120px] m-auto"
+        class="w-[120px] m-auto"
         data-aos="zoom-in"
       />
       <div class="text-center mb-5 xl:!mb-0">
@@ -38,14 +38,19 @@
         class="mb-5"
       >
         <DisclosureButton
-          class="flex justify-between items-center cursor-pointer w-full px-4 py-2 text-[18px] font-[700] text-white h-[60px]"
+          class="flex justify-between items-center cursor-pointer w-full px-4 py-2 text-[18px] font-[700] text-white"
           :class="
             open
               ? 'bg-[#E77C5A] hover:bg-[#E77C5AE5]'
               : 'bg-[#4B007D] hover:bg-[#4B017EE5]'
           "
         >
-          {{ item.question }}
+          <div
+            class="max-w-[600px] break-words"
+            :class="locale == 'ar' ? 'text-right' : 'text-left'"
+          >
+            {{ item.question }}
+          </div>
           <img
             alt="arrow"
             src="/arrow.png"
@@ -57,7 +62,12 @@
           class="px-5 pt-4 pb-2 text-[16px] font-[400] text-[#202020] border-b border-[#EEEDEE]"
           data-aos="flip-down"
         >
-          {{ item.answer }}
+          <div
+            class="max-w-[620px] break-words"
+            :class="locale == 'ar' ? 'text-right' : 'text-left'"
+          >
+            {{ item.answer }}
+          </div>
         </DisclosurePanel>
       </Disclosure>
     </div>
@@ -65,7 +75,9 @@
       <UIButtonLoader class="mx-auto !my-20 block" borderColor="#4B007D" />
     </div>
     <div v-if="!loading && items?.length == 0" class="text-center my-20 m-auto">
-      <p class="text-[18px] font-[500] !text-red-500 text-center">{{ $t("faq.no_faq") }}</p>
+      <p class="text-[18px] font-[500] !text-red-500 text-center">
+        {{ $t("faq.no_faq") }}
+      </p>
     </div>
   </div>
 </template>
@@ -83,11 +95,13 @@ onMounted(() => {
     {},
     tokenCookie.value,
     locale.value
-  ).then((response) => {
-    items.value = response?.data?.data;
-  }).finally(() => {
-    loading.value = false;
-  });
+  )
+    .then((response) => {
+      items.value = response?.data?.data;
+    })
+    .finally(() => {
+      loading.value = false;
+    });
 });
 </script>
 <style scoped>

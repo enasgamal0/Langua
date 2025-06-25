@@ -82,6 +82,7 @@
                     'border-red-500': errors.password,
                     'border-[#EEEDEE]': !errors.password,
                   }"
+                  :placeholder="$t('placeholders.enter_password')"
                   class="w-full px-4 py-3 pr-12 pl-12 border outline-none focus:ring-2 focus:ring-[#4B007D] placeholder:text-[#A3A2A3] placeholder:text-[14px] text-start"
                 />
                 <!-- Password toggle button -->

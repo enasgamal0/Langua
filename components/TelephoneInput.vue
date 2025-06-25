@@ -86,8 +86,9 @@
         v-model="phoneNumber"
         type="tel"
         class="flex-1 px-4 py-3 border border-l-0 focus:outline-none focus:ring-2 focus:ring-[#4B007D]"
-        :class="validationMessage ? 'border-red-500' : 'border-[#EEEDEE]'"
+        :class="validationMessage ? 'border-red-500' : 'border-[#EEEDEE]', locale == 'ar' ? 'phone_input' : ''"
         @input="onPhoneNumberInput"
+        :placeholder="$t('placeholders.phone')"
       />
     </div>
 
@@ -373,5 +374,8 @@ watch(
 <style scoped>
 .rotate-180 {
   transform: rotate(180deg);
+}
+.phone_input::placeholder {
+  text-align: right;
 }
 </style>

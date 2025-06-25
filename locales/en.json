@@ -169,5 +169,15 @@
   "error": {
     "not_found": "Sorry, we couldn't find the page",
     "not_found_desc": "The page you are trying to access is unavailable. You can return to the home page and continue learning."
+  },
+  "placeholders": {
+    "enter_email": "Enter your email",
+    "enter_password": "Enter your password",
+    "enter_password_confirmation": "Enter your password confirmation",
+    "enter_new_password": "Enter your new password",
+    "enter_new_password_confirmation": "Enter your new password confirmation",
+    "first_name": "Enter your first name",
+    "last_name": "Enter your last name",
+    "phone": "Enter your phone number"
   }
 }

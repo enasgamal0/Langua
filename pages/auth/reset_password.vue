@@ -45,6 +45,7 @@
                   <VeeField
                     id="password"
                     v-model="form.password"
+                    :placeholder="$t('placeholders.enter_new_password')"
                     name="password"
                     :type="showPassword ? 'text' : 'password'"
                     :class="{
@@ -134,6 +135,7 @@
                   <VeeField
                     id="password_confirmation"
                     v-model="form.password_confirmation"
+                    :placeholder="$t('placeholders.enter_new_password_confirmation')"
                     name="password_confirmation"
                     :type="showPasswordConfirmation ? 'text' : 'password'"
                     :class="{

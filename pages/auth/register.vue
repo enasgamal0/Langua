@@ -41,6 +41,7 @@
                     id="firstName"
                     v-model="form.firstName"
                     name="firstName"
+                    :placeholder="$t('placeholders.first_name')"
                     type="text"
                     :class="{
                       'border-red-500': errors.firstName,
@@ -71,6 +72,7 @@
                   <VeeField
                     id="lastName"
                     v-model="form.lastName"
+                    :placeholder="$t('placeholders.last_name')"
                     name="lastName"
                     type="text"
                     :class="{
@@ -464,6 +466,7 @@
                   <VeeField
                     id="password"
                     v-model="form.password"
+                    :placeholder="$t('placeholders.enter_password')"
                     name="password"
                     :type="showPassword ? 'text' : 'password'"
                     :class="{
@@ -540,6 +543,7 @@
                   <VeeField
                     id="password_confirmation"
                     v-model="form.password_confirmation"
+                    :placeholder="$t('placeholders.enter_password_confirmation')"
                     name="password_confirmation"
                     :type="showPasswordConfirmation ? 'text' : 'password'"
                     :class="{

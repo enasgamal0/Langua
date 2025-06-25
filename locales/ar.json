@@ -171,5 +171,15 @@
   "error": {
     "not_found": "عذرًا، لم نتمكن من العثور على الصفحة",
     "not_found_desc": "الصفحة التي تحاول الوصول إليها غير متوفرة، يمكنك العودة للرئيسية و مواصلة التعلم"
+  },
+  "placeholders": {
+    "enter_email": "أدخل البريد الإلكتروني",
+    "enter_password": "أدخل كلمة المرور",
+    "enter_password_confirmation": "أدخل تأكيد كلمة المرور",
+    "enter_new_password": "أدخل كلمة المرور الجديدة",
+    "enter_new_password_confirmation": "أدخل تأكيد كلمة المرور الجديدة",
+    "first_name": "أدخل الاسم الأول",
+    "last_name": "أدخل الاسم الأخير",
+    "phone": "أدخل رقم الجوال"
   }
 }

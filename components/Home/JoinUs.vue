@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex flex-wrap items-center gap-14 bg-[#4B007D] text-white bg-no-repeat"
+    class="flex flex-wrap items-center gap-14 bg-[#4B007D] text-white bg-no-repeat overflow-x-hidden"
     style="
       background-image: url('/join_us_left.png'), url('/join_us_bottom.png');
       background-position: left 0 top 0, bottom 0 left 10%;
