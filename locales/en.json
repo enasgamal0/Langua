@@ -138,7 +138,10 @@
     "terms_and_conditions": "Terms and Conditions",
     "register_success_title": "Account has been created successfully 🎉",
     "register_success": "You have started a free trial for 7 days 🚀, you can browse the platform's content completely during this time! You will be redirected to the home page automatically now 🧭 ✅",
-    "go_to_home": "Go to Home"
+    "go_to_home": "Go to Home",
+    "select_stage_field": "Select Stage",
+    "select_grade_field": "Select Grade",
+    "no_grades_available": "No Grades Available"
   },
   "validation": {
     "email_required": "Email is required",
@@ -154,7 +157,7 @@
     "password_mismatch": "Passwords do not match",
     "password_confirmation_required": "Password Confirmation is required",
     "phone_length": "Phone Number should be {length} digits",
-    "select_stage_first": "Stage is required",
+    "select_stage_first": "Select Stage First",
     "stage_required": "Stage is required",
     "grade_required": "Grade is required",
     "terms_required": "Accepting Terms and Conditions is required",
@@ -173,11 +176,11 @@
   "placeholders": {
     "enter_email": "Enter your email",
     "enter_password": "Enter your password",
-    "enter_password_confirmation": "Enter your password confirmation",
+    "enter_password_confirmation": "Confirm Password",
     "enter_new_password": "Enter your new password",
-    "enter_new_password_confirmation": "Enter your new password confirmation",
+    "enter_new_password_confirmation": "Confirm Password",
     "first_name": "Enter your first name",
     "last_name": "Enter your last name",
-    "phone": "Enter your phone number"
+    "phone": "Enter phone"
   }
 }

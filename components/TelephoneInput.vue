@@ -85,7 +85,7 @@
       <input
         v-model="phoneNumber"
         type="tel"
-        class="flex-1 px-4 py-3 border border-l-0 focus:outline-none focus:ring-2 focus:ring-[#4B007D]"
+        class="flex-1 px-4 py-3 border border-l-0 focus:outline-none focus:ring-2 focus:ring-[#4B007D] telephone_input"
         :class="validationMessage ? 'border-red-500' : 'border-[#EEEDEE]', locale == 'ar' ? 'phone_input' : ''"
         @input="onPhoneNumberInput"
         :placeholder="$t('placeholders.phone')"
@@ -377,5 +377,13 @@ watch(
 }
 .phone_input::placeholder {
   text-align: right;
+}
+.telephone_input {
+  max-width: 60%;
+}
+@media (min-width: 460px) {
+  .telephone_input {
+    max-width: 100% !important;
+  }
 }
 </style>

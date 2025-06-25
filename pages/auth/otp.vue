@@ -38,7 +38,7 @@
             <div class="relative">
               <div class="text-[16px] font-[400] text-[#202020] mb-12">
                 {{ $t("auth.check_otp1") }}
-                <span class="text-[#4B007D] font-[800]">{{
+                <span class="text-[#4B007D] font-[800] break-words">{{
                   $t("auth.check_otp_email", { email: email })
                 }}</span>
                 {{ $t("auth.check_otp2") }}

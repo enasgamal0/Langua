@@ -27,9 +27,9 @@
             class="space-y-6"
             v-slot="{ errors }"
           >
-            <div class="flex gap-3">
+            <div class="lg:flex gap-3">
               <!-- First Name Field -->
-              <div class="relative w-[100%]">
+              <div class="relative w-[100%] lg:!mb-0 mb-6">
                 <label
                   for="firstName"
                   class="block text-[16px] font-[400] text-[#202020] mb-2"
@@ -186,14 +186,14 @@
                         }"
                         class="flex justify-between cursor-pointer w-full px-4 py-3 ps-12 border outline-none focus:ring-2 focus:ring-[#4B007D] placeholder:text-[#A3A2A3] placeholder:text-[14px]"
                       >
-                        <div class="flex-1 text-justify">
+                        <div class="flex-1 text-start">
                           <span
                             v-if="!selectedStage?.name"
                             class="text-[#A3A2A3]"
                           >
                             {{ $t("auth.select_stage") }}
                           </span>
-                          <span v-else class="block truncate">{{
+                          <span v-else class="block whitespace-normal break-words">{{
                             selectedStage.name
                           }}</span>
                           <span
@@ -330,7 +330,7 @@
                         }"
                         class="flex justify-between text w-full px-4 py-3 ps-12 border outline-none focus:ring-2 focus:ring-[#4B007D] placeholder:text-[#A3A2A3] placeholder:text-[14px]"
                       >
-                        <div class="flex-1 text-justify">
+                        <div class="flex-1 text-start">
                           <span
                             v-if="!selectedGrade?.name"
                             class="text-[#A3A2A3]"
@@ -338,10 +338,10 @@
                             {{
                               !selectedStage
                                 ? $t("validation.select_stage_first")
-                                : $t("validation.select_grade")
+                                : $t("auth.select_grade_field")
                             }}
                           </span>
-                          <span v-else class="block truncate">{{
+                          <span v-else class="block whitespace-normal break-words">{{
                             selectedGrade.name
                           }}</span>
                           <span
