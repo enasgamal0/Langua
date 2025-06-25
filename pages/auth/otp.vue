@@ -51,17 +51,21 @@
                   <input
                     v-model="form.digit1"
                     ref="input0"
-                    type="text"
+                    type="tel"
+                    inputmode="numeric"
+                    pattern="[0-9]*"
                     placeholder="-"
                     @input="handleInput($event, 0)"
                     @keydown="handleKeydown($event, 0)"
                     @paste="handlePaste"
+                    @focus="handleFocus(0)"
                     :class="{
                       'border-red-500': hasError('digit1'),
                       'border-[#EEEDEE]': !hasError('digit1'),
                     }"
                     class="xl:!w-[102.5px] w-[50px] h-[50px] px-4 py-3 border outline-none focus:ring-2 focus:ring-[#4B007D] placeholder:text-[#A3A2A3] placeholder:text-[14px] text-center"
                     maxlength="1"
+                    autocomplete="one-time-code"
                   />
                   <VeeField v-model="form.digit1" name="digit1" type="hidden" />
                 </div>
@@ -69,17 +73,21 @@
                   <input
                     v-model="form.digit2"
                     ref="input1"
-                    type="text"
+                    type="tel"
+                    inputmode="numeric"
+                    pattern="[0-9]*"
                     placeholder="-"
                     @input="handleInput($event, 1)"
                     @keydown="handleKeydown($event, 1)"
                     @paste="handlePaste"
+                    @focus="handleFocus(1)"
                     :class="{
                       'border-red-500': hasError('digit2'),
                       'border-[#EEEDEE]': !hasError('digit2'),
                     }"
                     class="xl:!w-[102.5px] w-[50px] h-[50px] px-4 py-3 border outline-none focus:ring-2 focus:ring-[#4B007D] placeholder:text-[#A3A2A3] placeholder:text-[14px] text-center"
                     maxlength="1"
+                    autocomplete="one-time-code"
                   />
                   <VeeField v-model="form.digit2" name="digit2" type="hidden" />
                 </div>
@@ -87,17 +95,21 @@
                   <input
                     v-model="form.digit3"
                     ref="input2"
-                    type="text"
+                    type="tel"
+                    inputmode="numeric"
+                    pattern="[0-9]*"
                     placeholder="-"
                     @input="handleInput($event, 2)"
                     @keydown="handleKeydown($event, 2)"
                     @paste="handlePaste"
+                    @focus="handleFocus(2)"
                     :class="{
                       'border-red-500': hasError('digit3'),
                       'border-[#EEEDEE]': !hasError('digit3'),
                     }"
                     class="xl:!w-[102.5px] w-[50px] h-[50px] px-4 py-3 border outline-none focus:ring-2 focus:ring-[#4B007D] placeholder:text-[#A3A2A3] placeholder:text-[14px] text-center"
                     maxlength="1"
+                    autocomplete="one-time-code"
                   />
                   <VeeField v-model="form.digit3" name="digit3" type="hidden" />
                 </div>
@@ -105,17 +117,21 @@
                   <input
                     v-model="form.digit4"
                     ref="input3"
-                    type="text"
+                    type="tel"
+                    inputmode="numeric"
+                    pattern="[0-9]*"
                     placeholder="-"
                     @input="handleInput($event, 3)"
                     @keydown="handleKeydown($event, 3)"
                     @paste="handlePaste"
+                    @focus="handleFocus(3)"
                     :class="{
                       'border-red-500': hasError('digit4'),
                       'border-[#EEEDEE]': !hasError('digit4'),
                     }"
                     class="xl:!w-[102.5px] w-[50px] h-[50px] px-4 py-3 border outline-none focus:ring-2 focus:ring-[#4B007D] placeholder:text-[#A3A2A3] placeholder:text-[14px] text-center"
                     maxlength="1"
+                    autocomplete="one-time-code"
                   />
                   <VeeField v-model="form.digit4" name="digit4" type="hidden" />
                 </div>
@@ -205,12 +221,14 @@ configure({
   validateOnInput: true,
   validateOnModelUpdate: true,
 });
+
 const isSubmitting = ref(false);
 const { t } = useI18n();
 const router = useRouter();
 const route = useRoute();
 const { locale } = useI18n();
 const localePath = useLocalePath();
+
 const form = reactive({
   digit1: "",
   digit2: "",
@@ -233,6 +251,9 @@ const input0 = ref(null);
 const input1 = ref(null);
 const input2 = ref(null);
 const input3 = ref(null);
+
+// Track if we're on mobile
+const isMobile = ref(false);
 
 const validationSchema = yup.object({
   digit1: yup.string().required(t("validation.code_required")),
@@ -291,18 +312,16 @@ const handleResendCode = async () => {
     form.digit3 = "";
     form.digit4 = "";
 
-    // Focus on first input
-    nextTick(() => {
+    // Focus on first input with delay for mobile
+    setTimeout(() => {
       const firstInput = getInputRef(0);
       if (firstInput) {
         firstInput.focus();
       }
-    });
+    }, 100);
 
-    // Start the timer
-    startResendTimer(60); // 2 minutes
+    startResendTimer(60);
 
-    // Clear success message after 5 seconds
     setTimeout(() => {
       resendSuccess.value = "";
     }, 5000);
@@ -345,17 +364,75 @@ const handleSubmit = async () => {
   }
 };
 
-const handleInput = (event, index) => {
-  const value = event.target.value.replace(/\D/g, "").slice(0, 1);
+const moveToNextInput = (currentIndex) => {
+  if (currentIndex < 3) {
+    const nextInput = getInputRef(currentIndex + 1);
+    if (nextInput) {
+      // Use setTimeout to ensure the focus happens after the current input event
+      setTimeout(() => {
+        nextInput.focus();
+        // On mobile, also trigger a click to ensure keyboard stays open
+        if (isMobile.value) {
+          nextInput.click();
+        }
+      }, 10);
+    }
+  }
+};
 
+const moveToPrevInput = (currentIndex) => {
+  if (currentIndex > 0) {
+    const prevInput = getInputRef(currentIndex - 1);
+    if (prevInput) {
+      setTimeout(() => {
+        prevInput.focus();
+        if (isMobile.value) {
+          prevInput.click();
+        }
+      }, 10);
+    }
+  }
+};
+
+const handleInput = (event, index) => {
+  let value = event.target.value;
+  
+  // Handle multiple characters (for mobile auto-complete or paste)
+  if (value.length > 1) {
+    const digits = value.replace(/\D/g, "").slice(0, 4);
+    
+    // Fill all available fields starting from current index
+    for (let i = 0; i < digits.length && (index + i) < 4; i++) {
+      form[`digit${index + i + 1}`] = digits[i];
+      const input = getInputRef(index + i);
+      if (input) {
+        input.value = digits[i];
+      }
+    }
+    
+    // Move focus to the next empty field or last field
+    const nextIndex = Math.min(index + digits.length, 3);
+    const nextInput = getInputRef(nextIndex);
+    if (nextInput) {
+      setTimeout(() => {
+        nextInput.focus();
+        if (isMobile.value) {
+          nextInput.click();
+        }
+      }, 10);
+    }
+    
+    return;
+  }
+  
+  // Handle single character input
+  value = value.replace(/\D/g, "").slice(0, 1);
   form[`digit${index + 1}`] = value;
   event.target.value = value;
 
-  if (value && index < 3) {
-    const nextInput = getInputRef(index + 1);
-    if (nextInput) {
-      nextInput.focus();
-    }
+  // Move to next input if value is entered
+  if (value) {
+    moveToNextInput(index);
   }
 };
 
@@ -363,28 +440,29 @@ const handleKeydown = (event, index) => {
   if (event.key === "Backspace") {
     if (!form[`digit${index + 1}`] && index > 0) {
       event.preventDefault();
-      const prevInput = getInputRef(index - 1);
-      if (prevInput) {
-        prevInput.focus();
-      }
+      moveToPrevInput(index);
     }
   } else if (event.key === "ArrowLeft" && index > 0) {
     event.preventDefault();
-    const prevInput = getInputRef(index - 1);
-    if (prevInput) {
-      prevInput.focus();
-    }
+    moveToPrevInput(index);
   } else if (event.key === "ArrowRight" && index < 3) {
     event.preventDefault();
-    const nextInput = getInputRef(index + 1);
-    if (nextInput) {
-      nextInput.focus();
-    }
+    moveToNextInput(index);
   } else if (
     !/\d/.test(event.key) &&
     !["Backspace", "Delete", "Tab", "Enter"].includes(event.key)
   ) {
     event.preventDefault();
+  }
+};
+
+const handleFocus = (index) => {
+  // Select all text in the input when focused (helpful for mobile)
+  const input = getInputRef(index);
+  if (input && input.value) {
+    setTimeout(() => {
+      input.select();
+    }, 10);
   }
 };
 
@@ -406,7 +484,12 @@ const handlePaste = (event) => {
   const nextEmptyIndex = digits.length < 4 ? digits.length : 3;
   const targetInput = getInputRef(nextEmptyIndex);
   if (targetInput) {
-    targetInput.focus();
+    setTimeout(() => {
+      targetInput.focus();
+      if (isMobile.value) {
+        targetInput.click();
+      }
+    }, 10);
   }
 };
 
@@ -415,16 +498,26 @@ const getInputRef = (index) => {
   return refs[index]?.value;
 };
 
+// Detect if device is mobile
+const detectMobile = () => {
+  const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+  isMobile.value = /android|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent.toLowerCase()) ||
+    (navigator.maxTouchPoints && navigator.maxTouchPoints > 2 && /MacIntel/.test(navigator.platform));
+};
+
 onMounted(() => {
+  detectMobile();
+  
   if (route?.query?.type == "register") {
     handleResendCode();
   }
-  nextTick(() => {
+  
+  setTimeout(() => {
     const firstInput = getInputRef(0);
     if (firstInput) {
       firstInput.focus();
     }
-  });
+  }, 100);
 });
 
 onUnmounted(() => {
@@ -438,5 +531,27 @@ onUnmounted(() => {
 input::-ms-reveal,
 input::-ms-clear {
   display: none !important;
+}
+
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+/* Ensure inputs are properly styled on mobile */
+input[type='tel'] {
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+}
+
+input[type='tel']::-webkit-outer-spin-button,
+input[type='tel']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 </style>
