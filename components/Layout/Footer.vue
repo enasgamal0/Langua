@@ -1,5 +1,7 @@
 <template>
-  <footer class="bg-[#323232] text-white px-8 bg-repeat-y lg:bg-[url('/footer_bg.png')]">
+  <footer
+    class="bg-[#323232] text-white px-8 bg-repeat-y lg:bg-[url('/footer_bg.png')]"
+  >
     <div
       class="mx-auto py-10 2xl:px-60 xl:px-48 lg:px-32 md:px-20 px-8 flex flex-wrap justify-between"
       v-bind="showAos ? { 'data-aos': 'fade-up' } : {}"
@@ -73,16 +75,18 @@
             <li>
               <div
                 class="block py-1 hover:text-[#E77C5A] mb-5 cursor-pointer"
-                @click="openPrivacyPopup=true"
-                >{{ $t("FOOTER.privacyPolicy") }}</div
+                @click="openPrivacyPopup = true"
               >
+                {{ $t("FOOTER.privacyPolicy") }}
+              </div>
             </li>
             <li>
               <div
                 class="block py-1 hover:text-[#E77C5A] mb-5 cursor-pointer"
-                @click="openTermsPopup=true"
-                >{{ $t("FOOTER.termsAndUse") }}</div
+                @click="openTermsPopup = true"
               >
+                {{ $t("FOOTER.termsAndUse") }}
+              </div>
             </li>
           </ul>
         </div>
@@ -94,21 +98,23 @@
             <p
               class="text-[18px] font-[700] mb-8"
               v-if="
-                data?.social?.mobile ||
-                data?.social?.whatsapp ||
-                data?.social?.email ||
-                data?.social?.linkedin ||
-                data?.social?.youtube ||
-                data?.social?.facebook ||
-                data?.social?.instagram ||
-                data?.social?.tiktok
+                data?.data?.data[0]?.value?.mobile ||
+                data?.data?.data[0]?.value?.whatsapp ||
+                data?.data?.data[0]?.value?.email ||
+                data?.data?.data[0]?.value?.linkedin ||
+                data?.data?.data[0]?.value?.youtube ||
+                data?.data?.data[0]?.value?.facebook ||
+                data?.data?.data[0]?.value?.instagram ||
+                data?.data?.data[0]?.value?.tikTok
               "
             >
               {{ $t("FOOTER.followUs") }}
             </p>
-            <div class="mt-5 flex gap-x-5 justify-center lg:justify-start">
+            <div
+              class="mt-5 flex flex-wrap gap-5 justify-center lg:!justify-start max-w-[calc(4*48px+4*20px)]"
+            >
               <NuxtLink
-                v-for="phone in data?.mobile"
+                v-for="phone in data?.data?.data[0]?.value?.mobile"
                 :key="phone"
                 :to="`tel:${phone}`"
                 target="_blank"
@@ -119,8 +125,8 @@
                 </div>
               </NuxtLink>
               <NuxtLink
-                v-if="data?.whatsapp"
-                :to="`https://wa.me/${data?.whatsapp}`"
+                v-if="data?.data?.data[0]?.value?.whatsapp"
+                :to="`https://wa.me/${data?.data?.data[0]?.value?.whatsapp}`"
                 target="_blank"
                 external
               >
@@ -133,8 +139,8 @@
                 </div>
               </NuxtLink>
               <NuxtLink
-                v-if="data?.email"
-                :to="data?.email"
+                v-if="data?.data?.data[0]?.value?.email"
+                :to="data?.data?.data[0]?.value?.email"
                 target="_blank"
                 external
               >
@@ -143,8 +149,8 @@
                 </div>
               </NuxtLink>
               <NuxtLink
-                v-if="data?.social?.linkedin"
-                :to="data.social?.linkedin"
+                v-if="data?.data?.data[0]?.value?.linkedin"
+                :to="data.data.data[0].value?.linkedin"
                 target="_blank"
                 external
               >
@@ -156,11 +162,9 @@
                   />
                 </div>
               </NuxtLink>
-            </div>
-            <div class="mt-8 flex gap-x-5 justify-center lg:justify-start">
               <NuxtLink
-                v-if="data?.social?.youtube"
-                :to="data.social?.youtube"
+                v-if="data?.data?.data[0]?.value?.youtube"
+                :to="data.data.data[0].value?.youtube"
                 target="_blank"
                 external
               >
@@ -173,8 +177,8 @@
                 </div>
               </NuxtLink>
               <NuxtLink
-                v-if="data?.social?.facebook"
-                :to="data.social?.facebook"
+                v-if="data?.data?.data[0]?.value?.facebook"
+                :to="data.data.data[0].value?.facebook"
                 target="_blank"
                 external
               >
@@ -183,8 +187,8 @@
                 </div>
               </NuxtLink>
               <NuxtLink
-                v-if="data?.social?.instagram"
-                :to="data.social?.instagram"
+                v-if="data?.data?.data[0]?.value?.instagram"
+                :to="data.data.data[0].value?.instagram"
                 target="_blank"
                 external
               >
@@ -197,8 +201,8 @@
                 </div>
               </NuxtLink>
               <NuxtLink
-                v-if="data?.social?.tiktok"
-                :to="data.social?.tiktok"
+                v-if="data?.data?.data[0]?.value?.tikTok"
+                :to="data.data.data[0].value?.tikTok"
                 target="_blank"
                 external
               >
@@ -222,22 +226,16 @@
       <span> ©{{ new Date().getFullYear() }}</span>
     </div>
   </footer>
-  <Popup :show="openPrivacyPopup" @close="openPrivacyPopup = false" type="privacy" />
+  <Popup
+    :show="openPrivacyPopup"
+    @close="openPrivacyPopup = false"
+    type="privacy"
+  />
   <Popup :show="openTermsPopup" @close="openTermsPopup = false" type="terms" />
 </template>
 <script setup>
-const data = {
-  email: "info@langua.com",
-  mobile: ["+966555884466"],
-  whatsapp: "+966555884466",
-  social: {
-    tiktok: "https://www.tiktok.com/@langua",
-    facebook: "https://www.facebook.com/people/langua/61572193234028/#",
-    instagram: "https://www.instagram.com/langua/",
-    youtube: "https://www.youtube.com/@langua",
-    linkedin: "https://www.linkedin.com/company/langua/",
-  },
-};
+import { apiRequest } from "~/utils/api";
+
 const localePath = useLocalePath();
 const { locale } = useI18n();
 const isLogin = false;
@@ -246,4 +244,5 @@ const route = useRoute();
 const showAos = computed(() => !route.path.endsWith("/profile"));
 const openTermsPopup = ref(false);
 const openPrivacyPopup = ref(false);
+const data = await apiRequest("GET", "/settings?key=social_contact");
 </script>
