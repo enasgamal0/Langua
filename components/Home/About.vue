@@ -4,7 +4,7 @@
     class="flex flex-wrap pt-10 pb-20 bg-no-repeat about_bg items-center"
     style="
       background-image: url('/about_top.png'), url('/about_bottom.png');
-      background-position: bottom 400px right 48px, bottom 50px left 48px;
+      background-position: bottom 90% right 48px, bottom 50px left 48px;
       background-size: 85px 120px;
     "
   >
@@ -12,7 +12,7 @@
       <img
         :src="about?.data?.data[0]?.image || `/about.png`"
         alt="About Langua"
-        class="lg:!max-w-[421px] lg:!max-h-[400px] md:!max-w-[321px] md:!max-h-[300px] w-[221px] h-[200px] m-auto"
+        class="lg:!max-w-[421px] lg:!max-h-[400px] md:!max-w-[321px] md:!max-h-[300px] max-w-[221px] max-h-[200px] m-auto"
       />
     </div>
     <div class="md:!w-[50%] w-[100%] mx-10 md:mx-0" data-aos="fade-down">
@@ -22,8 +22,15 @@
         <span class="text-[#4B007D]">{{ $t("S2.langua_learn") }}</span>
         {{ $t("S2.subtitle") }}
       </h2>
-      <p class="text-[16px] font-[400] text-[#202020] md:w-[75%]" :class="home ? 'line-clamp-4' : ''">
-        {{ locale === "ar" ? about?.data?.data[0]?.value?.text?.ar : about?.data?.data[0]?.value?.text?.en }}
+      <p
+        class="text-[16px] font-[400] text-[#202020] md:w-[75%]"
+        :class="home ? 'line-clamp-4' : ''"
+      >
+        {{
+          locale === "ar"
+            ? about?.data?.data[0]?.value?.text?.ar
+            : about?.data?.data[0]?.value?.text?.en
+        }}
       </p>
       <NuxtLink :to="localePath('/about')" class="block">
         <BaseButton
@@ -76,8 +83,7 @@ onMounted(async () => {
 <style scoped>
 @media (max-width: 1040px) {
   .about_bg {
-    background-position: bottom 300px right 20px, bottom 50px left 48px !important;
-    background-image: url('/about_top.png'),url('') !important;
+    background-image: url(""), url("") !important;
   }
 }
 </style>
