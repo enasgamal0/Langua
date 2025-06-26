@@ -793,7 +793,7 @@ const handleSubmit = async (values) => {
       first_name: values.firstName.trim(),
       last_name: values.lastName.trim(),
       email: values.email.trim().toLowerCase(),
-      phone: values.phone,
+      mobile: values.phone,
       password: values.password,
       password_confirmation: values.password_confirmation,
       academic_stage_id: selectedStage.value.id,
