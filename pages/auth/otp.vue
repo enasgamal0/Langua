@@ -55,7 +55,7 @@
                     inputmode="numeric"
                     pattern="[0-9]*"
                     placeholder="-"
-                    @input="handleInput($event, 0)"
+                    @input="handleInput($event, 0), backendError = ''"
                     @keydown="handleKeydown($event, 0)"
                     @paste="handlePaste"
                     @focus="handleFocus(0)"
@@ -67,7 +67,7 @@
                     maxlength="1"
                     autocomplete="one-time-code"
                   />
-                  <VeeField v-model="form.digit1" name="digit1" type="hidden" @input="backendError = ''" />
+                  <VeeField v-model="form.digit1" name="digit1" type="hidden" />
                 </div>
                 <div>
                   <input
@@ -77,7 +77,7 @@
                     inputmode="numeric"
                     pattern="[0-9]*"
                     placeholder="-"
-                    @input="handleInput($event, 1)"
+                    @input="handleInput($event, 1), backendError = ''"
                     @keydown="handleKeydown($event, 1)"
                     @paste="handlePaste"
                     @focus="handleFocus(1)"
@@ -89,7 +89,7 @@
                     maxlength="1"
                     autocomplete="one-time-code"
                   />
-                  <VeeField v-model="form.digit2" name="digit2" type="hidden" @input="backendError = ''" />
+                  <VeeField v-model="form.digit2" name="digit2" type="hidden" />
                 </div>
                 <div>
                   <input
@@ -99,7 +99,7 @@
                     inputmode="numeric"
                     pattern="[0-9]*"
                     placeholder="-"
-                    @input="handleInput($event, 2)"
+                    @input="handleInput($event, 2), backendError = ''"
                     @keydown="handleKeydown($event, 2)"
                     @paste="handlePaste"
                     @focus="handleFocus(2)"
@@ -111,7 +111,7 @@
                     maxlength="1"
                     autocomplete="one-time-code"
                   />
-                  <VeeField v-model="form.digit3" name="digit3" type="hidden" @input="backendError = ''" />
+                  <VeeField v-model="form.digit3" name="digit3" type="hidden" />
                 </div>
                 <div>
                   <input
@@ -121,7 +121,7 @@
                     inputmode="numeric"
                     pattern="[0-9]*"
                     placeholder="-"
-                    @input="handleInput($event, 3)"
+                    @input="handleInput($event, 3), backendError = ''"
                     @keydown="handleKeydown($event, 3)"
                     @paste="handlePaste"
                     @focus="handleFocus(3)"
@@ -133,7 +133,7 @@
                     maxlength="1"
                     autocomplete="one-time-code"
                   />
-                  <VeeField v-model="form.digit4" name="digit4" type="hidden" @input="backendError = ''" />
+                  <VeeField v-model="form.digit4" name="digit4" type="hidden" />
                 </div>
               </div>
               <p
