@@ -140,7 +140,7 @@
     <!-- Mobile Menu -->
     <div
       v-if="isSmallMenuOpen"
-      class="xl:!hidden mt-4 flex flex-col gap-3 text-[#202020] transition-all duration-300 h-[calc(100vh-64px)] pt-8 overflow-y-auto"
+      class="xl:!hidden mt-0 flex flex-col gap-0 text-[#202020] transition-all duration-300 h-[calc(100vh-64px)] pt-8 overflow-y-auto"
     >
       <!-- Regular Navigation Items -->
       <NuxtLink
