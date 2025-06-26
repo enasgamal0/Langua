@@ -43,6 +43,7 @@
                 </label>
                 <div class="relative">
                   <VeeField
+                    @input="backendError = ''"
                     id="password"
                     v-model="form.password"
                     :placeholder="$t('placeholders.enter_new_password')"
@@ -133,6 +134,7 @@
                 </label>
                 <div class="relative">
                   <VeeField
+                    @input="backendError = ''"
                     id="password_confirmation"
                     v-model="form.password_confirmation"
                     :placeholder="$t('placeholders.enter_new_password_confirmation')"

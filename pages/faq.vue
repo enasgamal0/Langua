@@ -46,17 +46,19 @@
           "
         >
           <div
-            class="max-w-[600px] break-words"
+            class="w-[90%] break-words"
             :class="locale == 'ar' ? 'text-right' : 'text-left'"
           >
             {{ item.question }}
           </div>
-          <img
+          <div class="!w-[24px] !h-[24px]">
+            <img
             alt="arrow"
             src="/arrow.png"
-            class="w-[24px] h-[24px] transition-transform duration-200"
+            class="transition-transform duration-200 object-contain"
             :class="open ? 'rotate-90' : 'rotate-270'"
           />
+          </div>
         </DisclosureButton>
         <DisclosurePanel
           class="px-5 pt-4 pb-2 text-[16px] font-[400] text-[#202020] border-b border-[#EEEDEE]"

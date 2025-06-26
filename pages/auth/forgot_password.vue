@@ -42,6 +42,7 @@
               </label>
               <div class="relative">
                 <VeeField
+                  @input="backendError = ''"
                   id="email"
                   v-model="form.email"
                   name="email"

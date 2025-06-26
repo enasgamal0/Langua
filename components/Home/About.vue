@@ -10,9 +10,9 @@
   >
     <div class="md:!w-[50%] w-[100%] flex justify-center" data-aos="fade-up">
       <img
-        :src="about?.data?.data[0]?.value?.image || `/about.png`"
+        :src="about?.data?.data[0]?.image || `/about.png`"
         alt="About Langua"
-        class="lg:!w-[421px] lg:!h-[400px] md:!w-[321px] md:!h-[300px] w-[221px] h-[200px] m-auto"
+        class="lg:!max-w-[421px] lg:!max-h-[400px] md:!max-w-[321px] md:!max-h-[300px] w-[221px] h-[200px] m-auto"
       />
     </div>
     <div class="md:!w-[50%] w-[100%] mx-10 md:mx-0" data-aos="fade-down">

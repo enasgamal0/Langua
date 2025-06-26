@@ -38,6 +38,7 @@
                 </label>
                 <div class="relative">
                   <VeeField
+                    @input="backendError = ''"
                     id="firstName"
                     v-model="form.firstName"
                     name="firstName"
@@ -70,6 +71,7 @@
                 </label>
                 <div class="relative">
                   <VeeField
+                    @input="backendError = ''"
                     id="lastName"
                     v-model="form.lastName"
                     :placeholder="$t('placeholders.last_name')"
@@ -98,6 +100,7 @@
               </label>
               <div class="relative">
                 <VeeField
+                  @input="backendError = ''"
                   id="email"
                   v-model="form.email"
                   name="email"
@@ -134,7 +137,7 @@
                 {{ $t("auth.phone") }}
               </label>
               <div class="relative">
-                <VeeField name="phone" v-slot="{ field, errors }">
+                <VeeField name="phone" v-slot="{ field, errors }" @input="backendError = ''"> 
                   <TelephoneInput
                     v-bind="field"
                     v-model="form.phone"
@@ -165,6 +168,7 @@
                   {{ $t("auth.select_stage") }}
                 </label>
                 <VeeField
+                  @input="backendError = ''"
                   name="stage"
                   v-slot="{ field, errors, handleChange, handleBlur }"
                 >
@@ -172,6 +176,7 @@
                     :model-value="selectedStage"
                     @update:model-value="
                       (value) => {
+                        backendError = '';
                         selectedStage = value;
                         handleChange(value);
                         handleBlur();
@@ -216,6 +221,7 @@
                                 handleChange(null);
                                 handleBlur();
                                 clearStage();
+                                backendError = '';
                               }
                             "
                             class="text-[#a2a2a2] hover:text-red-500 cursor-pointer"
@@ -306,6 +312,7 @@
                   {{ $t("auth.select_grade") }}
                 </label>
                 <VeeField
+                  @input="backendError = ''"
                   name="grade"
                   v-slot="{ field, errors, handleChange, handleBlur }"
                 >
@@ -313,6 +320,7 @@
                     :model-value="selectedGrade"
                     @update:model-value="
                       (value) => {
+                        backendError = '';
                         selectedGrade = value;
                         handleChange(value);
                         handleBlur();
@@ -363,6 +371,7 @@
                                 selectedGrade = null;
                                 handleChange(null);
                                 handleBlur();
+                                backendError = '';
                               }
                             "
                             class="text-[#a2a2a2] hover:text-red-500 cursor-pointer"
@@ -464,6 +473,7 @@
                 </label>
                 <div class="relative">
                   <VeeField
+                    @input="backendError = ''"
                     id="password"
                     v-model="form.password"
                     :placeholder="$t('placeholders.enter_password')"
@@ -541,6 +551,7 @@
                 </label>
                 <div class="relative">
                   <VeeField
+                    @input="backendError = ''"
                     id="password_confirmation"
                     v-model="form.password_confirmation"
                     :placeholder="$t('placeholders.enter_password_confirmation')"
@@ -629,6 +640,7 @@
                   value="terms"
                   v-model="terms"
                   class="w-[18px] h-[18px] rounded-none accent-[#4B007D] cursor-pointer"
+                  @input="backendError = ''"
                 />
               </div>
               <div>
@@ -773,10 +785,10 @@ const handleSubmit = async (values) => {
 
   try {
     // Validate required fields
-    if (!selectedStage.value?.id || !selectedGrade.value?.id) {
-      backendError.value = t("validation.stage_grade_required");
-      return;
-    }
+    // if (!selectedStage.value?.id || !selectedGrade.value?.id) {
+    //   backendError.value = t("validation.stage_grade_required");
+    //   return;
+    // }
     const userData = {
       first_name: values.firstName.trim(),
       last_name: values.lastName.trim(),

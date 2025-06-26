@@ -67,7 +67,7 @@
                     maxlength="1"
                     autocomplete="one-time-code"
                   />
-                  <VeeField v-model="form.digit1" name="digit1" type="hidden" />
+                  <VeeField v-model="form.digit1" name="digit1" type="hidden" @input="backendError = ''" />
                 </div>
                 <div>
                   <input
@@ -89,7 +89,7 @@
                     maxlength="1"
                     autocomplete="one-time-code"
                   />
-                  <VeeField v-model="form.digit2" name="digit2" type="hidden" />
+                  <VeeField v-model="form.digit2" name="digit2" type="hidden" @input="backendError = ''" />
                 </div>
                 <div>
                   <input
@@ -111,7 +111,7 @@
                     maxlength="1"
                     autocomplete="one-time-code"
                   />
-                  <VeeField v-model="form.digit3" name="digit3" type="hidden" />
+                  <VeeField v-model="form.digit3" name="digit3" type="hidden" @input="backendError = ''" />
                 </div>
                 <div>
                   <input
@@ -133,7 +133,7 @@
                     maxlength="1"
                     autocomplete="one-time-code"
                   />
-                  <VeeField v-model="form.digit4" name="digit4" type="hidden" />
+                  <VeeField v-model="form.digit4" name="digit4" type="hidden" @input="backendError = ''" />
                 </div>
               </div>
               <p
