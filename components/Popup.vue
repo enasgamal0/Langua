@@ -209,7 +209,7 @@ onMounted(() => {
       loading.value = false;
     });
   }
-  if (props.type === "logout") {
+  if (props.type === "logout" || props.type === "advantage") {
     loading.value = false;
   }
 });
