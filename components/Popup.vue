@@ -128,7 +128,11 @@
           </div>
         </div>
       </div>
-    <UIButtonLoader class="mx-auto !my-20" border-color="#4B007D" v-if="loading" />
+      <UIButtonLoader
+        class="mx-auto !my-20"
+        border-color="#4B007D"
+        v-if="loading"
+      />
     </div>
   </div>
 </template>
