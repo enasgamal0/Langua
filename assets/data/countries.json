@@ -1548,7 +1548,7 @@
         "alpha-3": "SGS",
         "numeric": "239"
       },
-      "phone": ["+"],
+      "phone": ["+500"],
       "emoji": "🇬🇸",
       "image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/GS.svg",
       "phoneLength": 5
@@ -3697,7 +3697,7 @@
         "alpha-3": "ATF",
         "numeric": "260"
       },
-      "phone": ["+"],
+      "phone": ["+262"],
       "emoji": "🇹🇫",
       "image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/TF.svg",
       "phoneLength": 10

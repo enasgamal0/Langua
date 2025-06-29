@@ -40,7 +40,7 @@
         <!-- Dropdown -->
         <div
           v-if="isDropdownOpen"
-          class="absolute z-50 mt-1 w-80 bg-white border border-[#EEEDEE] shadow-lg max-h-60 overflow-y-auto"
+          class="absolute z-50 mt-1 w-80 bg-white border border-[#EEEDEE] shadow-lg max-h-60"
         >
           <!-- Search Input -->
           <div class="p-2 border-b border-gray-200">
@@ -179,7 +179,7 @@ const selectCountry = (country) => {
 };
 
 const onPhoneNumberInput = () => {
-  // Check if user typed a country code manually
+  phoneNumber.value = phoneNumber.value.replace(/\D/g, "");
   handleManualCountryCodeInput();
 
   updateModelValue();

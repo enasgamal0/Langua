@@ -92,7 +92,9 @@
     "forgot_password": "Forgot Password",
     "register": "Create a New Account",
     "register_desc": "Create your account now and start your journey toward mastering the English language from here",
-    "register_otp": "Account Activation"
+    "register_otp": "Account Activation",
+    "courses": "Courses",
+    "course_desc": "Choose your course and start learning according to your level and academic stage."
   },
   "faq": {
     "desc": "Explore the most common questions about",
@@ -144,6 +146,8 @@
     "no_grades_available": "No Grades Available"
   },
   "validation": {
+    "first_name_letters_only": "First Name should contain only letters",
+    "last_name_letters_only": "Last Name should contain only letters",
     "email_required": "Email is required",
     "email_invalid": "Email is invalid",
     "password_required": "Password is required",
@@ -182,5 +186,47 @@
     "first_name": "Enter your first name",
     "last_name": "Enter your last name",
     "phone": "Enter phone"
+  },
+  "filters": {
+    "searchPlaceholder": "Search courses",
+    "stage": {
+      "title": "Stage",
+      "options": {
+        "all": "All",
+        "primary": "Primary",
+        "middle": "Middle",
+        "secondary": "Secondary"
+      }
+    },
+    "class": {
+      "title": "Class",
+      "options": {
+        "grade1": "Grade 1",
+        "grade2": "Grade 2",
+        "grade3": "Grade 3",
+        "grade4": "Grade 4",
+        "grade5": "Grade 5",
+        "grade6": "Grade 6"
+      }
+    },
+    "level": {
+      "title": "Course Level",
+      "options": {
+        "beginner": "Beginner",
+        "intermediate": "Intermediate",
+        "advanced": "Advanced"
+      }
+    },
+    "rating": {
+      "title": "Rating"
+    },
+    "sort": {
+      "title": "Sort By",
+      "options": {
+        "newest": "Newest to Oldest",
+        "oldest": "Oldest to Newest",
+        "mostSold": "Best Selling"
+      }
+    }
   }
 }

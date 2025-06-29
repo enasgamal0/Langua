@@ -128,8 +128,8 @@
           </div>
         </div>
       </div>
+    <UIButtonLoader class="mx-auto !my-20" border-color="#4B007D" v-if="loading" />
     </div>
-    <UIButtonLoader class="mx-auto !my-20" v-if="loading" />
   </div>
 </template>
 
@@ -166,53 +166,51 @@ const handleLogout = () => {
 
 watch(
   () => props.show,
-  (visible) => {
+  async (visible) => {
     if (!process.client) return;
 
+    document.body.classList.toggle("overflow-hidden", visible);
+
     if (visible) {
-      document.body.classList.add("overflow-hidden");
-    } else {
-      document.body.classList.remove("overflow-hidden");
+      loading.value = true;
+
+      if (props.type === "terms") {
+        try {
+          const response = await apiRequest(
+            "GET",
+            "/settings?key=terms_and_conditions",
+            {},
+            {},
+            tokenCookie.value,
+            locale.value
+          );
+          terms.value = response?.data?.data[0];
+        } catch (err) {
+          console.error("Failed to fetch terms:", err);
+        }
+      }
+
+      if (props.type === "privacy") {
+        try {
+          const response = await apiRequest(
+            "GET",
+            "/settings?key=privacy_policy",
+            {},
+            {},
+            tokenCookie.value,
+            locale.value
+          );
+          privacy.value = response?.data?.data[0];
+        } catch (err) {
+          console.error("Failed to fetch privacy policy:", err);
+        }
+      }
+
+      loading.value = false;
     }
   },
   { immediate: true }
 );
-
-onMounted(() => {
-  loading.value = true;
-  if (props.type === "terms") {
-    const termsResponse = apiRequest(
-      "GET",
-      "/settings?key=terms_and_conditions",
-      {},
-      {},
-      tokenCookie.value,
-      locale.value
-    );
-    termsResponse.then((response) => {
-      terms.value = response?.data?.data[0];
-      loading.value = false;
-    });
-  }
-  if (props.type === "privacy") {
-    const privacyResponse = apiRequest(
-      "GET",
-      "/settings?key=privacy_policy",
-      {},
-      {},
-      tokenCookie.value,
-      locale.value
-    );
-
-    privacyResponse.then((response) => {
-      privacy.value = response?.data?.data[0];
-      loading.value = false;
-    });
-  }
-  if (props.type === "logout" || props.type === "advantage") {
-    loading.value = false;
-  }
-});
 
 onUnmounted(() => {
   if (process.client) {
